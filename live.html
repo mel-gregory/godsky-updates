@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>God Sky Network — Live Earth</title>
+<meta name="description" content="Watch Earth live — God's Eye View, free forever.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; background: #000; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(to bottom, rgba(5,8,18,0.85), transparent);
+    color: #fff; pointer-events: none;
+  }
+  .bar .brand { font-weight: 700; font-size: 1rem; letter-spacing: 0.5px; }
+  .bar .brand .sky { color: #6db3f2; }
+  .bar .live {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    pointer-events: auto;
+  }
+  .bar .live .dot {
+    width: 10px; height: 10px; border-radius: 50%; background: #ff3b30;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+  .bar a {
+    color: #fff; text-decoration: none; font-size: 0.85rem;
+    padding: 0.4rem 0.9rem; border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px; pointer-events: auto;
+  }
+  .bar a:hover { border-color: #6db3f2; }
+  .fallback {
+    position: fixed; inset: 0; display: none;
+    align-items: center; justify-content: center; flex-direction: column;
+    background: #0a0e1a; color: #e8ecf4; text-align: center; padding: 2rem;
+  }
+  .fallback h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+  .fallback a {
+    margin-top: 1rem; padding: 0.7rem 1.6rem; background: #2a6fd6;
+    color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand">God Sky Network <span class="sky">— Live Earth</span></div>
+  <div class="live"><span class="dot"></span> Live</div>
+  <a href="https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk" target="_blank">Open Full Planet</a>
+</div>
+<iframe id="globe" src="https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk"
+        title="God's Eye View — Live Earth" allow="fullscreen"></iframe>
+<div class="fallback" id="fallback">
+  <h1>Live Earth</h1>
+  <p>The interactive planet couldn't be embedded here.</p>
+  <a href="https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk">Open the Live Planet</a>
+</div>
+<script>
+  // If the iframe is blocked (X-Frame-Options), show the fallback.
+  setTimeout(() => {
+    try {
+      const f = document.getElementById('globe');
+      // Accessing contentDocument throws if blocked or cross-origin without access.
+      // We just check if it loaded anything.
+      if (!f.contentWindow || f.contentWindow.length === 0) {
+        // Can't reliably detect; leave the iframe up.
+      }
+    } catch (e) {
+      document.getElementById('fallback').style.display = 'flex';
+    }
+  }, 8000);
+</script>
+</body>
+</html>
