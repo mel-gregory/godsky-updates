@@ -5,5 +5,12 @@
   "timestamp": "2026-10-09 22:17 UTC",
   "text": "FLOODS \u2014 2026-10-09 22:16 UTC\nNASA EONET:\nNo major open flood events.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
   "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Flood.jpg?width=640"
+ },
+ {
+  "layer": "VOLCANOES",
+  "layerKey": "volcanoes",
+  "timestamp": "2026-10-09 23:25 UTC",
+  "text": "VOLCANOES \u2014 2026-10-09 23:24 UTC\nNASA EONET:\n\u2022 Nevados del Chillan Volcano, Chile (2026-06-15)\n\u2022 Telica Volcano, Nicaragua (2026-05-30)\n\u2022 Ivao Group Volcano, Russia (2026-05-29)\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
+  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Volcano.jpg?width=640"
  }
 ]
