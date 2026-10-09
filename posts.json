@@ -1,1 +1,9 @@
-[]
+[
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-09 21:25 UTC",
+  "text": "STORMS \u2014 2026-10-09 21:30 UTC\nNOAA NHC:\n\u2022 Test storm (HU, 100 kt) \u2014 29.2N, 87.0W",
+  "image": "https://example.com/test.jpg"
+ }
+]
