@@ -76,32 +76,43 @@ const LAYERS = {
   responders:  { label: "First Responders", desc: "Emergency numbers and safety info." },
 };
 
-// Detect layer from subdomain: fires.godsky.net -> "fires".
+// Subdomain aliases: worldhealth.godsky.net -> outbreaks, weather.godsky.net -> storms.
+const SUBDOMAIN_ALIASES = {
+  worldhealth: { layer: "outbreaks", label: "World Health", desc: "Global health threats and outbreak tracking, updated hourly." },
+  weather:     { layer: "storms",    label: "Weather",      desc: "Storms and severe weather worldwide, via NOAA." },
+};
+
+// Detect layer from subdomain: fires.godsky.net -> "fires", worldhealth.godsky.net -> alias.
 function detectLayer() {
   const host = window.location.hostname;
   const parts = host.split('.');
-  // e.g. ["fires", "godsky", "net"] or ["fires", "example", "com"]
+  // e.g. ["fires", "godsky", "net"]
   if (parts.length >= 3) {
     const sub = parts[0];
-    if (LAYERS[sub]) return sub;
+    if (SUBDOMAIN_ALIASES[sub]) return { alias: sub, ...SUBDOMAIN_ALIASES[sub] };
+    if (LAYERS[sub]) return { layer: sub, label: LAYERS[sub].label, desc: LAYERS[sub].desc };
   }
   // ?layer= override for testing.
   const q = new URLSearchParams(window.location.search).get('layer');
-  if (q && LAYERS[q]) return q;
+  if (q && LAYERS[q]) return { layer: q, label: LAYERS[q].label, desc: LAYERS[q].desc };
+  if (q && SUBDOMAIN_ALIASES[q]) return { alias: q, ...SUBDOMAIN_ALIASES[q] };
   return null; // show all
 }
 
-const activeLayer = detectLayer();
+const active = detectLayer();
+const activeLayer = active ? active.layer : null;
+const activeLabel = active ? active.label : null;
+const activeDesc = active ? active.desc : null;
 
 // Build nav.
 const nav = document.getElementById('layerNav');
 nav.innerHTML = Object.entries(LAYERS).map(([key, l]) =>
   `<a href="?layer=${key}" data-layer="${key}">${l.label}</a>`).join('');
 
-if (activeLayer) {
-  document.getElementById('layerTitle').textContent = '— ' + LAYERS[activeLayer].label;
-  document.getElementById('layerDesc').textContent = LAYERS[activeLayer].desc;
-  document.title = `God Sky Network — ${LAYERS[activeLayer].label}`;
+if (active) {
+  document.getElementById('layerTitle').textContent = '— ' + activeLabel;
+  document.getElementById('layerDesc').textContent = activeDesc;
+  document.title = `God Sky Network — ${activeLabel}`;
   nav.querySelectorAll('a').forEach(a => {
     if (a.dataset.layer === activeLayer) a.classList.add('active');
   });
