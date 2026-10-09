@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>God Sky Network — Live Updates</title>
+<meta name="description" content="Hourly live updates from God's Eye View: outbreaks, fires, earthquakes, storms, floods, volcanoes, air quality, rainfall.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0a0e1a; color: #e8ecf4; line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+    padding: 3rem 1.5rem 2rem; text-align: center;
+    border-bottom: 1px solid #2a3a5c;
+  }
+  header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 1rem; }
+  nav.layers { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+  nav.layers a {
+    color: #9aa8c3; text-decoration: none; font-size: 0.85rem;
+    padding: 0.35rem 0.8rem; border: 1px solid #2a3a5c; border-radius: 20px;
+  }
+  nav.layers a:hover, nav.layers a.active { color: #fff; border-color: #6db3f2; }
+  header a.cta {
+    display: inline-block; margin-top: 1.25rem; padding: 0.6rem 1.4rem;
+    background: #2a6fd6; color: #fff; text-decoration: none;
+    border-radius: 8px; font-weight: 600;
+  }
+  header a.cta:hover { background: #3a80e6; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  .post {
+    background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+    margin-bottom: 1.5rem; overflow: hidden;
+  }
+  .post img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .post-body { padding: 1.25rem 1.5rem; }
+  .post-layer {
+    display: inline-block; font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px; color: #6db3f2;
+    margin-bottom: 0.5rem;
+  }
+  .post-time { color: #7a8aa5; font-size: 0.85rem; margin-bottom: 0.75rem; }
+  .post-text { white-space: pre-line; font-size: 1rem; }
+  .empty { text-align: center; color: #7a8aa5; padding: 3rem 1rem; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>God Sky Network <span class="sky" id="layerTitle">— Live Updates</span></h1>
+  <p id="layerDesc">Hourly facts from Earth's live layers. Free forever, for everyone.</p>
+  <nav class="layers" id="layerNav"></nav>
+  <a class="cta" href="https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk">Explore the Planet</a>
+</header>
+<main id="feed">
+  <div class="empty">Loading updates…</div>
+</main>
+<footer>
+  <p>Enabled by God's Eye View · <a href="https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk">godsky.net</a></p>
+</footer>
+<script>
+const LAYERS = {
+  outbreaks:   { label: "Outbreaks",        desc: "Disease outbreak tracking, updated hourly." },
+  fires:       { label: "Fires",            desc: "Active wildfires worldwide, via NASA." },
+  earthquakes: { label: "Earthquakes",      desc: "Significant earthquakes, via USGS." },
+  storms:      { label: "Storms",           desc: "Active tropical systems, via NOAA." },
+  floods:      { label: "Floods",           desc: "Major flood events, via NASA." },
+  volcanoes:   { label: "Volcanoes",        desc: "Volcanic activity, via NASA." },
+  air:         { label: "Air Pollution",    desc: "Air quality and aerosols, via NASA." },
+  rainfall:    { label: "Rainfall",         desc: "Live precipitation, via NASA satellites." },
+  responders:  { label: "First Responders", desc: "Emergency numbers and safety info." },
+};
+
+// Detect layer from subdomain: fires.godsky.net -> "fires".
+function detectLayer() {
+  const host = window.location.hostname;
+  const parts = host.split('.');
+  // e.g. ["fires", "godsky", "net"] or ["fires", "example", "com"]
+  if (parts.length >= 3) {
+    const sub = parts[0];
+    if (LAYERS[sub]) return sub;
+  }
+  // ?layer= override for testing.
+  const q = new URLSearchParams(window.location.search).get('layer');
+  if (q && LAYERS[q]) return q;
+  return null; // show all
+}
+
+const activeLayer = detectLayer();
+
+// Build nav.
+const nav = document.getElementById('layerNav');
+nav.innerHTML = Object.entries(LAYERS).map(([key, l]) =>
+  `<a href="?layer=${key}" data-layer="${key}">${l.label}</a>`).join('');
+
+if (activeLayer) {
+  document.getElementById('layerTitle').textContent = '— ' + LAYERS[activeLayer].label;
+  document.getElementById('layerDesc').textContent = LAYERS[activeLayer].desc;
+  document.title = `God Sky Network — ${LAYERS[activeLayer].label}`;
+  nav.querySelectorAll('a').forEach(a => {
+    if (a.dataset.layer === activeLayer) a.classList.add('active');
+  });
+}
+
+fetch('posts.json')
+  .then(r => r.json())
+  .then(posts => {
+    const feed = document.getElementById('feed');
+    let list = posts;
+    if (activeLayer) list = posts.filter(p => p.layerKey === activeLayer);
+    if (!list.length) {
+      feed.innerHTML = '<div class="empty">No updates yet — check back soon.</div>';
+      return;
+    }
+    list.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+    feed.innerHTML = list.map(p => `
+      <article class="post">
+        ${p.image ? `<img src="${p.image}" alt="${p.layer}" loading="lazy">` : ''}
+        <div class="post-body">
+          <div class="post-layer">${p.layer}</div>
+          <div class="post-time">${p.timestamp}</div>
+          <div class="post-text">${p.text.replace(/</g, '&lt;')}</div>
+        </div>
+      </article>`).join('');
+  })
+  .catch(() => {
+    document.getElementById('feed').innerHTML =
+      '<div class="empty">Could not load updates.</div>';
+  });
+</script>
+</body>
+</html>
