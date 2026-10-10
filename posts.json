@@ -110,5 +110,12 @@
   "timestamp": "2026-10-10 19:16 UTC",
   "text": "CLOUDS \u2014 2026-10-10 19:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Marine Weather Statement \u2014 Coastal waters from Altamaha Sound to Fernandina B\n\u2022 Tornado Warning \u2014 Screven, GA; Hampton, SC\n\u2022 Flood Advisory \u2014 Appling, GA; Bacon, GA; Jeff Davis, GA\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-09 (location-specific, \ud83d\udccd 30.62\u00b0N, 81.38\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261010-1916.png"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-10-10 20:16 UTC",
+  "text": "OUTBREAKS \u2014 2026-10-10 20:16 UTC\nUS health monitoring:\nCDC tracks disease outbreaks across the United States. Stay informed about health threats in your community.\nSource: CDC.gov\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-09 (US-wide view, \ud83d\udccd 39.80\u00b0N, 98.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261010-2016.png"
  }
 ]
