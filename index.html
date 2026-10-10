@@ -63,11 +63,12 @@
 </main>
 <footer>
   <p>Enabled by God's Eye View · <a href="https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk">godsky.net</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
 </footer>
 <script>
 const LAYERS = {
   outbreaks:   { label: "Outbreaks",        desc: "Disease outbreak tracking, updated hourly." },
-  fires:       { label: "Fires",            desc: "Active wildfires worldwide, via NASA." },
+  fires:       { label: "Fires",            desc: "Active wildfires in the US, via NASA." },
   earthquakes: { label: "Earthquakes",      desc: "Significant earthquakes, via USGS." },
   storms:      { label: "Storms",           desc: "Active tropical systems, via NOAA." },
   floods:      { label: "Floods",           desc: "Major flood events, via NASA." },
@@ -80,8 +81,8 @@ const LAYERS = {
 
 // Subdomain aliases: worldhealth.godsky.net -> outbreaks, weather.godsky.net -> storms.
 const SUBDOMAIN_ALIASES = {
-  worldhealth: { layer: "outbreaks", label: "World Health", desc: "Global health threats and outbreak tracking, updated hourly." },
-  weather:     { layer: "storms",    label: "Weather",      desc: "Storms and severe weather worldwide, via NOAA." },
+  worldhealth: { layer: "outbreaks", label: "World Health", desc: "US health threats and outbreak tracking, updated hourly." },
+  weather:     { layer: "storms",    label: "Weather",      desc: "Storms and severe weather in the US, via NOAA." },
 };
 
 // Detect layer from subdomain: fires.godsky.net -> "fires", worldhealth.godsky.net -> alias.
