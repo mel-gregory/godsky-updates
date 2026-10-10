@@ -19,5 +19,12 @@
   "timestamp": "2026-10-10 00:16 UTC",
   "text": "OUTBREAK \u2014 2026-10-10 00:16 UTC\nSuspected pneumonic plague, Irkutsk region, Russia.\nShelekhov area (52.29\u00b0N, 104.28\u00b0E). 1 death (Oct 2). ~200 contacts under observation. Not lab-confirmed.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
   "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Yersinia_pestis_fluorescent.jpeg?width=640"
+ },
+ {
+  "layer": "FIRES",
+  "layerKey": "fires",
+  "timestamp": "2026-10-10 01:16 UTC",
+  "text": "FIRES \u2014 2026-10-10 01:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire CON BSE13 RX, Covington, Alabama (2026-10-07) \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W\n\u2022 Wildfire Jones, Elko, Nevada (2026-10-05) \ud83d\udccd 41.02\u00b0N, 115.21\u00b0W\n\u2022 Wildfire BOUQUET, Los Angeles, California (2026-10-03) \ud83d\udccd 34.56\u00b0N, 118.40\u00b0W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
+  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Wildfire.jpg?width=640"
  }
 ]
