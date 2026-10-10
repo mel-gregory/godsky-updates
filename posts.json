@@ -96,5 +96,12 @@
   "timestamp": "2026-10-10 11:16 UTC",
   "text": "FIRES \u2014 2026-10-10 11:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire CON BSE13 RX, Covington, Alabama (2026-10-07) \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W\n\u2022 Wildfire Jones, Elko, Nevada (2026-10-05) \ud83d\udccd 41.02\u00b0N, 115.21\u00b0W\n\u2022 Wildfire BOUQUET, Los Angeles, California (2026-10-03) \ud83d\udccd 34.56\u00b0N, 118.40\u00b0W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
   "image": "satellite"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-10 12:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-10 12:16 UTC\nUSGS:\n\u2022 M3.4 \u2014 14 km N of Brooktrails, CA \ud83d\udccd 39.57\u00b0N, 123.36\u00b0W\n\u2022 M2.8 \u2014 2 km S of Las Mar\u00edas, Puerto Rico \ud83d\udccd 18.23\u00b0N, 66.99\u00b0W\n\u2022 M2.6 \u2014 16 km S of Honaunau-Napoopoo, Hawaii \ud83d\udccd 19.31\u00b0N, 155.86\u00b0W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
+  "image": "satellite"
  }
 ]
