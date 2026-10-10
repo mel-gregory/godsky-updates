@@ -54,5 +54,12 @@
   "timestamp": "2026-10-10 05:16 UTC",
   "text": "VOLCANOES \u2014 2026-10-10 05:16 UTC\nNASA EONET:\n\u2022 Nevados del Chillan Volcano, Chile (2026-06-15) \ud83d\udccd 36.87\u00b0S, 71.38\u00b0W\n\u2022 Telica Volcano, Nicaragua (2026-05-30) \ud83d\udccd 12.61\u00b0N, 86.84\u00b0W\n\u2022 Ivao Group Volcano, Russia (2026-05-29) \ud83d\udccd 45.76\u00b0N, 149.68\u00b0E\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
   "image": "satellite"
+ },
+ {
+  "layer": "AIR",
+  "layerKey": "air",
+  "timestamp": "2026-10-10 06:16 UTC",
+  "text": "AIR QUALITY \u2014 2026-10-10 06:16 UTC\nLive aerosol/dust layers via NASA GIBS OMPS index.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
+  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Smog.jpg?width=640"
  }
 ]
