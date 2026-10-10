@@ -68,5 +68,12 @@
   "timestamp": "2026-10-10 07:16 UTC",
   "text": "RAINFALL \u2014 2026-10-10 07:16 UTC\nLive precipitation via NASA GPM satellite data.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
   "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Rain.jpg?width=640"
+ },
+ {
+  "layer": "RESPONDERS",
+  "layerKey": "responders",
+  "timestamp": "2026-10-10 08:16 UTC",
+  "text": "FIRST RESPONDERS \u2014 2026-10-10 08:16 UTC\nEmergency: call 911.\nPoison Control: 1-800-222-1222.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
+  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Firefighter.jpg?width=640"
  }
 ]
