@@ -103,5 +103,12 @@
   "timestamp": "2026-10-10 12:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-10 12:16 UTC\nUSGS:\n\u2022 M3.4 \u2014 14 km N of Brooktrails, CA \ud83d\udccd 39.57\u00b0N, 123.36\u00b0W\n\u2022 M2.8 \u2014 2 km S of Las Mar\u00edas, Puerto Rico \ud83d\udccd 18.23\u00b0N, 66.99\u00b0W\n\u2022 M2.6 \u2014 16 km S of Honaunau-Napoopoo, Hawaii \ud83d\udccd 19.31\u00b0N, 155.86\u00b0W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
   "image": "satellite"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-10 13:16 UTC",
+  "text": "STORMS \u2014 2026-10-10 13:16 UTC\nNOAA NHC:\n\u2022 Isaias (PTC, 30 kt) \u2014 32.0N, 86.5W\n\u2022 Rachel (TS, 50 kt) \u2014 24.6N, 120.5W\n\u2022 Simon (HU, 130 kt) \u2014 17.3N, 104.8W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
+  "image": "satellite"
  }
 ]
