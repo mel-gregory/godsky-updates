@@ -26,5 +26,12 @@
   "timestamp": "2026-10-10 01:16 UTC",
   "text": "FIRES \u2014 2026-10-10 01:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire CON BSE13 RX, Covington, Alabama (2026-10-07) \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W\n\u2022 Wildfire Jones, Elko, Nevada (2026-10-05) \ud83d\udccd 41.02\u00b0N, 115.21\u00b0W\n\u2022 Wildfire BOUQUET, Los Angeles, California (2026-10-03) \ud83d\udccd 34.56\u00b0N, 118.40\u00b0W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
   "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Wildfire.jpg?width=640"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-10 02:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-10 02:16 UTC\nUSGS:\n\u2022 M3.0 \u2014 81 km E of Chignik, Alaska \ud83d\udccd 56.40\u00b0N, 157.11\u00b0W\n\u2022 M2.9 \u2014 46 km SSE of Denali National Park, Alaska \ud83d\udccd 63.14\u00b0N, 151.46\u00b0W\n\u2022 M2.5 \u2014 9 km WNW of Anza, CA \ud83d\udccd 33.57\u00b0N, 116.77\u00b0W\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
+  "image": "satellite"
  }
 ]
