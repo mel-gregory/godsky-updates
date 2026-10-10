@@ -82,5 +82,12 @@
   "timestamp": "2026-10-10 15:16 UTC",
   "text": "VOLCANOES \u2014 2026-10-10 15:16 UTC\nNASA EONET:\n\u2022 Kilauea Volcano, Hawaii (2024-12-23) \ud83d\udccd 19.42\u00b0N, 155.29\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-09 (location-specific, \ud83d\udccd 19.42\u00b0N, 155.29\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-volcanoes-20261010-1516.png"
+ },
+ {
+  "layer": "AIR",
+  "layerKey": "air",
+  "timestamp": "2026-10-10 16:16 UTC",
+  "text": "AIR QUALITY \u2014 2026-10-10 16:16 UTC\nUS air monitoring:\nEPA AirNow tracks air quality nationwide. Check your local AQI before outdoor activities.\nSource: AirNow.gov\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-09 (US-wide view, \ud83d\udccd 39.80\u00b0N, 98.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-air-20261010-1616.png"
  }
 ]
