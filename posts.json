@@ -82,5 +82,12 @@
   "timestamp": "2026-10-10 09:16 UTC",
   "text": "CLOUDS \u2014 2026-10-10 09:16 UTC\nLive GOES-19 satellite:\nLive satellite view available.\nSee it live: https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
   "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Clouds.jpg?width=640"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-10-10 10:16 UTC",
+  "text": "OUTBREAK \u2014 2026-10-10 10:16 UTC\nUS disease surveillance via CDC.\nFor current US outbreak info: cdc.gov/outbreaks\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
+  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Yersinia_pestis_fluorescent.jpeg?width=640"
  }
 ]
