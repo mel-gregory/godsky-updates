@@ -180,5 +180,12 @@
   "timestamp": "2026-10-11 06:16 UTC",
   "text": "AIR QUALITY \u2014 2026-10-11 06:16 UTC\nUS air monitoring:\nEPA AirNow tracks air quality nationwide. Check your local AQI before outdoor activities.\nSource: AirNow.gov\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (US-wide view, \ud83d\udccd 39.80\u00b0N, 98.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-air-20261011-0616.png"
+ },
+ {
+  "layer": "RAINFALL",
+  "layerKey": "rainfall",
+  "timestamp": "2026-10-11 07:16 UTC",
+  "text": "RAINFALL \u2014 2026-10-11 07:16 UTC\nUS precipitation:\nNOAA tracks rainfall across the United States. Monitor conditions in your area during storm systems.\nSource: NOAA.gov\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (US-wide view, \ud83d\udccd 39.80\u00b0N, 98.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-rainfall-20261011-0716.png"
  }
 ]
