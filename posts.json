@@ -215,5 +215,12 @@
   "timestamp": "2026-10-11 11:16 UTC",
   "text": "FIRES \u2014 2026-10-11 11:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire CON BSE13 RX, Covington, Alabama (2026-10-07) \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W\n\u2022 Wildfire Jones, Elko, Nevada (2026-10-05) \ud83d\udccd 41.02\u00b0N, 115.21\u00b0W\n\u2022 Wildfire BOUQUET, Los Angeles, California (2026-10-03) \ud83d\udccd 34.56\u00b0N, 118.40\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NASA @NOAA @WSBTV @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261011-1116.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-11 12:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-11 12:16 UTC\nUSGS:\n\u2022 M4.0 \u2014 56 km S of Whites City, New Mexico \ud83d\udccd 31.67\u00b0N, 104.43\u00b0W\n\u2022 M3.4 \u2014 61 km ESE of King Salmon, Alaska \ud83d\udccd 58.46\u00b0N, 155.69\u00b0W\n\u2022 M3.1 \u2014 4 km E of San Jacinto, CA \ud83d\udccd 33.78\u00b0N, 116.92\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 31.67\u00b0N, 104.43\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @abc15 @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261011-1216.png"
  }
 ]
