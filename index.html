@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>God Sky Network — Live Updates</title>
-<meta name="description" content="Hourly live US updates: outbreaks, fires, earthquakes, storms, floods, volcanoes, air quality, rainfall, clouds.">
+<title>Orbital Network — Live Updates</title>
+<meta name="description" content="Hourly live global updates: outbreaks, fires, earthquakes, storms, floods, volcanoes, air quality, rainfall, clouds.">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -52,7 +52,7 @@
 </head>
 <body>
 <header>
-  <h1>God Sky Network <span class="sky" id="layerTitle">— Live Updates</span></h1>
+  <h1>Orbital Network <span class="sky" id="layerTitle">— Live Updates</span></h1>
   <p id="layerDesc">Hourly facts from US live layers. Free forever.</p>
   <p style="color: #6db3f2; font-style: italic; margin-top: 0.5rem; font-size: 0.95rem;">Real-time planetary awareness for the benefit of humanity.</p>
   <nav class="layers" id="layerNav"></nav>
@@ -115,7 +115,7 @@ nav.innerHTML = Object.entries(LAYERS).map(([key, l]) =>
 if (active) {
   document.getElementById('layerTitle').textContent = '— ' + activeLabel;
   document.getElementById('layerDesc').textContent = activeDesc;
-  document.title = `God Sky Network — ${activeLabel}`;
+  document.title = `Orbital Network — ${activeLabel}`;
   nav.querySelectorAll('a').forEach(a => {
     if (a.dataset.layer === activeLayer) a.classList.add('active');
   });
