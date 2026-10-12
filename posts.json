@@ -446,5 +446,12 @@
   "timestamp": "2026-10-12 21:16 UTC",
   "text": "FIRES \u2014 2026-10-12 21:16 UTC\nNASA EONET:\n\u2022 Wildfire Buckhorn 2, Cassia, Idaho (2026-10-10) \ud83d\udccd 42.34\u00b0N, 114.10\u00b0W\n\u2022 Wildfire PK, Sheridan, Wyoming (2026-10-09) \ud83d\udccd 44.75\u00b0N, 107.22\u00b0W\n\u2022 Wildfire CYRUS, Kern, California (2026-10-09) \ud83d\udccd 35.70\u00b0N, 118.42\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 42.34\u00b0N, 114.10\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NASA @NOAA @KTLA @KQED @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261012-2116.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-12 22:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-12 22:16 UTC\nUSGS:\n\u2022 M5.5 \u2014 122 km W of Neiafu, Tonga \ud83d\udccd 18.72\u00b0S, 175.15\u00b0W\n\u2022 M5.4 \u2014 Mid-Indian Ridge \ud83d\udccd 8.87\u00b0S, 67.39\u00b0E\n\u2022 M4.9 \u2014 283 km SSW of Severo-Kuril\u2019sk, Russia \ud83d\udccd 48.26\u00b0N, 154.85\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 18.72\u00b0S, 175.15\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @9NEWS @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261012-2216.png"
  }
 ]
