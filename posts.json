@@ -313,5 +313,12 @@
   "timestamp": "2026-10-12 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-12 02:16 UTC\nUSGS:\n\u2022 M6.2 \u2014 79 km SSE of Panguna, Papua New Guinea \ud83d\udccd 7.01\u00b0S, 155.70\u00b0E\n\u2022 M5.3 \u2014 150 km W of Gorontalo, Indonesia \ud83d\udccd 0.49\u00b0N, 121.71\u00b0E\n\u2022 M5.2 \u2014 101 km SSW of Severo-Kuril\u2019sk, Russia \ud83d\udccd 49.79\u00b0N, 155.79\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 7.01\u00b0S, 155.70\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @KHOU @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261012-0216.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-12 03:16 UTC",
+  "text": "STORMS \u2014 2026-10-12 03:16 UTC\nNOAA NHC:\n\u2022 Simon (HU, 105 kt) \u2014 19.8\u00b0N, 106.0\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 19.80, -106.00).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @TeamRubicon",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261012-0316.png"
  }
 ]
