@@ -537,5 +537,12 @@
   "timestamp": "2026-10-13 10:16 UTC",
   "text": "OUTBREAKS \u2014 2026-10-13 10:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-12 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@CDC @WHO @10TV @WBEZ @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261013-1016.png"
+ },
+ {
+  "layer": "FIRES",
+  "layerKey": "fires",
+  "timestamp": "2026-10-13 11:16 UTC",
+  "text": "FIRES \u2014 2026-10-13 11:16 UTC\nNASA EONET:\n\u2022 Wildfire Buckhorn 2, Cassia, Idaho (2026-10-10) \ud83d\udccd 42.34\u00b0N, 114.10\u00b0W\n\u2022 Wildfire PK, Sheridan, Wyoming (2026-10-09) \ud83d\udccd 44.75\u00b0N, 107.22\u00b0W\n\u2022 Wildfire CYRUS, Kern, California (2026-10-09) \ud83d\udccd 35.70\u00b0N, 118.42\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-12 (location-specific, \ud83d\udccd 42.34\u00b0N, 114.10\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NASA @NOAA @KTVU @KQED @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261013-1116.png"
  }
 ]
