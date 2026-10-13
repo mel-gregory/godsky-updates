@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Fires: Wildfire Events Tracked by NASA EONET — Orbital Network</title>
+<meta name="description" content="Active Fires: Wildfire Events Tracked by NASA EONET — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Active Fires: Wildfire Events Tracked by NASA EONET</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Active Fires, a wildfire layer for Orbital Network, and sets out its use cases. The layer plots the open wildfire events tracked by NASA&#x27;s Earth Observatory Natural Event Tracker (EONET) — the agency&#x27;s curated register of ongoing natural events — on the network&#x27;s real-time globe. Each marker stands at an event&#x27;s most recently reported location and carries its name, when it was last reported, and its reported magnitude where EONET publishes one. Consistent with the network&#x27;s data-provenance rules, the layer is explicit about what it is not: it plots tracked events, not individual satellite fire detections — the detection-point service, NASA FIRMS, runs on a free per-user key a static page cannot hold, and is named rather than imitated. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>EONET wildfire events.</strong> When the layer is switched on, the page reads EONET&#x27;s open wildfire category — events still open, over the last 30 days — and plots each event (up to 220) at its latest reported geometry. A marker&#x27;s title is the event&#x27;s name as EONET carries it; its card gives the date and time of the latest report, the event&#x27;s magnitude value and unit where the register publishes one (burned area, for fires so tracked), and the upstream sources EONET lists for the event. The source line reads &quot;NASA EONET wildfire events,&quot; with those upstream sources named.</p>
+<p><strong>Events, not detections.</strong> A satellite detection is a single overheard pixel at a single overpass; an EONET event is a fire that NASA&#x27;s trackers are following as a thing with a name and a history. This layer shows the second. NASA FIRMS publishes the first — near-real-time detection points from MODIS and VIIRS — but its point feed is keyed to each user&#x27;s free FIRMS MAP_KEY, which this page cannot hold on a visitor&#x27;s behalf; the layer and its status line say so plainly (&quot;FIRMS&#x27; own point feed needs FIRMS&#x27; free MAP_KEY&quot;) rather than presenting EONET events as FIRMS detections.</p>
+<p><strong>Provenance rules.</strong> Every marker is bound to an EONET event and its latest report time, both shown on the card. If EONET cannot be reached, the layer reports that and plots nothing. A fire EONET has closed leaves the map on the next read.</p>
+<h2>Use cases</h2>
+<p><strong>Residents of fire country.</strong> Which named fires are burning within reach of home, and when each was last reported — a situation picture that complements, and never replaces, the local fire authority&#x27;s evacuation notices.</p>
+<p><strong>Journalists.</strong> A named incident with a last-reported time and a tracked magnitude, citable to NASA&#x27;s event register — the skeleton of a fire story, distinguished honestly from the detection maps other outlets publish.</p>
+<p><strong>Land and park managers (awareness).</strong> A regional register of concurrent incidents for orientation before turning to operational systems, with each event&#x27;s upstream source named for follow-up.</p>
+<p><strong>Families.</strong> When smoke is in the air or a fire is in the news near relatives, a marker with a name and a report time answers &quot;is it still being tracked, and where&quot; from the register itself.</p>
+<p><strong>Educators.</strong> The difference between an event and a detection — between a fire as a continuing thing and a satellite&#x27;s momentary glimpse of heat — is itself a teachable idea, and this layer, read beside a detection map, teaches it.</p>
+<h2>Coverage and limitations</h2>
+<p>EONET is a curated register, not a sensor: events enter it when NASA&#x27;s trackers add them and leave when they are closed, so a small or fast-moving fire can burn without appearing, and an event&#x27;s position is its latest reported point — a point, not a perimeter. Nothing here shows fire fronts, containment, or spread. Reporting cadence varies by event and by the upstream sources EONET draws on, and the card&#x27;s report time is the honest freshness measure. For per-detection, near-real-time fire points, FIRMS is the right service and the layer names it; for life-safety decisions, local fire authorities and official alert systems govern.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="fires.pdf">PDF</a> · <a href="fires.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
