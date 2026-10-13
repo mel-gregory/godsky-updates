@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Responders: Fire, Police, EMS and Hospital Locations — Orbital Network</title>
+<meta name="description" content="First Responders: Fire, Police, EMS and Hospital Locations — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>First Responders: Fire, Police, EMS and Hospital Locations</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes First Responders, a public-safety geography layer for Orbital Network, and sets out its use cases. The layer plots the locations of fire stations, police stations, hospitals, and clinics around whatever place the visitor is looking at, drawn from OpenStreetMap&#x27;s worldwide mapping of the same facilities that federal structure datasets — the US HIFLD and USGS sets — publish for the United States. The layer&#x27;s discipline is stated on every card: these are station locations. Live vehicle positions are not public, and local incident feeds exist only where a locality publishes one, so the layer shows where help is based — never where a truck is, and never an emergency in progress it cannot source. It is a geography layer, not an emergency tool; in an emergency, call 911 (or the local emergency number). The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>Stations and hospitals around the view.</strong> When the layer is switched on, the page asks the OpenStreetMap Overpass service for fire stations, police stations, hospitals, and clinics within 180 kilometres of the globe&#x27;s current center, and plots up to 160 of them. A marker&#x27;s title is the facility&#x27;s mapped name, or its kind where the map carries no name; its card gives the kind in words — Fire station, Police station, Hospital, Clinic / EMS care — the city where the map records one, and the sentence &quot;Station location — live vehicle positions are not public.&quot; The source line reads &quot;Station locations · OpenStreetMap mapping of HIFLD/USGS-published facilities.&quot; Spinning the globe to a city and tapping the layer loads that city&#x27;s stations; the layer is always centered on where the visitor is looking.</p>
+<p><strong>What is deliberately absent.</strong> No incident dots, no unit tracking, no &quot;live calls&quot; — because no such public feeds exist at this scope, and the layer refuses to imply otherwise. County and city incident feeds exist where a locality publishes one; they are local, not global, and this layer does not pretend to aggregate them. The word &quot;responders&quot; in the layer&#x27;s name refers to the services whose stations these are, and every card repeats the limit in plain words.</p>
+<p><strong>Provenance rules.</strong> Every marker is bound to a mapped facility record, with its source named on the card. If the mapping service cannot be reached, the layer reports that and plots nothing. A place with no markers means the map carries no such facilities within reach — OpenStreetMap&#x27;s coverage, honestly shown — not that no help exists there.</p>
+<h2>Use cases</h2>
+<p><strong>Newcomers and travelers.</strong> The first geography of a new city: where the hospital is, where the fire and police stations sit relative to home, school, or hotel — learned calmly, before the day anyone needs them.</p>
+<p><strong>Families.</strong> A parent can show a child the stations in their own town and talk about what each is for — safety education on a globe the child can spin to their own street&#x27;s city, with every location traceable to the public map.</p>
+<p><strong>Journalists (context).</strong> During an incident story, the distance from a scene to the responding station or the receiving hospital is checkable context from the same public geography — stated as location, never dressed as response data.</p>
+<p><strong>Emergency-preparedness educators.</strong> Station geography is the static half of preparedness — where the infrastructure of help stands — and the layer teaches it alongside an explicit lesson in its limits: a mapped station is not a promised response time.</p>
+<p><strong>Event and venue planners (awareness).</strong> The nearest hospital and stations to a venue, for the logistics binder — orientation from public mapping, verified against local knowledge before it is relied on.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage is OpenStreetMap&#x27;s: dense and current in much of the world, thin in places with few volunteer mappers, and a facility can be missing, moved, or mislabeled in the map as in any living dataset. The 180-kilometre read and 160-point cap mean rural views show the nearest stations the read returns, not an exhaustive county roster. Above all, the limit stated on every card governs the layer&#x27;s meaning: locations only. Response times, staffing, capabilities, and live status of any station are not shown and must never be inferred from a marker. In an emergency, call emergency services; this layer is for knowing your ground in advance.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="responders.pdf">PDF</a> · <a href="responders.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
