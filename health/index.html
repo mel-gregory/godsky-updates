@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed Health — Orbital Network</title>
+<meta name="description" content="Live status of Earth's official data feeds — republication latency, freshness, refused records, and silent stations — measured by Orbital Network's own event store.">
+<style>
+  :root{
+    --bg:#0a0e1a; --panel:#121a2e; --panel2:#1a2340; --ink:#e8ecf4;
+    --muted:#9aa8c3; --dim:#7a8aa5; --faint:#5a6a85; --accent:#6db3f2;
+    --ok:#3ecf7a; --warn:#f2b84b; --bad:#f26d6d; --line:#24304d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(135deg,#0a0e1a 0%,#1a2340 100%);background-color:var(--bg);
+       color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       line-height:1.55;min-height:100vh}
+  .wrap{max-width:1020px;margin:0 auto;padding:32px 20px 64px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .brand{color:var(--accent);letter-spacing:.22em;font-size:13px;font-weight:700;text-transform:uppercase}
+  h1{font-size:34px;line-height:1.15;margin:10px 0 8px}
+  .sub{color:var(--muted);max-width:70ch;margin:0}
+  .statusline{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:22px 0 4px}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+        background:var(--panel);border-radius:999px;padding:7px 14px;font-size:15px;font-weight:600}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--faint);flex:none}
+  .dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.bad{background:var(--bad)}
+  .asof{color:var(--dim);font-size:14px}
+  .banner{display:none;border-radius:10px;padding:14px 16px;margin:18px 0;font-size:15px}
+  .banner.show{display:block}
+  .banner.bad{background:#3a1620;border:1px solid var(--bad);color:#ffd9d9}
+  .banner.stale{background:#3a2f14;border:1px solid var(--warn);color:#ffeec4}
+  .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 8px}
+  .total{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .total .n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+  .total .l{color:var(--dim);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+  section{margin-top:34px}
+  h2{font-size:21px;margin:0 0 6px}
+  .note{color:var(--muted);font-size:14.5px;max-width:78ch;margin:0 0 14px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:14.5px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;background:var(--panel2)}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .fname{font-weight:600}
+  .fsrc{color:var(--faint);font-size:12.5px}
+  .st{font-weight:700}
+  .st.ok{color:var(--ok)} .st.warn{color:var(--warn)} .st.bad{color:var(--bad)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card .big{font-size:30px;font-weight:700}
+  .card h3{margin:0 0 4px;font-size:16px}
+  .card p{color:var(--muted);font-size:14.5px;margin:6px 0 0}
+  ul.recent{list-style:none;margin:12px 0 0;padding:0;font-size:14px;color:var(--muted)}
+  ul.recent li{padding:7px 0;border-top:1px solid var(--line)}
+  ul.recent b{color:var(--ink);font-weight:600}
+  .method{color:var(--muted);font-size:14.5px;max-width:82ch}
+  .method dt{color:var(--ink);font-weight:600;margin-top:12px}
+  .method dd{margin:2px 0 0}
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;color:var(--faint);font-size:13.5px}
+  a{color:var(--accent)}
+  .empty{color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:22px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Orbital Network</div>
+    <h1>Feed Health — is Earth's data flowing?</h1>
+    <p class="sub">Orbital Network does not measure the planet. It measures the planet's measuring
+    systems. This page is the live state of that instrument: how fast the world's official
+    agencies publish, how fresh their data is when it reaches us, what our provenance rules
+    refuse, and which stations have gone silent.</p>
+  </header>
+
+  <div class="statusline">
+    <span class="pill"><span class="dot" id="headline-dot"></span><span id="headline">Loading live status…</span></span>
+    <span class="asof" id="asof"></span>
+  </div>
+
+  <div class="banner bad" id="banner-down">
+    <strong>Live feed-health data is unreachable right now.</strong>
+    Rather than show old numbers as if they were current, this page shows none.
+    The store itself keeps recording; this view will recover when the snapshot service does.
+  </div>
+  <div class="banner stale" id="banner-stale">
+    <strong>This snapshot is older than our 2-hour freshness limit.</strong>
+    <span id="banner-stale-text"></span> Treat everything below as the last known state, not the current one.
+  </div>
+
+  <div id="content" hidden>
+    <div class="totals" id="totals"></div>
+
+    <section>
+      <h2>The feeds</h2>
+      <p class="note">Every feed Orbital Network republishes, and how it behaved in the last 24 hours.
+      Latency is the time between the source's own timestamp on a record and the moment it entered
+      our store.<sup>†</sup></p>
+      <div class="tablewrap"><table>
+        <thead><tr>
+          <th>Feed</th><th>Status</th><th>Last run</th>
+          <th class="num">Runs (24 h)</th><th class="num">Failures</th>
+          <th class="num">Latency median</th><th class="num">Latency p90</th>
+          <th class="num">Stale at ingest</th>
+        </tr></thead>
+        <tbody id="feeds-body"></tbody>
+      </table></div>
+      <p class="note" style="margin-top:10px"><sup>†</sup>For station readings, the source timestamp is the
+      instrument's own observation time. For event catalogues (earthquakes, cyclones, wildfires), it is the
+      time the source last updated the record; long-lived events — a wildfire burning for weeks — carry that
+      history with them, so their figures run long. Both are measured from the store, never estimated.</p>
+    </section>
+
+    <section>
+      <h2>Refused records — quarantine</h2>
+      <p class="note">Records that fail Orbital Network's provenance rules are refused a place in the
+      store — counted here, never silently dropped, never repaired into looking true.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="big" id="q-count">—</div>
+          <h3>Records refused since this record began</h3>
+          <p id="q-reasons"></p>
+        </div>
+        <div class="card">
+          <h3>Most recent refusals</h3>
+          <ul class="recent" id="q-recent"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Silent stations</h2>
+      <p class="note">A station is silent when it is registered as active but no new report from it has
+      reached the store in over 24 hours — or none has arrived since this record began on
+      13 October 2026. Silence is how instruments disappear; this is where we publish it.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="big" id="s-count">—</div>
+          <h3>Stations currently silent</h3>
+          <p>Out of <span id="s-total">—</span> registered stations (NOAA NDBC buoys and USGS stream gauges).</p>
+        </div>
+        <div class="card">
+          <h3>Longest silent — examples</h3>
+          <ul class="recent" id="s-examples"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How to read this page</h2>
+      <dl class="method">
+        <dt>Latency</dt>
+        <dd>Republication latency: how long after the source's own timestamp a record entered our store.
+        The median is the typical record; p90 is the slower end — nine records in ten arrived faster.</dd>
+        <dt>Stale at ingest</dt>
+        <dd>The share of station readings whose observation was already more than 6 hours old when it
+        reached us — the same threshold the public site uses to label data outdated. Counted, not hidden.</dd>
+        <dt>Quarantine</dt>
+        <dd>Records our rules refuse: a timestamp that could not be true, a missing identifier, coordinates
+        that cannot exist. They are kept aside for diagnosis and counted above.</dd>
+        <dt>Silence</dt>
+        <dd>A station that stops reporting leaves no announcement — it simply stops. We track the gap
+        from the station's last received report.</dd>
+      </dl>
+      <p class="method">Nothing on this page is estimated, sampled, or carried in from outside: every
+      number is an aggregate over Orbital Network's own event store, republished from official sources —
+      USGS, NOAA (NHC and NDBC), NASA EONET, GDACS, and USGS NWIS. Orbital Network reports on the
+      instruments; official hazard warnings remain the agencies' own.</p>
+    </section>
+  </div>
+
+  <div class="empty" id="loading">Loading the latest snapshot…</div>
+
+  <footer>
+    Orbital Network — Live broadcast of Planet Earth. ·
+    <a href="https://godsky.net">godsky.net</a> ·
+    <a href="https://weather.godsky.net/articles/">Layer articles &amp; papers</a> ·
+    White paper: <a href="https://doi.org/10.5281/zenodo.23328433">doi.org/10.5281/zenodo.23328433</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var SNAPSHOT_URL = "https://orbital-ingest-worker-production.up.railway.app/health.json";
+  var FRESH_LIMIT_MS = 2 * 60 * 60 * 1000;
+  var REASONS = {
+    implausible_timestamp: "Timestamp could not be true",
+    missing_timestamp: "No timestamp on the record",
+    missing_id: "No record identifier",
+    bad_coordinates: "Coordinates that cannot exist"
+  };
+  var generatedAt = null;
+
+  function el(id){ return document.getElementById(id); }
+  function fmtInt(n){ return n == null ? "—" : n.toLocaleString("en-US"); }
+  function fmtLatency(min){
+    if (min == null) return "—";
+    if (min < 90) return Math.round(min) + " min";
+    if (min < 60 * 48) return (min / 60).toFixed(1).replace(/\.0$/, "") + " h";
+    return (min / 1440).toFixed(1).replace(/\.0$/, "") + " days";
+  }
+  function fmtWhen(iso){
+    if (!iso) return "—";
+    var d = new Date(iso);
+    return d.toLocaleString("en-US", {month:"short", day:"numeric", hour:"numeric", minute:"2-digit"});
+  }
+  function fmtAgo(ms){
+    var s = Math.max(0, Math.round(ms / 1000));
+    if (s < 90) return s + " seconds ago";
+    var m = Math.round(s / 60);
+    if (m < 90) return m + " minutes ago";
+    var h = (m / 60).toFixed(1).replace(/\.0$/, "");
+    return h + " hours ago";
+  }
+  function statusClass(st){ return st === "ok" ? "ok" : (st === "degraded" ? "warn" : "bad"); }
+  function reasonText(r){ return REASONS[r] || r.replace(/_/g, " "); }
+
+  function tickAge(){
+    if (!generatedAt) return;
+    var age = Date.now() - generatedAt.getTime();
+    el("asof").textContent = "Data as of " + generatedAt.toLocaleString("en-US",
+      {month:"short", day:"numeric", hour:"numeric", minute:"2-digit", second:"2-digit"}) +
+      " · " + fmtAgo(age);
+    var stale = age > FRESH_LIMIT_MS;
+    el("banner-stale").classList.toggle("show", stale);
+    if (stale) el("banner-stale-text").textContent = "It is " + fmtAgo(age) + " old.";
+  }
+
+  function render(d){
+    generatedAt = new Date(d.generated_at);
+    el("loading").hidden = true;
+    el("banner-down").classList.remove("show");
+    el("content").hidden = false;
+
+    var feeds = d.feeds || [];
+    var okCount = feeds.filter(function(f){ return f.status === "ok"; }).length;
+    var allOk = okCount === feeds.length && feeds.length > 0;
+    el("headline").textContent = allOk
+      ? "All " + feeds.length + " official feeds are flowing"
+      : okCount + " of " + feeds.length + " feeds healthy — " + (feeds.length - okCount) + " need attention";
+    el("headline-dot").className = "dot " + (allOk ? "ok" : "warn");
+
+    var t = d.totals || {};
+    el("totals").innerHTML =
+      [["Events in store", t.events], ["Station readings", t.readings],
+       ["Stations tracked", t.stations], ["Feed runs (24 h)",
+        feeds.reduce(function(a, f){ return a + (f.runs_24h || 0); }, 0)]]
+      .map(function(x){ return '<div class="total"><div class="n">' + fmtInt(x[1]) +
+        '</div><div class="l">' + x[0] + "</div></div>"; }).join("");
+
+    el("feeds-body").innerHTML = feeds.map(function(f){
+      var sc = statusClass(f.status);
+      return "<tr>" +
+        '<td><span class="fname">' + (f.display_name || f.source) + '</span><br><span class="fsrc">' + f.source + "</span></td>" +
+        '<td class="st ' + sc + '">' + f.status.toUpperCase() + "</td>" +
+        "<td>" + fmtWhen(f.last_run_at) + "</td>" +
+        '<td class="num">' + fmtInt(f.runs_24h) + "</td>" +
+        '<td class="num">' + fmtInt(f.failures_24h) + "</td>" +
+        '<td class="num">' + fmtLatency(f.latency_median_min) + "</td>" +
+        '<td class="num">' + fmtLatency(f.latency_p90_min) + "</td>" +
+        '<td class="num">' + (f.stale_share_pct == null ? "—" : f.stale_share_pct.toFixed(1) + "%") + "</td>" +
+        "</tr>";
+    }).join("");
+
+    var q = d.quarantine || {count: 0, by_reason: {}, recent: []};
+    el("q-count").textContent = fmtInt(q.count);
+    var reasons = Object.keys(q.by_reason || {});
+    el("q-reasons").textContent = reasons.length
+      ? reasons.map(function(r){ return reasonText(r) + ": " + fmtInt(q.by_reason[r]); }).join(" · ")
+      : "No records refused yet.";
+    el("q-recent").innerHTML = (q.recent || []).slice(0, 6).map(function(r){
+      return "<li><b>" + r.feed + "</b> — " + reasonText(r.reason) + "<br>" + fmtWhen(r.at) + "</li>";
+    }).join("") || "<li>None yet.</li>";
+
+    var s = d.silent_stations || {count: 0, examples: []};
+    el("s-count").textContent = fmtInt(s.count);
+    el("s-total").textContent = fmtInt(t.stations);
+    el("s-examples").innerHTML = (s.examples || []).map(function(x){
+      var when = x.last_seen_at ? ("last report " + fmtWhen(x.last_seen_at))
+                                 : "no report since this record began";
+      return "<li><b>" + x.station + "</b> (" + x.feed + ")<br>" + when + "</li>";
+    }).join("") || "<li>None.</li>";
+
+    tickAge();
+  }
+
+  function load(){
+    fetch(SNAPSHOT_URL, {cache: "no-store"})
+      .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(render)
+      .catch(function(){
+        if (!generatedAt){
+          el("loading").hidden = true;
+          el("content").hidden = true;
+          el("headline").textContent = "Live status unavailable";
+          el("headline-dot").className = "dot bad";
+        }
+        el("banner-down").classList.add("show");
+        tickAge();
+      });
+  }
+
+  load();
+  setInterval(load, 5 * 60 * 1000);
+  setInterval(tickAge, 30 * 1000);
+})();
+</script>
+</body>
+</html>
