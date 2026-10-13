@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earthquakes: The USGS Feed, Magnitude 2.5 and Up — Orbital Network</title>
+<meta name="description" content="Earthquakes: The USGS Feed, Magnitude 2.5 and Up — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Earthquakes: The USGS Feed, Magnitude 2.5 and Up</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Earthquakes, a seismic layer for Orbital Network, and sets out its use cases. The layer plots every earthquake of magnitude 2.5 and above recorded in the last 24 hours in the United States Geological Survey&#x27;s public GeoJSON summary feed, on the network&#x27;s real-time globe. Each marker is sized by magnitude and carries the Survey&#x27;s own account of the event: its magnitude, depth, location name, and time, plus the feed&#x27;s tsunami flag where one is raised. Consistent with the network&#x27;s data-provenance rules, every card names the USGS as its source and shows the event&#x27;s own time rather than the fetch time. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>USGS earthquakes, last 24 hours.</strong> When the layer is switched on, the page reads the USGS summary feed for magnitude 2.5+ events over the past day and plots them — up to 300, largest first, so the most significant events are never crowded out by the smallest. Marker size grows with magnitude. A marker&#x27;s title is the USGS place description (&quot;12 km SSE of ...&quot;), and its card lists the magnitude, the depth in kilometres, the event time in UTC, and &quot;tsunami flag raised&quot; when the feed carries that flag. The source line reads &quot;USGS earthquake feed · magnitude 2.5+, last 24 hours.&quot;</p>
+<p><strong>What the numbers are.</strong> Magnitudes, depths, and locations are the USGS&#x27;s published solutions for each event. Seismic solutions are revised as more station data arrives — an event&#x27;s magnitude or depth can change after it first appears — and the layer shows the feed as published at the moment it is read, neither freezing the first estimate nor presenting any value as final.</p>
+<p><strong>Provenance rules.</strong> Every marker is bound to a USGS event, with the event&#x27;s own timestamp on the card. If the feed cannot be reached, the layer reports that and plots nothing; an empty globe under this layer means the feed reported no qualifying events, and the status line says which of those happened.</p>
+<h2>Use cases</h2>
+<p><strong>Residents of seismic regions.</strong> A same-day picture of the ground&#x27;s activity near home — whether the jolt felt an hour ago was local or distant, large or small — answered by the agency charged with measuring it.</p>
+<p><strong>Families with members in quake country.</strong> After news of an earthquake, a marker with a magnitude, a depth, and a time replaces rumor with the Survey&#x27;s account, within the hour it is published.</p>
+<p><strong>Journalists.</strong> Magnitude, depth, place, and time, citable to the USGS feed directly — the standard first facts of any earthquake story, visible in one view alongside every other event of the day for scale.</p>
+<p><strong>Educators.</strong> A day of global seismicity makes plate boundaries visible without a diagram: the ring of fire draws itself. Students can compare depth and magnitude across subduction zones and mid-ocean ridges from real events.</p>
+<p><strong>Travelers.</strong> A quick check of recent activity at a destination — an aftershock sequence still running, a volcano-adjacent swarm — as one input among official advisories.</p>
+<h2>Coverage and limitations</h2>
+<p>The feed is global, but detection is not uniform: the worldwide network reliably catches magnitude 2.5 events in well-instrumented regions (the United States, Japan, Europe) while an event of the same size under an ocean or a sparsely instrumented continent may be recorded late, at a higher threshold, or by regional solutions the summary feed carries differently. Events below magnitude 2.5 — the great majority of the planet&#x27;s earthquakes — are excluded by the layer&#x27;s stated threshold, so a quiet map never means a motionless Earth. The layer reads the feed when tapped; it is an awareness view, not an alerting service, and official channels (USGS ENS, local authorities) remain the source for warnings and safety guidance.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="quakes.pdf">PDF</a> · <a href="quakes.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
