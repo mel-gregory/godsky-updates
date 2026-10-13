@@ -42,3 +42,5 @@ Sea State is the first phase of a broader maritime program for Orbital Network. 
 *Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.*
 
 *The Orbital Network system described in this document operates at https://godsky.net. The white paper "Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness" (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.*
+
+Zenodo DOI: [10.5281/zenodo.23335565](https://doi.org/10.5281/zenodo.23335565).
