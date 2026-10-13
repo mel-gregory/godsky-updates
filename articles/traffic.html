@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traffic: Road Incidents and Closures from Open Agency Feeds — Orbital Network</title>
+<meta name="description" content="Traffic: Road Incidents and Closures from Open Agency Feeds — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Traffic: Road Incidents and Closures from Open Agency Feeds</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Traffic, a road-conditions layer for Orbital Network, and sets out its use cases. Traffic plots live road incidents and construction closures from Ontario 511, the Ontario Ministry of Transportation&#x27;s open traveller-information service, on the network&#x27;s real-time globe. Each marker is an event the agency itself is publishing — a collision, a closure, a construction zone — shown with the roadway, the event type, and the agency&#x27;s own description. Consistent with the network&#x27;s data-provenance rules, every card names its source, and where no agency publishes openly, nothing is plotted: commercial traffic-flow feeds and ship positions that require their own keys are named in the layer&#x27;s status line rather than simulated. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>Ontario 511 incidents and construction.</strong> When the layer is switched on, the page reads Ontario 511&#x27;s two open feeds — current events and construction — and plots each mappable event (up to 140) at the latitude and longitude the agency publishes for it. A marker&#x27;s title names the roadway and event type; its card carries the agency&#x27;s description or headline, the direction of travel where the feed gives one, and the source line &quot;Ontario 511 DOT · live incident feed.&quot; These are reported incidents and closures, not traffic speeds: the layer shows where something has happened or a road is closed, not how fast traffic is moving.</p>
+<p><strong>What is deliberately absent.</strong> TomTom and HERE traffic-flow data and AIS ship positions are not plotted. Those services give every user their own free key, and a static web page cannot hold a key on the visitor&#x27;s behalf; the layer&#x27;s status line names them as &quot;free key needed, not plotted&quot; instead of dressing other data up as theirs.</p>
+<p><strong>Provenance rules.</strong> Traffic follows the same rules as every Orbital Network layer: every reading is bound to a named public source; the card shows what the source published; and the system fails closed — if the 511 feeds cannot be reached, the layer reports that and plots nothing rather than estimating road conditions.</p>
+<h2>Use cases</h2>
+<p><strong>Drivers and commuters in Ontario.</strong> A closure or collision on a planned route is visible before departure, in the agency&#x27;s own words, instead of being discovered at the ramp.</p>
+<p><strong>Road-trippers and families.</strong> On a long drive day, a glance at the globe shows whether the corridor ahead carries active closures or construction, and the card&#x27;s direction field tells whether it affects the way the family is travelling.</p>
+<p><strong>Emergency managers and road agencies.</strong> A regional picture of concurrent incidents and closures, timestamped by the publishing agency, complements official dashboards — awareness, not a replacement for them.</p>
+<p><strong>Journalists.</strong> A reported closure is citable to the DOT feed that published it, with the agency&#x27;s description intact, rather than paraphrased from a scanner or a social post.</p>
+<p><strong>Educators.</strong> The layer is a clean demonstration of open government data: one province publishing machine-readable road events that any citizen&#x27;s page can plot the moment they are issued.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage today is Ontario, because Ontario 511 is the road feed the page reads openly and keylessly; the layer claims no other geography. Most other road data is either commercial, key-gated per user, or published in formats a static page cannot hold a credential for — those sources are named in the status line, never faked. The layer shows incidents and closures only: it carries no speed, congestion, or travel-time data, and an empty map means the feed reported no mappable events, not that every road is clear. Events appear and clear on the agency&#x27;s schedule; tapping the layer off and on re-reads the feeds.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="traffic.pdf">PDF</a> · <a href="traffic.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
