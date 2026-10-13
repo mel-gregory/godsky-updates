@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moon: The Sub-Lunar Point, Computed Live — Orbital Network</title>
+<meta name="description" content="Moon: The Sub-Lunar Point, Computed Live — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Moon: The Sub-Lunar Point, Computed Live</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Moon, an astronomical layer for Orbital Network, and sets out its use cases. The layer plots a single glowing marker at the sub-lunar point — the spot on Earth&#x27;s surface where the Moon stands directly overhead at that moment — computed live in the visitor&#x27;s browser from the Moon&#x27;s orbit, with no feed, no key, and nothing streamed. The marker&#x27;s card gives the Moon&#x27;s phase by name, the percentage of its disc lit, and its current distance from Earth; while the layer is on, the point is recomputed every few minutes, so the marker walks across the globe with the Moon. Tapping the marker also opens the page&#x27;s Moon view, which pairs the computed position with a lunar atlas drawn from NASA LRO imagery. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>A computed point, honestly labeled.</strong> The sub-lunar point is found by standard low-precision lunar mathematics — the truncated Meeus series, the same family of algorithm the widely used SunCalc library implements — evaluated for the current instant: the Moon&#x27;s geocentric position from its mean orbital elements, corrected for the Sun&#x27;s pull on the phase geometry, converted to the meridian it is crossing now. The implementation&#x27;s own comment states its accuracy: good to a fraction of a degree. The card&#x27;s source line says what the point is: &quot;Computed live in this page · low-precision lunar orbit — no feed.&quot;</p>
+<p><strong>Phase and distance from the same math.</strong> The card names the phase from the eight traditional names (New Moon through Waning Crescent), gives the illuminated fraction as a percentage, and the Moon&#x27;s distance in kilometres — all derived from the same computation as the position, so the three numbers always agree with each other. The globe dresses the marker as the Moon itself, drawn at its computed phase. While the layer is on, the whole calculation re-runs every three minutes; nothing is fetched at any point in the layer&#x27;s life. The Moon view the marker opens extends the same honesty to its imagery: the atlas is identified as NASA LRO imagery, presented by an external lunar stream the page names, and the panel&#x27;s own footer repeats that phase, sub-lunar point, and distance are computed in the page.</p>
+<p><strong>Provenance rules.</strong> The layer&#x27;s provenance is its method, and the method is stated on the card rather than hidden: a named algorithm family, a stated precision, no source feed to cite because none exists. If the computation cannot run, there is no marker — there is nothing to fall back to, and nothing is invented.</p>
+<h2>Use cases</h2>
+<p><strong>Families.</strong> &quot;Where is the Moon directly overhead right now?&quot; — over an ocean, most hours, which is itself a small wonder — and &quot;how lit is it tonight,&quot; answered with a phase name and a percentage a child can check against the sky at bedtime.</p>
+<p><strong>Educators.</strong> The sub-lunar point makes three abstractions concrete at once: that the Moon circles the Earth, that &quot;overhead&quot; is a place that moves, and that phase is geometry, not shadow-play. The same screen shows the computation&#x27;s stated precision — a first lesson in models and their error bars.</p>
+<p><strong>Photographers and skywatchers.</strong> Phase and illumination for planning a moonrise shoot or a dark-sky night, from a card that updates as the evening does.</p>
+<p><strong>Tide watchers (context).</strong> The Moon drives the tides, and its overhead point tracks the tidal bulge&#x27;s longitude loosely — offered as context and curiosity beside the network&#x27;s measured water layers, not as a tide prediction, which this layer never makes.</p>
+<p><strong>The simply curious.</strong> A single breathing marker on a turning planet, answering the oldest question there is — where is the Moon? — continuously, for free, with its arithmetic showing.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage is total and instantaneous by construction — the sub-lunar point exists at every moment — and precision is the limit instead: a fraction of a degree is hundreds of metres to tens of kilometres on the ground, ample for awareness and education and useless, as stated, for telescope pointing or occultation timing. Phase percentages and distances carry the same low-precision character. The Moon view&#x27;s atlas stream depends on an external provider and NASA imagery availability; the layer&#x27;s computed marker does not, and keeps walking if the stream is down. Nothing in the layer predicts eclipses, tides, or moonrise times.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="moon.pdf">PDF</a> · <a href="moon.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
