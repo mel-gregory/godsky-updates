@@ -523,5 +523,12 @@
   "timestamp": "2026-10-13 08:16 UTC",
   "text": "FIRST RESPONDERS \u2014 2026-10-13 08:16 UTC\nLive FEMA declarations:\n\u2022 Tropical Storm \u2014 FL (2026-10-09)\n\u2022 Hurricane \u2014 AL (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-12 (location-specific, \ud83d\udccd 27.80\u00b0N, 81.70\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@KHOU @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261013-0816.png"
+ },
+ {
+  "layer": "CLOUDS",
+  "layerKey": "clouds",
+  "timestamp": "2026-10-13 09:16 UTC",
+  "text": "CLOUDS \u2014 2026-10-13 09:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Small Craft Advisory \u2014 East Santa Barbara Channel from Pt. Conception to \n\u2022 Small Craft Advisory \u2014 Waters from Pt. Sal to Santa Cruz Island CA and we\n\u2022 Special Weather Statement \u2014 White Mountains and High Terrain South of the Yuko\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-12 (location-specific, \ud83d\udccd 34.35\u00b0N, 111.68\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @NWS @KXAN @KUT",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261013-0916.png"
  }
 ]
