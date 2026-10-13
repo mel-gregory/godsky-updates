@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clouds: NOAA GOES-19 GeoColor over the Americas — Orbital Network</title>
+<meta name="description" content="Clouds: NOAA GOES-19 GeoColor over the Americas — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Clouds: NOAA GOES-19 GeoColor over the Americas</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Clouds, an imagery layer for Orbital Network, and sets out its use cases. Unlike the network&#x27;s point layers, Clouds paints no markers: it drapes the newest full-disc photograph from NOAA&#x27;s GOES-19 (GOES-East) geostationary satellite — its ABI instrument&#x27;s GeoColor product, served by NOAA NESDIS — over the globe as a translucent shell, so the clouds on the planet are the clouds the satellite is actually seeing. The imagery&#x27;s own scan time is named in the layer&#x27;s status line, and a frame more than six hours old is labeled OUTDATED. The layer refreshes every ten minutes while it is on, matching GOES-East&#x27;s full-disc scan cadence. It is imagery — a picture of the sky, not measurements at points — and is described as exactly that. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>GOES-19 GeoColor, reprojected in the browser.</strong> When the layer is switched on, the page reads NOAA&#x27;s public GOES-19 directory for the newest ABI full-disc GeoColor frame, then redraws that photograph — taken from the satellite&#x27;s fixed slot above 75.2°W — onto the globe&#x27;s surface in the visitor&#x27;s own browser, point by point. Places beyond the satellite&#x27;s horizon stay clear; near-black night pixels become transparency, so the dark half of the disc never punches a black wedge through the planet. The result is a living cloud shell distinct from the globe&#x27;s own backdrop portrait: this is the current sky, dated.</p>
+<p><strong>Time, named and enforced.</strong> Freshness is judged against the frame&#x27;s own scan time — the timestamp in NOAA&#x27;s filename — never against when the page fetched it. The status line names that time and the frame&#x27;s age (&quot;about 40 min old&quot;); past six hours it leads with &quot;OUTDATED&quot; and advises treating the picture as the last known sky, not the current one. While the layer is on, a new frame is read every ten minutes, GOES-East&#x27;s own full-disc rhythm. If NOAA&#x27;s directory or frame cannot be reached, the layer reports the feed as unreachable and plots nothing — clouds are never invented to fill a gap.</p>
+<p><strong>What GeoColor is.</strong> GeoColor is NOAA&#x27;s composite view of the Earth from ABI&#x27;s channels, made to read the way a photograph reads — clouds, land, and ocean in natural-looking color by day. It is an image product, not a measurement series: the layer shows no temperatures, no cloud-top heights, no per-point values, and a tapped globe under this layer gives the imagery&#x27;s time and source, not a reading.</p>
+<h2>Use cases</h2>
+<p><strong>Weather watchers.</strong> The day&#x27;s actual cloud architecture — a hurricane&#x27;s spiral, a front&#x27;s long comma, a clear slot opening over a launch coast — seen as the satellite sees it, with the scan time printed on it.</p>
+<p><strong>Families.</strong> &quot;Show me the clouds over Grandma&#x27;s house right now&quot; is a question this layer answers with a dated photograph rather than a forecast icon — and the date is part of the answer, taught by the status line itself.</p>
+<p><strong>Journalists.</strong> A storm visual whose provenance can be stated in one line — instrument, satellite, agency, scan time — instead of the unattributed satellite grabs that circulate during hurricanes.</p>
+<p><strong>Educators.</strong> Geostationary geometry made visible: why one satellite sees one disc, why the night side goes transparent, why the picture updates on a ten-minute heartbeat. The reprojection happening in the student&#x27;s own browser is itself the lesson.</p>
+<p><strong>Storm and fire awareness (context).</strong> Beside the Storms layer&#x27;s advisory markers, the cloud shell shows the system those advisories describe; beside the fire layer, smoke plumes can sometimes be seen in the same frame — context imagery, clearly labeled as imagery, under the sourced points.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage is the GOES-East disc: the Americas, the Atlantic, and the Caribbean, from one satellite&#x27;s vantage — the Pacific, Asia, Europe, and Africa are outside this frame, and the layer claims nothing there. Resolution is the published GeoColor frame&#x27;s; reprojection onto the globe resamples it, so fine cloud detail softens, especially near the disc&#x27;s edge where the satellite&#x27;s view grazes. GeoColor is a composite that reads like a photograph; at night the product is not a true visible-light picture, and this layer&#x27;s handling of the dark side (transparency for near-black pixels) is a display choice, stated openly. The layer is imagery for awareness — forecasts, warnings, and measurements live in the network&#x27;s other layers and at NOAA.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="clouds.pdf">PDF</a> · <a href="clouds.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
