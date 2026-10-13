@@ -481,5 +481,12 @@
   "timestamp": "2026-10-13 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-13 02:16 UTC\nUSGS:\n\u2022 M6.1 \u2014 17 km W of R\u00edo Grande, Panama \ud83d\udccd 7.69\u00b0N, 81.49\u00b0W\n\u2022 M5.5 \u2014 122 km W of Neiafu, Tonga \ud83d\udccd 18.72\u00b0S, 175.15\u00b0W\n\u2022 M5.4 \u2014 Mid-Indian Ridge \ud83d\udccd 8.87\u00b0S, 67.39\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-12 (location-specific, \ud83d\udccd 7.69\u00b0N, 81.49\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WSBTV @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261013-0216.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-13 03:16 UTC",
+  "text": "STORMS \u2014 2026-10-13 03:16 UTC\nNOAA NHC:\n\u2022 Simon (HU, 85 kt) \u2014 20.4\u00b0N, 107.0\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-12 (location-specific, \ud83d\udccd 20.40, -107.00).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @TeamRubicon",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261013-0316.png"
  }
 ]
