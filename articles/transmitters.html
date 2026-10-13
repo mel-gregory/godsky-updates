@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transmitters: NOAA Weather Radio, Town by Town — Orbital Network</title>
+<meta name="description" content="Transmitters: NOAA Weather Radio, Town by Town — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Transmitters: NOAA Weather Radio, Town by Town</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Transmitters, a public-warning geography layer for Orbital Network, and sets out its use cases. The layer plots the places of NOAA Weather Radio — the National Weather Service&#x27;s voice network that broadcasts watches, warnings, and emergency information around the clock — from the Weather Service&#x27;s own transmitter directory. The directory ships with the page as a snapshot file and is read only when the layer is tapped. Transmitters that share a town share one dot, and the dot&#x27;s card names every transmitter there by callsign and frequency. Every surface of the layer repeats its central fact: the coordinates are town-level — the place, not the exact tower. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>The NWS transmitter directory, plotted at town level.</strong> The snapshot bundled with the page was built from the National Weather Service&#x27;s transmitter directory (published through api.weather.gov&#x27;s radio service) and holds 1,027 transmitter records; the towns of 937 of them could be geocoded, and those are what plot — the remaining places, whose towns could not be resolved to coordinates, do not appear and are not placed by guesswork. Records are grouped by their coordinates, so a town with three transmitters shows one dot whose card lists all three: callsign, frequency in MHz, and the network name, with the town and state. The source line on every card reads &quot;NOAA Weather Radio · National Weather Service (api.weather.gov/radio) · Locations are town-level.&quot; The layer holds up to a thousand dots.</p>
+<p><strong>A snapshot, called a snapshot.</strong> Unlike the network&#x27;s feed layers, this one does not re-read its source when tapped: the directory rides with the page and is fetched from the page&#x27;s own files at first tap, so the landing globe pays nothing for it and the layer works at the speed of a local file. The cost of that design is freshness of a different kind — the directory changes when the site republishes its snapshot, not when the Weather Service edits a record — and this document and the layer&#x27;s design state that trade openly rather than letting a bundled file wear a live feed&#x27;s clothes.</p>
+<p><strong>Provenance rules.</strong> Every dot is bound to named transmitter records from the Weather Service&#x27;s directory, reproduced on the card by callsign and frequency. No transmitter is plotted without a directory record and a geocoded town; no tower coordinate is ever synthesized from a town&#x27;s.</p>
+<h2>Use cases</h2>
+<p><strong>Weather-radio owners.</strong> Programming a receiver starts with knowing which transmitters serve a town: the card&#x27;s frequencies and callsigns are exactly the facts a new owner needs, organized by the place they live in rather than by a tower they will never visit.</p>
+<p><strong>Emergency preparedness.</strong> NOAA Weather Radio is the alerting channel that works when phones and power fail; seeing its town-level footprint — including the gaps between towns — is preparedness geography a household can act on, by siting a receiver and testing which transmitters it hears.</p>
+<p><strong>Travelers and newcomers.</strong> Arriving in tornado or hurricane country, a visitor can learn which Weather Radio transmitters cover the town they are sleeping in, from the Weather Service&#x27;s own directory.</p>
+<p><strong>Journalists.</strong> During severe weather, &quot;the transmitter serving this county, on this frequency&quot; is checkable background from the primary directory — with the town-level caveat intact when it is cited.</p>
+<p><strong>Educators.</strong> A national warning infrastructure made visible: a thousand transmitters, town by town, each with a voice frequency — and a clean lesson in the difference between a place-level directory and an engineering map.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage is the NOAA Weather Radio network: the United States and its territories. Locations are town-level by design and by labeling — the dot marks the community a transmitter serves, and the actual tower may stand miles from it, typically on high ground outside town; never navigate to a dot expecting a tower. Frequencies and callsigns are as the directory snapshot carries them; the Weather Service adds, moves, and retires transmitters, and the snapshot follows on the site&#x27;s republication cycle, not in real time. The 84 directory places that could not be geocoded are absent, so a missing town means an unresolved place name, not a missing transmitter. The layer shows where warnings are broadcast from, town by town — reception at any given house depends on terrain and the receiver, and only a listening test settles it.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="transmitters.pdf">PDF</a> · <a href="transmitters.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
