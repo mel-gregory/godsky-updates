@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crowds &amp; Gatherings: Protest and Gathering Signals from the World&#x27;s News — Orbital Network</title>
+<meta name="description" content="Crowds &amp; Gatherings: Protest and Gathering Signals from the World&#x27;s News — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Crowds &amp; Gatherings: Protest and Gathering Signals from the World&#x27;s News</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Crowds &amp; Gatherings, a public-events layer for Orbital Network, and sets out its use cases. The layer plots gathering signals from GDELT, the Global Database of Events, Language, and Tone, which monitors the world&#x27;s news media and codes reported events to the places they name. When news coverage reports a protest, demonstration, or rally at a place, GDELT&#x27;s geographic feed carries a point for it, and this layer plots those points from the last 24 hours on the network&#x27;s real-time globe. Consistent with the network&#x27;s data-provenance rules, every card names its source and describes the point as what it is — a news-reported event location — never as a measured crowd. Scheduled-event listings that require their own keys are named in the layer&#x27;s status line rather than filled in from other data. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>GDELT gathering signals.</strong> When the layer is switched on, the page queries GDELT&#x27;s open GEO API for items matching &quot;protest OR demonstration OR rally&quot; in point-data form over a 24-hour timespan, and plots up to 120 of the returned points at the coordinates GDELT itself attached to them. A marker&#x27;s title is the place name from the feed; its card states how many times the event was reported in the last 24 hours, as coded by GDELT, and the source line reads &quot;GDELT GEO · protests &amp; gatherings, last 24h.&quot; Only signals that arrive carrying real coordinates are plotted — a report whose location GDELT could not place never becomes a guessed pin.</p>
+<p><strong>What a signal means, and does not.</strong> A point means news media reported a gathering at that place within the last day. It is not a headcount, not a crowd-size estimate, and not confirmation that a gathering is still underway; the layer measures media reporting about gatherings, and says so. Scheduled future events are a different kind of data: Eventbrite and Ticketmaster listings require each user to bring a free API key, which a static page cannot hold on a visitor&#x27;s behalf, so they are named in the status line as &quot;free key needed, not plotted.&quot;</p>
+<p><strong>Provenance rules.</strong> Every point is bound to the GDELT record behind it, with the 24-hour reporting window stated on the card. If the feed cannot be reached, the layer reports that and plots nothing.</p>
+<h2>Use cases</h2>
+<p><strong>Journalists.</strong> A same-day world map of where demonstrations are being reported — a starting point for assignment decisions, with each point traceable to the news-coded record that produced it.</p>
+<p><strong>Travelers and families.</strong> Before a trip or a downtown visit, a check of whether large gatherings are being reported near the destination — context for planning a route or a day, drawn from published reporting rather than rumor.</p>
+<p><strong>Researchers and students of public life.</strong> A qualitative sense of where protest activity is being reported on a given day, suitable for forming questions — and a clear example of media-derived data, whose strengths and biases can be discussed openly.</p>
+<p><strong>Event-aware businesses and venues.</strong> Awareness that a gathering is being reported nearby today, in time to plan staffing, deliveries, and access around it.</p>
+<p><strong>The general public.</strong> A calmer way to learn &quot;something is happening in my city&quot; — a sourced signal on a map, with the reporting count visible, instead of an unsourced claim moving through a feed.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage follows the world&#x27;s news media, not the world&#x27;s gatherings: places with heavy press coverage produce more signals, and gatherings that no outlet reports do not appear at all. GDELT&#x27;s coding is automated — it reads news text and attaches places — so a point can reflect a planned, past, or mis-geocoded event; the card&#x27;s wording (&quot;reported ... by GDELT-coded news&quot;) is the honest description, and the layer never upgrades a signal into a verified crowd. The 24-hour window is the feed&#x27;s own; tapping the layer off and on re-reads it. Nothing in the layer identifies individuals, and no scheduled-event data is shown without its key.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="crowds.pdf">PDF</a> · <a href="crowds.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
