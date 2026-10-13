@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roads &amp; Bridges: Mapped Bridges and Disaster-Impact Alerts Near Where You Look — Orbital Network</title>
+<meta name="description" content="Roads &amp; Bridges: Mapped Bridges and Disaster-Impact Alerts Near Where You Look — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Roads &amp; Bridges: Mapped Bridges and Disaster-Impact Alerts Near Where You Look</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Roads &amp; Bridges, an infrastructure layer for Orbital Network, and sets out its use cases. The layer answers two questions about the place the visitor is looking at: what bridges are mapped there, and what severe-weather disaster-impact alerts are active there. Bridges come from OpenStreetMap&#x27;s volunteer-mapped road network, read around the globe&#x27;s current center; alerts come live from the National Weather Service&#x27;s active-alerts service, plotted at the centers of their warning polygons. The layer is equally explicit about the famous dataset it does not show: bridge condition ratings live in the National Bridge Inventory, a bulk federal file rather than a live point feed, and are named as such instead of being attached to bridges the file never geocoded for this page. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>Mapped bridges around the view.</strong> When the layer is switched on, the page asks the OpenStreetMap Overpass service for ways tagged as bridges within 300 kilometres of the globe&#x27;s current center (up to 90 in the read) and plots each at its mapped center. A marker&#x27;s title is the bridge&#x27;s mapped name, or simply &quot;Bridge&quot; where the map carries none; its card says what road it carries where OpenStreetMap records one, and that it is a mapped bridge near the globe&#x27;s current center. The source line credits OpenStreetMap bridge mapping and notes the National Bridge Inventory&#x27;s bulk-file status.</p>
+<p><strong>Active NWS alerts.</strong> In the same read, the page takes the National Weather Service&#x27;s currently active alerts and updates — the live national list, capped at the service&#x27;s first hundred — and plots each alert that carries a polygon at that polygon&#x27;s center point. The card names the event (a flood warning, a tornado watch, and so on), the area description, and the severity where the alert carries one, under the source line &quot;NOAA / National Weather Service active alerts · live.&quot; Together the layer holds up to 150 points. Spinning the globe and re-tapping reloads both halves for the new view.</p>
+<p><strong>What the markers do not claim.</strong> A bridge marker claims a bridge exists there in the map — nothing about its condition, load rating, age, or safety, because the page does not hold that data and says so. An alert marker sits at the center of a warning polygon; the warned area is the polygon, which can be far larger than the marker&#x27;s neighborhood, and the card&#x27;s area description is the authority, not the dot.</p>
+<p><strong>Provenance rules.</strong> Every point names its source — OpenStreetMap mapping or the National Weather Service — on its card. If both services are unreachable, the layer reports that and plots nothing; if one answers, its half still plots.</p>
+<h2>Use cases</h2>
+<p><strong>Travelers and road-trippers.</strong> Crossing a region means crossing its bridges; seeing them mapped around the route — and seeing an active flood or storm alert plotted in the same view — is trip context from named sources.</p>
+<p><strong>Local journalists.</strong> During a storm, the pairing is the story&#x27;s skeleton: the warning in force, and the crossings inside it. Each half cites its own source — the Weather Service for the alert, the map for the bridge.</p>
+<p><strong>Emergency managers (awareness).</strong> A quick orientation view: warned polygons&#x27; centers against the mapped crossing points near them, before turning to operational systems for the full polygons and road status.</p>
+<p><strong>Infrastructure watchers and civic technologists.</strong> An honest demonstration of what open data does and does not carry: the world&#x27;s volunteers have mapped where the bridges are; the federal condition file exists but ships as a bulk download, and this page says so instead of faking a join it has not done.</p>
+<p><strong>Educators.</strong> A two-source layer is a clean lesson in data provenance — one point from a crowd-mapped database, one from a federal live service, each labeled, neither pretending to be the other.</p>
+<h2>Coverage and limitations</h2>
+<p>Bridge coverage is OpenStreetMap&#x27;s coverage: superb in much of Europe and North America, patchier elsewhere, and the 300-kilometre read around the current view means the layer is always local to where the visitor is looking — spin and re-tap to move it. Alert coverage is the National Weather Service&#x27;s: the United States and its territories, and only alerts carrying polygons plot as points. The hundred-alert read can truncate the list on a major outbreak day. Nothing in the layer reports bridge condition, closures, or inspections; for those, state DOTs and the National Bridge Inventory itself are the sources, and the layer names the Inventory rather than impersonating it.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="infrastructure.pdf">PDF</a> · <a href="infrastructure.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
