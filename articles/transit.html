@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mass Transit: Live Vehicle Positions from Open Agency Feeds — Orbital Network</title>
+<meta name="description" content="Mass Transit: Live Vehicle Positions from Open Agency Feeds — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Mass Transit: Live Vehicle Positions from Open Agency Feeds</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Mass Transit, a public-transport layer for Orbital Network, and sets out its use cases. The layer plots live vehicle positions published openly by a transit agency — today, the Massachusetts Bay Transportation Authority (MBTA), whose public API streams the positions of Boston-area buses, trains, and ferries without a key. Each marker is a vehicle the agency is reporting right now, carrying its route, its status, its direction, and its speed where the feed provides them. Consistent with the network&#x27;s data-provenance rules, every card names the publishing agency, and the many transit feeds that require a free developer key — most GTFS Realtime feeds worldwide, WMATA included — are named in the layer&#x27;s status line rather than simulated. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>MBTA vehicle positions.</strong> When the layer is switched on, the page reads the MBTA&#x27;s public vehicles API and plots up to 170 vehicles at the latitude and longitude the agency reports for each. A marker&#x27;s title names the route — the Red Line, a numbered bus route — and its card shows what the feed says about that vehicle: its current status (for example, stopped at a station or in transit), its direction, and its speed converted to miles per hour where the agency reports one. The source line reads &quot;MBTA live vehicle positions · GTFS-family agency feed.&quot; The positions are the agency&#x27;s own reports, drawn as they arrive; the page adds nothing to them.</p>
+<p><strong>What is deliberately absent.</strong> Most of the world&#x27;s realtime transit data flows through GTFS Realtime feeds that require a free developer key issued to an individual — WMATA&#x27;s included. A static web page cannot hold such a key for a visitor, so those systems are not plotted; the status line names them as &quot;free developer key needed, not plotted.&quot; Nothing about their absence is filled in with estimates or schedules dressed as live positions.</p>
+<p><strong>Provenance rules.</strong> Every marker is bound to the agency feed behind it, named on the card. If the feed cannot be reached, the layer reports that and plots nothing — a vehicle never appears where the agency did not just say it is.</p>
+<h2>Use cases</h2>
+<p><strong>Boston-area riders.</strong> A system-level picture — where the fleet actually is this minute — that complements a stop-level arrival app: bunching, gaps, and a stalled line read at a glance.</p>
+<p><strong>Families.</strong> A parent can show a child &quot;your train, right now, on the planet&quot; — a real vehicle, on a real route, reported by the agency itself. It turns an abstract network into something a kid can watch move.</p>
+<p><strong>Transit advocates and planners (awareness).</strong> A public window onto operations as published: how much of the fleet is out, where it clusters. The layer is a view, not an operations console, and presents the feed as the agency publishes it, errors and all.</p>
+<p><strong>Journalists.</strong> During a disruption, the difference between &quot;the agency says service is suspended&quot; and &quot;here is where its vehicles actually are&quot; is visible and citable to the agency&#x27;s own feed.</p>
+<p><strong>Educators.</strong> A working example of GTFS-family open data — the standard feeds agencies publish — and of why some systems can appear on a page like this keylessly while others, by their key terms, cannot.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage today is the MBTA service area — greater Boston — because the MBTA is the agency whose realtime positions the page can read openly without a credential. The layer claims no other city. Positions refresh when the layer is re-tapped (a fresh read is used for four minutes), so the picture is as current as the last tap, not a continuous dispatch display; speeds and statuses appear only where the agency&#x27;s feed reports them, and a vehicle whose transponder is silent simply has no marker. For catching an actual train, the agency&#x27;s own arrival predictions remain the right tool — this layer shows the fleet, not countdowns.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="transit.pdf">PDF</a> · <a href="transit.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
