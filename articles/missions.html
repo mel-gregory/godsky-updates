@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Missions: Recent and Upcoming Launches at Their Pads — Orbital Network</title>
+<meta name="description" content="Space Missions: Recent and Upcoming Launches at Their Pads — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Space Missions: Recent and Upcoming Launches at Their Pads</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Space Missions, a launch-catalog layer for Orbital Network, and sets out its use cases. The layer plots recent and upcoming rocket launches at their launch pads, from Launch Library 2, the community-maintained launch database operated by The Space Devs. Each marker carries what the database publishes for that launch: the mission, the rocket, the date — labeled NET for upcoming launches, because a NET (&quot;No Earlier Than&quot;) date is a target, not a promise — its status, and its place. Consistent with the network&#x27;s data-provenance rules, every card names Launch Library 2 as its source, and the layer&#x27;s status line repeats the database&#x27;s own caution: launches slip. The layer is live as of October 2026.</p>
+<h2>What the layer shows</h2>
+<p><strong>Launches at their pads.</strong> When the layer is switched on, the page reads Launch Library 2&#x27;s previous-launches and upcoming-launches lists (fourteen of each) and plots every launch whose pad carries coordinates — up to 160 markers — at the pad itself, not the agency&#x27;s headquarters or the mission&#x27;s destination. A marker&#x27;s title is the launch&#x27;s name as the database carries it; its card adds the rocket configuration, the date (with &quot;NET&quot; prefixed for upcoming launches), the published status abbreviation, and the pad&#x27;s location name. The source line reads &quot;Launch Library 2 · The Space Devs.&quot;</p>
+<p><strong>Targets versus history.</strong> The two halves of the layer are different kinds of fact and are worded differently. A previous launch&#x27;s date is history as the database records it. An upcoming launch&#x27;s NET date is the earliest the provider currently targets; weather, range, and hardware move these dates constantly, and the layer repeats the caveat in its own status line (&quot;NET dates are published targets — launches slip&quot;) rather than letting a plotted date read as a commitment. Statuses come from the database as published; the layer adds no countdown, no probability, and no telemetry.</p>
+<p><strong>Provenance rules.</strong> Every marker is bound to a Launch Library 2 record, named on the card. Launches without pad coordinates are not placed at guessed locations. If the database cannot be reached, the layer reports that and plots nothing.</p>
+<h2>Use cases</h2>
+<p><strong>Space-coast communities and viewing families.</strong> Which pad, which rocket, NET when — the starting facts for planning a trip to watch a launch, held with the honest warning that the date can move, because with launches it so often does.</p>
+<p><strong>Educators.</strong> A globe of working spaceports — Florida, Virginia, California, Kazakhstan, French Guiana, New Zealand, and more — with the year&#x27;s cadence visible in one view: who launches, from where, how often.</p>
+<p><strong>Journalists.</strong> A dated, sourced skeleton for launch coverage — mission, vehicle, pad, status — citable to the database the whole community maintains, with NET language intact for anything not yet flown.</p>
+<p><strong>Space enthusiasts.</strong> Recent history and the near future on one globe: the last fortnight&#x27;s launches beside the next fortnight&#x27;s targets, a cadence picture no single agency&#x27;s page assembles.</p>
+<p><strong>Travelers.</strong> A launch near a planned trip is a genuine possibility worth knowing about — at NET value, which is to say with a flexible plan.</p>
+<h2>Coverage and limitations</h2>
+<p>Coverage is Launch Library 2&#x27;s coverage: comprehensive for orbital launches worldwide and for the suborbital flights the database tracks, dependent on its volunteer-maintained records being current. Only launches with pad coordinates plot. NET dates are targets as of the read; the layer refreshes when re-tapped, so a slip announced an hour ago appears on the next read, not retroactively. Nothing here is a launch provider&#x27;s official manifest — providers and ranges remain authoritative — and the layer tracks no flight in progress.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="missions.pdf">PDF</a> · <a href="missions.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
