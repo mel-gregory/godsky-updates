@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sea State: Measured Ocean Conditions for the Naval Community and the Coastal Public — Orbital Network</title>
+<meta name="description" content="Sea State: Measured Ocean Conditions for the Naval Community and the Coastal Public — an Orbital Network layer article by Melbourne Gregory.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: #0a0e1a; color: #e8ecf4; line-height: 1.65; }
+  header { background: linear-gradient(135deg, #0a0e1a 0%, #1a2340 100%);
+           padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+           border-bottom: 1px solid #2a3a5c; }
+  header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 .sky { color: #6db3f2; }
+  header p { color: #9aa8c3; margin-top: 0.5rem; font-size: 0.95rem; }
+  header a.nav { color: #6db3f2; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  article h1 { font-size: 1.7rem; line-height: 1.3; margin-bottom: 1rem; }
+  article h2 { font-size: 1.2rem; color: #6db3f2; margin: 1.75rem 0 0.6rem; }
+  article p { margin-bottom: 1rem; font-size: 1rem; }
+  .formats { margin: 1.5rem 0; padding: 1rem 1.25rem; background: #121a2e;
+             border: 1px solid #22304d; border-radius: 12px; font-size: 0.92rem; }
+  .formats a { color: #6db3f2; }
+  .entry { background: #121a2e; border: 1px solid #22304d; border-radius: 12px;
+           padding: 1.1rem 1.4rem; margin-bottom: 1rem; }
+  .entry h2 { font-size: 1.08rem; margin-bottom: 0.4rem; }
+  .entry h2 a { color: #e8ecf4; text-decoration: none; }
+  .entry h2 a:hover { color: #6db3f2; }
+  .entry .meta { color: #7a8aa5; font-size: 0.85rem; }
+  .entry .meta a { color: #6db3f2; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; }
+  footer a { color: #6db3f2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Orbital Network <span class="sky">— Layer Articles</span></h1>
+  <p><a class="nav" href="index.html">All layer articles</a> · <a class="nav" href="../index.html">Live updates</a> · <a class="nav" href="https://godsky.net">godsky.net</a></p>
+</header>
+<main>
+<article>
+<h1>Sea State: Measured Ocean Conditions for the Naval Community and the Coastal Public</h1>
+<p><strong>Melbourne Gregory</strong> <em>Orbital Network</em></p>
+<p>Version 1.0 — October 13, 2026</p>
+<h2>Abstract</h2>
+<p>This document describes Sea State, an ocean-conditions layer for Orbital Network, and sets out its use cases. Sea State plots live measurements from named public instruments — the moored buoy network of the NOAA National Data Buoy Center (NDBC) and the tide and current stations of the NOAA Center for Operational Oceanographic Products and Services (CO-OPS) — on the network&#x27;s real-time globe. Every reading is a measurement from a named instrument at a stated time: wave height, wave period and direction, water temperature, wind, and barometric pressure from buoys; water level, tides, and currents from coastal stations. Consistent with the network&#x27;s data-provenance rules, each card names its source and timestamp, data older than six hours is labeled outdated, and where no verified measurement exists, nothing is displayed. The layer is in development as of October 2026; this document records its design and intended uses ahead of release.</p>
+<h2>What the layer measures</h2>
+<p><strong>Buoys (NDBC).</strong> A network of moored buoys and coastal stations reports hourly or better: significant wave height, dominant and average wave period, mean wave direction, water temperature, wind speed and direction, and sea-level pressure. Tapping a buoy marker opens a card with the station&#x27;s latest measured values, its name and identifier, and the observation time in UTC.</p>
+<p><strong>Tides and currents (CO-OPS).</strong> Coastal stations report measured water levels and currents. Readings are shown as measured values with station name and timestamp; tide predictions, where shown, are labeled as predictions and never presented as measurements.</p>
+<p><strong>Provenance rules.</strong> Sea State follows the same four rules as every Orbital Network layer: (1) every reading is bound to a named public source; (2) every reading carries its observation timestamp; (3) data older than six hours is labeled outdated; (4) the system fails closed — an unreachable feed or a silent instrument plots nothing rather than an estimate.</p>
+<h2>Use cases</h2>
+<p><strong>Mariners and boaters.</strong> Pre-departure go/no-go decisions from the nearest buoy&#x27;s measured wave height and period; fishing and dive planning from water temperature and swell direction; inlet and bar awareness from tide and current timing at nearby stations.</p>
+<p><strong>The naval community.</strong> Harbor and nearshore units can check measured conditions — not only forecasts — before small-boat and training operations. Port arrival planning benefits from measured water levels and currents around tide windows.</p>
+<p><strong>Families of sailors.</strong> Sea State gives families a factual picture of the waters where a sailor is operating: measured wave height and water temperature off a named port or coastline, with a source and a time. It carries no vessel positions and no unit information.</p>
+<p><strong>The coastal public.</strong> Beach safety decisions informed by measured surf height and period, which drive rip-current risk; storm verification, as measured wave heights at named buoys provide ground truth during hurricanes and nor&#x27;easters; and early awareness of coastal flooding from measured water levels above predicted tides.</p>
+<p><strong>Professional users.</strong> Emergency managers gain timestamped, sourced measurements of surge and wave action for situation reports. Journalists gain citable facts (&quot;buoy 41001 is recording 6-meter seas&quot;) rather than model estimates. Educators can show a storm&#x27;s wave field evolving instrument by instrument.</p>
+<h2>Coverage and limitations</h2>
+<p>Buoy coverage is densest along the coasts of North America and Europe and thinnest in the open Pacific and the Southern Ocean; the layer&#x27;s coverage is correspondingly uneven, and the map shows that honestly — instruments appear where instruments exist. Instruments also fail, drift, and go silent for maintenance; the fail-closed rule means such stations simply disappear until they report again. Sea State is an awareness product. It is not a navigation product and does not replace official charts, forecasts, or notices to mariners, which remain authoritative for safety of navigation.</p>
+<h2>Roadmap</h2>
+<p>Sea State is the first phase of a broader maritime program for Orbital Network. Later phases, in planned order, are: live civilian vessel traffic from public AIS sources, under the same provenance rules; maritime safety alerts, including piracy and security reporting; a shore-side port picture — because no single authoritative port-status source exists, Orbital Network will build that aggregation itself over time from port authorities and Coast Guard sources; and a family layer that packages measured conditions for named ports and operating areas in plain language.</p>
+<h2>Disclosure</h2>
+<p><em>Manuscript prepared with AI drafting assistance; all content was reviewed and approved by the author, who takes full responsibility for it.</em></p>
+<p><em>The Orbital Network system described in this document operates at https://godsky.net. The white paper &quot;Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness&quot; (Zenodo, DOI 10.5281/zenodo.23328433) describes the parent system.</em></p>
+</article>
+<div class="formats">
+  This article in other formats: <a href="sea-state.pdf">PDF</a> · <a href="sea-state.md">Markdown</a><br>
+  Zenodo DOI: pending deposit.<br>
+  Parent system: “Orbital Network: A Live Broadcast System for Real-Time Planetary Awareness” — Zenodo, DOI 10.5281/zenodo.23328433.
+</div>
+</main>
+<footer>
+  <p>Orbital Network · <a href="https://godsky.net">godsky.net</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #5a6a85;">Info only — not medical, legal, or emergency advice. In an emergency, call 911.</p>
+</footer>
+</body>
+</html>
