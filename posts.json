@@ -691,5 +691,12 @@
   "timestamp": "2026-10-14 08:16 UTC",
   "text": "FIRST RESPONDERS \u2014 2026-10-14 08:16 UTC\nLive FEMA declarations:\n\u2022 Tropical Storm \u2014 FL (2026-10-09)\n\u2022 Hurricane \u2014 AL (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-13 (location-specific, \ud83d\udccd 27.80\u00b0N, 81.70\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@KHOU @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261014-0816.png"
+ },
+ {
+  "layer": "CLOUDS",
+  "layerKey": "clouds",
+  "timestamp": "2026-10-14 09:16 UTC",
+  "text": "CLOUDS \u2014 2026-10-14 09:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Special Weather Statement \u2014 Custer; Blaine; Kingfisher; Caddo; Canadian\n\u2022 Flood Advisory \u2014 Beckham, OK; Blaine, OK; Custer, OK; Roger Mills, \n\u2022 Dense Fog Advisory \u2014 Mississippi Sound\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-13 (location-specific, \ud83d\udccd 35.67\u00b0N, 98.43\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @NWS @WSBTV @WABE",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261014-0916.png"
  }
 ]
