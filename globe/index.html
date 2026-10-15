@@ -2180,6 +2180,11 @@ body:has(#markPop:not([hidden])) #abReel{opacity:0;pointer-events:none}
 #abReel .abr-open{flex:0 0 auto;font-size:9.5px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.55)}
 @media(prefers-reduced-motion:reduce){#abReel .abr-dot{animation:none}#abReel .abr-wrap{transition:none}}
 @media(max-width:700px),(max-height:500px){
+ /* one board, two states (Mel, 2026-10-15): while the reel is up
+    it IS the board's collapsed face — the board's own bar steps
+    aside so the board never appears twice on one screen. When the
+    board opens (or the reel has nothing yet), the bar returns. */
+ body:has(#abReel:not([hidden])) #agentBoard.ab-collapsed{display:none}
  /* the name and the line move off to the side (Mel, 2026-10-15):
     bottom-left, above the reel — a broadcast bug, not a banner
     across the planet. While the board is open the title steps
