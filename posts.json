@@ -873,5 +873,12 @@
   "timestamp": "2026-10-15 11:16 UTC",
   "text": "FIRES \u2014 2026-10-15 11:16 UTC\nNASA EONET:\n\u2022 Wildfire Buckhorn 2, Cassia, Idaho (2026-10-10) \ud83d\udccd 42.34\u00b0N, 114.10\u00b0W\n\u2022 Wildfire PK, Sheridan, Wyoming (2026-10-09) \ud83d\udccd 44.75\u00b0N, 107.22\u00b0W\n\u2022 Wildfire CYRUS, Kern, California (2026-10-09) \ud83d\udccd 35.70\u00b0N, 118.42\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-14 (location-specific, \ud83d\udccd 42.34\u00b0N, 114.10\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NASA @NOAA @KTLA @KPCC @TeamRubicon",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261015-1116.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-15 12:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-15 12:16 UTC\nUSGS:\n\u2022 M5.6 \u2014 43 km NNW of Lake Minchumina, Alaska \ud83d\udccd 64.22\u00b0N, 152.75\u00b0W\n\u2022 M5.3 \u2014 43 km SSE of Otorohanga, New Zealand \ud83d\udccd 38.55\u00b0S, 175.38\u00b0E\n\u2022 M5.1 \u2014 36 km E of Safotu, Samoa \ud83d\udccd 13.41\u00b0S, 172.07\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-14 (location-specific, \ud83d\udccd 64.22\u00b0N, 152.75\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261015-1216.png"
  }
 ]
