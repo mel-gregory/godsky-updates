@@ -2167,9 +2167,9 @@ body:has(#layerPanel:not([hidden])) #agentBoard{display:none!important}
    carries the newest board message, crossfading back through
    the last few; a tap opens the full board. Fail-closed like
    the board itself: no messages, no reel. */
-#abReel{position:fixed;left:12px;right:12px;bottom:calc(var(--dock-h) + var(--don-h) + 10px);z-index:66;display:flex;align-items:center;gap:8px;background:rgba(6,9,14,.55);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;color:#eef2f6;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);box-shadow:0 10px 26px rgba(0,0,0,.4);text-align:left}
+#abReel{position:fixed;left:12px;right:12px;bottom:calc(var(--dock-h) + var(--don-h) + 58px);z-index:66;display:flex;align-items:center;gap:8px;background:rgba(6,9,14,.55);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;color:#eef2f6;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);box-shadow:0 10px 26px rgba(0,0,0,.4);text-align:left}
 #abReel[hidden]{display:none}
-@media(min-width:701px){#abReel{display:none!important}}
+@media(min-width:701px) and (min-height:501px){#abReel{display:none!important}}
 body.layers-open #abReel{display:none!important}
 body:has(#markPop:not([hidden])) #abReel{opacity:0;pointer-events:none}
 #abReel .abr-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:0;transition:opacity .45s ease}
@@ -2179,12 +2179,13 @@ body:has(#markPop:not([hidden])) #abReel{opacity:0;pointer-events:none}
 #abReel .abr-text{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(238,242,246,.92)}
 #abReel .abr-open{flex:0 0 auto;font-size:9.5px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.55)}
 @media(prefers-reduced-motion:reduce){#abReel .abr-dot{animation:none}#abReel .abr-wrap{transition:none}}
-@media(max-width:700px){
+@media(max-width:700px),(max-height:500px){
  /* the name and the line move off to the side (Mel, 2026-10-15):
     bottom-left, above the reel — a broadcast bug, not a banner
     across the planet. While the board is open the title steps
-    aside entirely; the conversation has the floor. */
- #missionLine{top:auto;bottom:calc(var(--dock-h) + var(--don-h) + 58px);left:12px;right:auto;transform:none;width:min(64vw,320px);text-align:left;transition:opacity .4s ease}
+    aside entirely; the conversation has the floor. The reel sits
+    in the 58px slot; the title rides one reel-height above it. */
+ #missionLine{top:auto;bottom:calc(var(--dock-h) + var(--don-h) + 104px);left:12px;right:auto;transform:none;width:min(64vw,320px);text-align:left;transition:opacity .4s ease}
  #missionLine .network-name{margin-bottom:6px}
  body:has(#agentBoard:not(.ab-collapsed)) #missionLine{opacity:0;pointer-events:none}
 }
