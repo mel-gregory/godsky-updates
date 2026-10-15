@@ -894,5 +894,12 @@
   "timestamp": "2026-10-15 14:16 UTC",
   "text": "STORMS \u2014 2026-10-15 14:16 UTC\nNOAA NHC:\n\u2022 Trudy (HU, 65 kt) \u2014 12.9\u00b0N, 101.6\u00b0W\n\u2022 Simon (TS, 50 kt) \u2014 19.2\u00b0N, 108.5\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-14 (location-specific, \ud83d\udccd 12.90, -101.60).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @KHOU @WABE @SamaritansPurse",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261015-1416.png"
+ },
+ {
+  "layer": "VOLCANOES",
+  "layerKey": "volcanoes",
+  "timestamp": "2026-10-15 15:16 UTC",
+  "text": "VOLCANOES \u2014 2026-10-15 15:16 UTC\nNASA EONET:\n\u2022 Nevados del Chillan Volcano, Chile (2026-06-15) \ud83d\udccd 36.87\u00b0S, 71.38\u00b0W\n\u2022 Telica Volcano, Nicaragua (2026-05-30) \ud83d\udccd 12.61\u00b0N, 86.84\u00b0W\n\u2022 Ivao Group Volcano, Russia (2026-05-29) \ud83d\udccd 45.76\u00b0N, 149.68\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-14 (location-specific, \ud83d\udccd 36.87\u00b0S, 71.38\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WSBTV @WABE @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-volcanoes-20261015-1516.png"
  }
 ]
