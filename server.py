@@ -180,17 +180,50 @@ def _render_digest(day_str):
 
 
 # ---------------------------------------------------------- /cameras
-# Public traffic cameras for the globe's CCTV layer. Caltrans (the
-# California Department of Transportation) publishes every district's
-# camera directory as open JSON — no key — with each camera's
-# location and its public snapshot image URL. The 12 district files
-# are fetched server-side, normalized to one compact list, and
-# cached for 5 minutes; the snapshots themselves are served by
-# Caltrans and refresh in place about every minute.
+# Public traffic cameras for the globe's CCTV layer and the landing
+# camera loop. Every source is an official transport authority
+# publishing its camera directory openly, with no API key:
+# Caltrans (California), Minnesota DOT, Colorado DOT, DriveBC,
+# Fintraffic (Finland), TfL (London), the Hong Kong Transport
+# Department, DGT (Spain), NZTA (New Zealand), Vegagerðin
+# (Iceland), and LTA via data.gov.sg (Singapore). Each feed is
+# fetched server-side, normalized to one compact list labeled by
+# operator, and cached for 5 minutes; the snapshots themselves are
+# served by the operators and refresh in place. A feed that fails
+# simply drops out of that cycle's list — the rest still serve.
 CAMERAS_CACHE_TTL = 300
 _cameras_cache = {}
 _cameras_lock = threading.Lock()
 CALTRANS_DISTRICTS = range(1, 13)
+
+
+def _http_bytes(url, timeout=30):
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "orbital-cctv-layer",
+                      "Accept-Encoding": "gzip"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        raw = resp.read()
+        if resp.headers.get("Content-Encoding") == "gzip":
+            raw = gzip.decompress(raw)
+    return raw
+
+
+def _http_json(url, timeout=30):
+    return json.loads(_http_bytes(url, timeout).decode("utf-8", "replace"))
+
+
+def _cam(n, p, r, la, lo, img, s):
+    try:
+        la, lo = float(la), float(lo)
+    except (TypeError, ValueError):
+        return None
+    if not img or not (-90 <= la <= 90 and -180 <= lo <= 180):
+        return None
+    if la == 0 and lo == 0:
+        return None
+    return {"n": str(n or "Traffic camera")[:120], "p": str(p or "")[:80],
+            "r": str(r or "")[:40], "la": round(la, 5), "lo": round(lo, 5),
+            "img": img, "s": s}
 
 
 def _caltrans_url(d):
@@ -223,8 +256,255 @@ def _parse_caltrans(doc):
             "la": round(lat, 5),
             "lo": round(lon, 5),
             "img": img,
+            "s": "caltrans",
         })
     return out
+
+
+def _src_caltrans():
+    import concurrent.futures
+
+    def one(d):
+        return _parse_caltrans(_http_json(_caltrans_url(d), timeout=25))
+
+    out = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        for batch in pool.map(lambda d: _safe(one, d), CALTRANS_DISTRICTS):
+            out.extend(batch or [])
+    return out
+
+
+def _src_finland():
+    doc = _http_json("https://tie.digitraffic.fi/api/weathercam/v1/stations",
+                     timeout=40)
+    out = []
+    for f in doc.get("features", []):
+        props = f.get("properties") or {}
+        coords = (f.get("geometry") or {}).get("coordinates") or []
+        if len(coords) < 2:
+            continue
+        img = ""
+        for preset in props.get("presets", []):
+            if preset.get("inCollection") and preset.get("id"):
+                img = ("https://weathercam.digitraffic.fi/"
+                       f"{preset['id']}.jpg")
+                break
+        cam = _cam(str(props.get("name") or "Road camera").replace("_", " "),
+                   "", "", coords[1], coords[0], img, "finland")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_tfl():
+    doc = _http_json("https://api.tfl.gov.uk/Place/Type/JamCam", timeout=40)
+    out = []
+    for place in doc if isinstance(doc, list) else []:
+        props = {p.get("key"): p.get("value")
+                 for p in place.get("additionalProperties", [])}
+        if props.get("available") == "false":
+            continue
+        cam = _cam(place.get("commonName"), "London", "",
+                   place.get("lat"), place.get("lon"),
+                   props.get("imageUrl") or "", "tfl")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_drivebc():
+    import csv
+    text = _http_bytes(
+        "https://catalogue.data.gov.bc.ca/dataset/"
+        "6b39a910-6c77-476f-ac96-7b4f18849b1c/resource/"
+        "a9d52d85-8402-4ce7-b2ac-a2779837c48a/download/webcams.csv",
+        timeout=40).decode("utf-8-sig", "replace")
+    out = []
+    for row in csv.DictReader(io.StringIO(text)):
+        img = row.get("links_imageURL") or ""
+        if not img and row.get("id"):
+            img = f"https://www.drivebc.ca/images/{row['id']}.jpg"
+        hwy = (row.get("highway_number") or "").strip()
+        cam = _cam(row.get("camName"), row.get("region_name"),
+                   f"Highway {hwy}" if hwy else "",
+                   row.get("latitude"), row.get("longitude"), img, "drivebc")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_hongkong():
+    import csv
+    text = _http_bytes(
+        "https://static.data.gov.hk/td/traffic-snapshot-images/code/"
+        "Traffic_Camera_Locations_En.csv", timeout=40).decode(
+            "utf-16", "replace").lstrip("\ufeff")
+    out = []
+    for row in csv.DictReader(io.StringIO(text), delimiter="\t"):
+        row = {(k or "").strip("\ufeff").strip().lower(): (v or "").strip()
+               for k, v in row.items()}
+        key = row.get("key")
+        if not key:
+            continue
+        cam = _cam(row.get("description"), row.get("district"),
+                   row.get("region"), row.get("latitude"),
+                   row.get("longitude"),
+                   row.get("url")
+                   or f"https://tdcctv.data.one.gov.hk/{key}.JPG", "hongkong")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_minnesota():
+    doc = _http_json("https://mntg.carsprogram.org/cameras_v1/api/cameras",
+                     timeout=40)
+    out = []
+    for entry in doc if isinstance(doc, list) else []:
+        loc = entry.get("location") or {}
+        img = ""
+        for view in entry.get("views", []):
+            if view.get("videoPreviewUrl"):
+                img = view["videoPreviewUrl"]
+                break
+        place = (loc.get("cityReference") or "").removeprefix("in ").strip()
+        cam = _cam(entry.get("name"), place, loc.get("routeId"),
+                   loc.get("latitude"), loc.get("longitude"), img, "minnesota")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_colorado():
+    doc = _http_json(
+        "https://api-511x-co.carsprogram.org/cameras/map-features",
+        timeout=40)
+    out = []
+    for f in doc.get("features", []):
+        props = f.get("properties") or {}
+        coords = (f.get("geometry") or {}).get("coordinates") or []
+        if len(coords) < 2:
+            continue
+        img = ""
+        for view in props.get("views", []):
+            if view.get("videoPreviewUrl") and not view.get("broken"):
+                img = view["videoPreviewUrl"]
+                break
+        loc = props.get("location") or {}
+        place = (loc.get("cityReference") or "").removeprefix("in ").strip()
+        cam = _cam(props.get("name"), place, props.get("route"),
+                   coords[1], coords[0], img, "colorado")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_nz():
+    doc = _http_json(
+        "https://trafficnz.info/service/traffic/rest/4/cameras/all",
+        timeout=40)
+    out = []
+    for entry in (doc.get("response") or {}).get("camera", []):
+        if entry.get("offline") or entry.get("underMaintenance"):
+            continue
+        img = entry.get("imageUrl") or ""
+        if img and not img.startswith("http"):
+            img = "https://trafficnz.info" + img
+        region = entry.get("region") or {}
+        cam = _cam((entry.get("name") or "").strip()
+                   or entry.get("description"),
+                   region.get("name") if isinstance(region, dict) else "",
+                   entry.get("highway"), entry.get("latitude"),
+                   entry.get("longitude"), img, "nz")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_iceland():
+    doc = _http_json(
+        "https://gagnaveita.vegagerdin.is/api/vefmyndavelar2014_1",
+        timeout=40)
+    out, seen = [], set()
+    for entry in doc if isinstance(doc, list) else []:
+        station = entry.get("Maelist_nr")
+        if station in seen:
+            continue
+        seen.add(station)
+        cam = _cam(entry.get("Myndavel"), entry.get("Skyring"),
+                   entry.get("Vegheiti"), entry.get("Breidd"),
+                   entry.get("Lengd"), entry.get("Slod") or "", "iceland")
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_singapore():
+    doc = _http_json("https://api.data.gov.sg/v1/transport/traffic-images",
+                     timeout=30)
+    items = doc.get("items") or []
+    out = []
+    if items:
+        for entry in items[-1].get("cameras", []):
+            loc = entry.get("location") or {}
+            cam = _cam(f"Traffic camera {entry.get('camera_id', '')}".strip(),
+                       "Singapore", "", loc.get("latitude"),
+                       loc.get("longitude"), entry.get("image") or "",
+                       "singapore")
+            if cam:
+                out.append(cam)
+    return out
+
+
+def _src_spain():
+    import xml.etree.ElementTree as ET
+
+    def local(tag):
+        return tag.rsplit("}", 1)[-1]
+
+    raw = _http_bytes(
+        "https://nap.dgt.es/datex2/v3/dgt/DevicePublication/"
+        "camaras_datex2_v37.xml", timeout=60)
+    root = ET.fromstring(raw)
+    out = []
+    for dev in root.iter():
+        if local(dev.tag) != "device":
+            continue
+        vals = {}
+        for e in dev.iter():
+            ln = local(e.tag)
+            if ln in ("typeOfDevice", "latitude", "longitude", "roadName",
+                      "roadDestination", "province") and ln not in vals:
+                vals[ln] = (e.text or "").strip()
+        if vals.get("typeOfDevice") != "camera":
+            continue
+        cid = dev.get("id")
+        if not cid or "latitude" not in vals or "longitude" not in vals:
+            continue
+        name = " · ".join(x for x in (vals.get("roadName"),
+                                      vals.get("roadDestination")) if x)
+        cam = _cam(name or vals.get("province"), vals.get("province"),
+                   vals.get("roadName"), vals["latitude"], vals["longitude"],
+                   f"https://etraffic.dgt.es/camarasEtraffic/{cid}.jpg",
+                   "spain")
+        if cam:
+            out.append(cam)
+    return out
+
+
+CAMERA_SOURCES = [
+    ("caltrans", "Caltrans · California", _src_caltrans),
+    ("minnesota", "Minnesota DOT", _src_minnesota),
+    ("colorado", "Colorado DOT", _src_colorado),
+    ("drivebc", "DriveBC · British Columbia", _src_drivebc),
+    ("finland", "Fintraffic · Finland", _src_finland),
+    ("tfl", "TfL · London", _src_tfl),
+    ("hongkong", "Hong Kong Transport Department", _src_hongkong),
+    ("spain", "DGT · Spain", _src_spain),
+    ("nz", "NZTA · New Zealand", _src_nz),
+    ("iceland", "Vegagerðin · Iceland", _src_iceland),
+    ("singapore", "LTA · Singapore", _src_singapore),
+]
 
 
 def _fetch_cameras():
@@ -235,20 +515,26 @@ def _fetch_cameras():
             return hit[1]
     import concurrent.futures
 
-    def one(d):
-        req = urllib.request.Request(
-            _caltrans_url(d), headers={"User-Agent": "orbital-cctv-layer"})
-        with urllib.request.urlopen(req, timeout=25) as resp:
-            return _parse_caltrans(json.loads(resp.read().decode("utf-8")))
+    def run(fn):
+        try:
+            return fn() or []
+        except Exception:
+            return []
 
-    cams, seen = [], set()
-    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
-        for batch in pool.map(lambda d: _safe(one, d), CALTRANS_DISTRICTS):
-            for cam in batch or []:
-                if cam["img"] in seen:
-                    continue
-                seen.add(cam["img"])
-                cams.append(cam)
+    cams, seen, sources = [], set(), []
+    with concurrent.futures.ThreadPoolExecutor(
+            max_workers=len(CAMERA_SOURCES)) as pool:
+        results = list(pool.map(lambda s: run(s[2]), CAMERA_SOURCES))
+    for (code, label, _fn), batch in zip(CAMERA_SOURCES, results):
+        kept = 0
+        for cam in batch:
+            if cam["img"] in seen:
+                continue
+            seen.add(cam["img"])
+            cams.append(cam)
+            kept += 1
+        if kept:
+            sources.append({"code": code, "label": label, "count": kept})
     if not cams:
         with _cameras_lock:
             hit = _cameras_cache.get("all")
@@ -257,9 +543,8 @@ def _fetch_cameras():
         raise RuntimeError("no cameras fetched")
     payload = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "source": "Caltrans — California Department of Transportation "
-                  "public traffic cameras",
         "count": len(cams),
+        "sources": sources,
         "cameras": cams,
     }
     with _cameras_lock:
@@ -340,6 +625,19 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(http.HTTPStatus.BAD_GATEWAY,
                             "Camera data unavailable")
             return True
+        qs = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
+        sample = qs.get("sample", [None])[0]
+        if sample:
+            try:
+                n = max(1, min(int(sample), 2000))
+            except ValueError:
+                n = None
+            if n and len(payload["cameras"]) > n:
+                cams = payload["cameras"]
+                stride = len(cams) / n
+                picked = [cams[int(i * stride)] for i in range(n)]
+                payload = {**payload, "total": payload["count"],
+                           "count": len(picked), "cameras": picked}
         body = json.dumps(payload, separators=(",", ":")).encode("utf-8")
         encoding = None
         if "gzip" in (self.headers.get("Accept-Encoding") or ""):

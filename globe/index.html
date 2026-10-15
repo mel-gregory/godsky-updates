@@ -869,6 +869,27 @@ body.stageFull #stageWrap::before{content:"";position:absolute;left:0;right:0;to
 .sh-note{font-size:11.5px;color:rgba(238,242,246,.72);margin-top:8px;min-height:14px}
 @media(max-width:480px){#sharePill{padding:7px 12px;font-size:12.5px}#shareCard{left:12px;right:12px;width:auto}}
 #supportCard{position:fixed;right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(max(var(--dock-h,0px),78px) + 60px);z-index:65;width:288px;max-width:calc(100vw - 24px);background:rgba(9,12,17,.92);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:16px 16px 14px;box-shadow:0 16px 40px rgba(0,0,0,.45);color:#eef2f6;font-family:var(--sans)}
+/* landing camera loop: an ambient CCTV card in the top-right,
+   below the header — visible the moment the page loads, cycling
+   live public-camera snapshots on its own. It owns no other
+   element's space: the Layers panel and the marker cards simply
+   cover it while they are open, and its close button retires it
+   for the session. */
+#camLoop{position:fixed;top:calc(env(safe-area-inset-top,0px) + 64px);right:calc(12px + env(safe-area-inset-right,0px));z-index:63;width:248px;max-width:calc(100vw - 24px);background:rgba(9,12,17,.88);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.20);border-radius:14px;padding:9px 9px 8px;box-shadow:0 14px 34px rgba(0,0,0,.45);color:#eef2f6;font-family:var(--sans);opacity:0;transition:opacity .6s ease}
+#camLoop.on{opacity:1}
+body.layers-open #camLoop{display:none}
+#camLoop .cl-head{display:flex;align-items:center;gap:6px;margin:0 1px 7px}
+#camLoop .cl-dot{width:7px;height:7px;border-radius:50%;background:#ff4545;flex:0 0 7px;animation:clPulse 2s ease-in-out infinite}
+@keyframes clPulse{0%,100%{opacity:1}50%{opacity:.35}}
+#camLoop .cl-title{font-size:10px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.85)}
+#camLoop .cl-x{margin-left:auto;background:none;border:0;color:rgba(255,255,255,.65);font-size:15px;line-height:1;cursor:pointer;padding:2px 4px}
+#camLoop .cl-x:hover{color:#fff}
+#camLoop .cl-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:9px;overflow:hidden;background:#0a0e14}
+#camLoop .cl-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+#camLoop .cl-frame img.show{opacity:1}
+#camLoop .cl-name{font-size:11.5px;font-weight:600;line-height:1.35;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#camLoop .cl-sub{font-size:10.5px;color:rgba(255,255,255,.62);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:560px){#camLoop{width:176px;top:calc(env(safe-area-inset-top,0px) + 60px)}#camLoop .cl-name{font-size:10.5px}}
 #supportCard[hidden]{display:none}
 .sup-close{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#eef2f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;padding:0;font-family:var(--sans)}
 .sup-close:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
@@ -3087,7 +3108,7 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
   <button type="button" class="gl-row" data-layer="radio" aria-pressed="false"><span class="gl-dot" style="background:#aee2ff"></span><span class="gl-main"><span class="gl-name">Radio signals</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Public stations with published coordinates plotted. FCC transmitter records, NOAA Weather Radio and KiwiSDR receivers are directory data &mdash; listed, never faked as live pins. To hear them, tap Listen live below.</span></span><span class="gl-state">OFF</span></button>
   <button type="button" class="gl-row" data-layer="aprs" aria-pressed="false"><span class="gl-dot" style="background:#d0a2ff"></span><span class="gl-main"><span class="gl-name">Ham radio &mdash; APRS</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Live APRS stations, weather stations and mobiles via aprs.fi. aprs.fi asks every user to bring their own free API key &mdash; add yours below and this layer goes live; without one, nothing is plotted.</span></span><span class="gl-state">OFF</span></button>
   <button type="button" class="gl-row" data-layer="streetview" aria-pressed="false"><span class="gl-dot" style="background:#7ef0c8"></span><span class="gl-main"><span class="gl-name">Street view &mdash; Mapillary</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Crowdsourced street-level photos near the globe&rsquo;s center &mdash; the view from the sidewalk, under the view from orbit. Mapillary requires your own free Client Token; add it below to plot photos in this tab.</span></span><span class="gl-state">OFF</span></button>
-  <button type="button" class="gl-row" data-layer="cctv" aria-pressed="false"><span class="gl-dot" style="background:#7986cb"></span><span class="gl-main"><span class="gl-name">CCTV &mdash; public traffic cameras</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Live public traffic cameras from state DOT feeds &mdash; California (Caltrans, all 12 districts) at launch. Tap a marker for that camera&rsquo;s live snapshot; the images refresh about every minute. More states join as their open feeds are wired.</span></span><span class="gl-state">OFF</span></button>
+  <button type="button" class="gl-row" data-layer="cctv" aria-pressed="false"><span class="gl-dot" style="background:#7986cb"></span><span class="gl-main"><span class="gl-name">CCTV &mdash; public traffic cameras</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Live public traffic cameras from official transport feeds worldwide &mdash; Caltrans (California), Minnesota &amp; Colorado DOTs, DriveBC, Fintraffic (Finland), TfL (London), Hong Kong Transport Department, DGT (Spain), NZTA (New Zealand), Vegager&eth;in (Iceland), LTA (Singapore). Tap a marker for that camera&rsquo;s live snapshot, straight from the operator. More networks join as their open feeds are wired.</span></span><span class="gl-state">OFF</span></button>
   <button type="button" class="gl-row" data-layer="fires" aria-pressed="false"><span class="gl-dot" style="background:#ff6a1f"></span><span class="gl-main"><span class="gl-name">Active fires &mdash; NASA EONET</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Open wildfire events tracked by NASA&rsquo;s EONET plotted where they burn. FIRMS&rsquo; own detection-point feed runs on FIRMS&rsquo; free MAP_KEY, so it cannot load keyless here &mdash; named, never faked.</span></span><span class="gl-state">OFF</span></button>
   <button type="button" class="gl-row" data-layer="quakes" aria-pressed="false"><span class="gl-dot" style="background:#ff2e63"></span><span class="gl-main"><span class="gl-name">Earthquakes</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">USGS earthquakes, magnitude 2.5 and up, from the last 24 hours &mdash; marker size grows with magnitude, plotted straight from the USGS feed.</span></span><span class="gl-state">OFF</span></button>
   <button type="button" class="gl-row" data-layer="storms" aria-pressed="false"><span class="gl-dot" style="background:#ff4fd8"></span><span class="gl-main"><span class="gl-name">Storms &mdash; tropical cyclones (global)</span><span class="gl-status" data-gl-status>Off</span><span class="gl-src">Tropical cyclones worldwide: every system NOAA&rsquo;s National Hurricane Center is issuing advisories on (Atlantic &amp; eastern/central Pacific) &mdash; name, classification, winds, pressure, movement, position &mdash; plus cyclones in other basins (western Pacific, Indian Ocean, Southern Hemisphere) from GDACS, which republishes NHC &amp; JTWC advisories. Storms inside their first ~48 hours of NHC advisories pulse with a NEW badge. High-formation-chance disturbances from the NHC Tropical Weather Outlook are named in this row&rsquo;s status line: NHC publishes them as written areas with no coordinates, so they are listed, never pinned at a guessed spot. Tap any marker for its advisory.</span></span><span class="gl-state">OFF</span></button>
@@ -15381,7 +15402,7 @@ setTimeout(function(){
     cvSlot.appendChild(cvImg);
     var cvCap=document.createElement("div");
     cvCap.style.cssText="font-size:10.5px;color:rgba(255,255,255,.6);margin-top:5px;letter-spacing:.03em";
-    cvCap.textContent="Live public snapshot · Caltrans — refreshes about every minute";
+    cvCap.textContent="Live public snapshot · "+(d.op||d.source||"Public camera feed");
     cvSlot.appendChild(cvCap);
    }
   }
@@ -15509,8 +15530,9 @@ setTimeout(function(){
    at all — NOAA Weather Radio transmitters, loaded from the
    page's own snapshot only when that layer is tapped, Caltrans
    public traffic cameras (CCTV) — plotted from this site's own
-   /cameras.json aggregate of the 12 district feeds, each marker
-   opening that camera's live public snapshot — and NOAA
+   /cameras.json aggregate of the official key-free feeds
+   worldwide, each marker opening that camera's live public
+   snapshot — and NOAA
    NDBC sea state — buoy and coastal stations plotted from
    NOAA's active-station directory, each station's measured
    report read from NOAA when its marker is tapped, with NOAA
@@ -16769,23 +16791,27 @@ setTimeout(function(){
     cameras the feed marks in service, with a real snapshot image,
     are plotted — and a marker tap opens that camera's live public
     snapshot in the card (see the layer:cctv branch in the globe's
-    popup builder). California first; more states join as their
-    open feeds are wired, and the note says so. */
+    popup builder). Every camera carries its operator's name; more
+    networks join as their open feeds are wired. */
+ var CCTV_SRC={caltrans:"Caltrans · California Department of Transportation",minnesota:"Minnesota DOT",colorado:"Colorado DOT · COtrip",drivebc:"DriveBC · British Columbia",finland:"Fintraffic · Finland (Digitraffic)",tfl:"Transport for London · TfL JamCams",hongkong:"Hong Kong Transport Department",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore (data.gov.sg)"};
  function getCctv(){
-  return fetchJson("/cameras.json",30000).then(function(d){
+  return fetchJson("/cameras.json",60000).then(function(d){
    var rows=(d&&d.cameras)||[];
    if(!rows.length)throw new Error("empty");
    var out=[];
    rows.forEach(function(x){
     if(!x||!x.img)return;
-    var det=[x.p?("Near "+x.p):"",x.r?("Route "+x.r):"","Live public snapshot — the image refreshes about every minute"].filter(Boolean).join(" · ");
-    var p=pt(x.la,x.lo,x.n||"Traffic camera",det,"Caltrans · California Department of Transportation — public traffic camera feed",0.0095);
+    var det=[x.p?("Near "+x.p):"",x.r?("Route "+x.r):"","Live public snapshot from the operator's public feed"].filter(Boolean).join(" · ");
+    var p=pt(x.la,x.lo,x.n||"Traffic camera",det,(CCTV_SRC[x.s]||"Public traffic camera feed")+" — public traffic camera feed",0.0095);
     p.img=String(x.img);
+    p.op=CCTV_SRC[x.s]||"";
     out.push(p);
    });
-   out=cap(out,6000);
+   out=cap(out,20000);
    if(!out.length)throw new Error("empty");
-   return {points:out,note:"Live · "+out.length+" public traffic cameras plotted — California (Caltrans, all 12 districts). Tap a dot for that camera's live snapshot. More states join as their open feeds are wired."};
+   var nets=((d.sources)||[]).map(function(s){return s.label;});
+   var where=nets.length?(" — "+nets.join(", ")):"";
+   return {points:out,note:"Live · "+out.length+" public traffic cameras plotted"+where+". Tap a dot for that camera's live snapshot. Every camera is an official public feed, labeled with its operator."};
   });
  }
  var FETCHERS={traffic:getTraffic,wildlife:getWildlife,crowds:getCrowds,transit:getTransit,utilities:getUtilities,infrastructure:getInfrastructure,responders:getResponders,radio:getRadio,aprs:getAprs,streetview:getStreetview,cctv:getCctv,fires:getFires,quakes:getQuakesLayer,storms:getStorms,clouds:getClouds,watertemp:getWaterTemp,seastate:getSeaState,sats:getSats,missions:getMissions,moon:getMoon,transmitters:getTransmitters};
@@ -21516,6 +21542,78 @@ window.NasaView={
  setInterval(poll,POLL_MS);
  setInterval(refreshLive,20000);
  document.addEventListener("visibilitychange",function(){if(!document.hidden)poll();});
+})();
+</script>
+<!-- landing camera loop: ambient CCTV, on from the moment the page
+     loads — no tap, no toggle. It reads a sample of the same
+     /cameras.json the CCTV layer plots, picks a spread of cameras
+     across every network, and cycles their live public snapshots
+     in the top-right card.
+     Pure display: it calls no globe API, moves nothing, and its
+     only control is its own close button (session-only). -->
+<aside id="camLoop" aria-label="Live public traffic cameras">
+ <div class="cl-head"><span class="cl-dot" aria-hidden="true"></span><span class="cl-title">CCTV · LIVE CAMERAS</span><button type="button" class="cl-x" id="camLoopX" aria-label="Hide live cameras">&times;</button></div>
+ <div class="cl-frame"><img id="camLoopA" alt="Live snapshot from a public traffic camera"><img id="camLoopB" alt="" aria-hidden="true"></div>
+ <div class="cl-name" id="camLoopName">Loading live cameras…</div>
+ <div class="cl-sub" id="camLoopSub">Public traffic cameras · live worldwide</div>
+</aside>
+<script>
+(function(){
+ "use strict";
+ var card=document.getElementById("camLoop");
+ if(!card)return;
+ var imgA=document.getElementById("camLoopA"),imgB=document.getElementById("camLoopB");
+ var nameEl=document.getElementById("camLoopName"),subEl=document.getElementById("camLoopSub");
+ var closed=false,timer=null,cams=[],idx=0,front=imgA,back=imgB;
+ var reduce=false;
+ try{reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+ var STEP=reduce?30000:10000;
+ document.getElementById("camLoopX").addEventListener("click",function(){
+  closed=true;card.style.display="none";if(timer)clearInterval(timer);
+ });
+ function bust(u){return u+(u.indexOf("?")<0?"?":"&")+"t="+Date.now();}
+ var LOOP_SRC={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · Canada",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong TD",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore"};
+ function caption(c){
+  nameEl.textContent=c.n||"Traffic camera";
+  subEl.textContent=[c.p||"",c.r?("Route "+c.r):"",LOOP_SRC[c.s]||"Public traffic camera"].filter(Boolean).join(" · ");
+ }
+ var fails=0;
+ function show(c){
+  back.onload=function(){
+   fails=0;
+   back.classList.add("show");front.classList.remove("show");
+   var t=front;front=back;back=t;back.onload=null;caption(c);
+   if(!card.classList.contains("on"))card.classList.add("on");
+  };
+  back.onerror=function(){
+   back.onerror=null;fails++;
+   if(fails>=cams.length){card.style.display="none";if(timer)clearInterval(timer);return;}
+   advance();
+  };
+  back.src=bust(c.img);
+ }
+ function advance(){
+  if(closed||!cams.length)return;
+  idx=(idx+1)%cams.length;
+  show(cams[idx]);
+ }
+ fetch("/cameras.json?sample=240",{cache:"no-store"}).then(function(r){
+  if(!r.ok)throw new Error("cameras "+r.status);
+  return r.json();
+ }).then(function(d){
+  var rows=(d&&d.cameras)||[];
+  rows=rows.filter(function(c){return c&&c.img&&isFinite(c.la)&&isFinite(c.lo);});
+  if(rows.length<4){card.style.display="none";return;}
+  /* a spread across the whole list — the districts run north to
+     south, so an even stride tours the state instead of sitting
+     in one city; the start point is random each visit */
+  var want=Math.min(28,rows.length),stride=rows.length/want,picked=[];
+  for(var i=0;i<want;i++)picked.push(rows[Math.floor(i*stride)]);
+  var start=Math.floor(Math.random()*picked.length);
+  cams=picked.slice(start).concat(picked.slice(0,start));
+  idx=-1;advance();
+  timer=setInterval(function(){if(!document.hidden)advance();},STEP);
+ }).catch(function(){card.style.display="none";});
 })();
 </script>
 </body>
