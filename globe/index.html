@@ -889,7 +889,10 @@ body.layers-open #camLoop{display:none}
 #camLoop .cl-frame img.show{opacity:1}
 #camLoop .cl-name{font-size:11.5px;font-weight:600;line-height:1.35;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #camLoop .cl-sub{font-size:10.5px;color:rgba(255,255,255,.62);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media(max-width:560px){#camLoop{width:176px;top:calc(env(safe-area-inset-top,0px) + 60px)}#camLoop .cl-name{font-size:10.5px}}
+@media(max-width:560px){/* phones: the card sits clear below the
+   hero lines instead of over them — the title owns the top of the
+   first screen, the cameras start underneath it */
+ #camLoop{width:168px;top:calc(env(safe-area-inset-top,0px) + 136px)}#camLoop .cl-name{font-size:10.5px}}
 #supportCard[hidden]{display:none}
 .sup-close{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#eef2f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;padding:0;font-family:var(--sans)}
 .sup-close:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
@@ -2133,6 +2136,7 @@ body:has(#layerPanel:not([hidden])) #agentBoard{display:none!important}
 .ab-collapse:hover{background:rgba(255,255,255,.16)}
 .ab-body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
 #agentBoard.ab-collapsed .ab-body{display:none}
+#agentBoard.ab-collapsed .ab-sub{display:none}
 .ab-feed{flex:1 1 auto;min-height:0;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain}
 .ab-state{font-size:12.5px;line-height:1.55;color:rgba(238,242,246,.78);padding:6px 2px}
 .ab-state[hidden]{display:none}
@@ -3016,6 +3020,10 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
    it opens up just enough to hold the facts. */
 @media(max-width:640px){
  #trendChip{max-width:calc(100vw - 56px)}
+ /* phones: until tapped, the chip is a slim pill — the red dot and
+    TRENDING NOW only. The headline joins when the reader opens it,
+    so the top of the first screen stays the planet's, not the pill's */
+ #trendChip:not(.open) .tc-head{display:none}
  #trendChip.open{border-radius:16px}
  #trendMain{padding:6px 32px 6px 10px;gap:8px}
  #trendChip .tc-kick{font-size:9.5px}
@@ -15230,6 +15238,69 @@ setTimeout(function(){
  /* marker detail popover: what it is, where it is, which real
     feed it came from — shown only when a visitor taps a marker */
  var popTimer=0;
+ /* ===== two-way camera wiring, step 1 (2026-10-15) =====
+   The camera layer is an agent that communicates with all the
+   other agents. On the globe that reads both ways: an event card
+   names the nearest public traffic camera (the operator's own
+   live snapshot, labeled as presence — never as a view of the
+   event), and a camera card names what the permanent record
+   holds nearby. Facts and links only; nothing here interprets
+   an image, and both blocks fail soft — a feed that does not
+   answer simply adds no block. */
+ var CAM_SRC_LBL={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · British Columbia",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong Transport Department",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore"};
+ var EV_SRC_LBL={usgs:"USGS",emsc:"EMSC",eonet:"NASA EONET",gdacs:"GDACS",nhc:"NHC",nws_tsunami:"NWS Tsunami",who:"WHO",ndbc:"NOAA buoys",noaa_coops:"NOAA tides",nwis:"USGS rivers",usgs_nwis:"USGS rivers",celestrak:"CelesTrak"};
+ function havKm(a,b,c,d){var p=Math.PI/180,x=(c-a)*p,y=(d-b)*p,s=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)*Math.sin(y/2);return 12742*Math.atan2(Math.sqrt(s),Math.sqrt(Math.max(0,1-s)));}
+ var _camList=null,_camListP=null;
+ function loadCams(){
+  if(_camList)return Promise.resolve(_camList);
+  if(_camListP)return _camListP;
+  _camListP=fetch("/cameras.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+   _camList=(d&&d.cameras&&d.cameras.length)?d.cameras:null;_camListP=null;return _camList;
+  }).catch(function(){_camListP=null;return null;});
+  return _camListP;
+ }
+ function nearCam(lat,lon){
+  return loadCams().then(function(list){
+   if(!list)return null;
+   var best=null,bd=1e9;
+   for(var i=0;i<list.length;i++){var c=list[i];if(!c||!c.img)continue;var dd=havKm(lat,lon,c.la,c.lo);if(dd<bd){bd=dd;best=c;}}
+   if(!best||bd>250)return null;
+   return {img:String(best.img),n:best.n||"Traffic camera",op:CAM_SRC_LBL[best.s]||"Public traffic camera",km:bd<10?bd.toFixed(1):String(Math.round(bd))};
+  }).catch(function(){return null;});
+ }
+ var _evList=null,_evListP=null;
+ function loadEvents(){
+  if(_evList)return Promise.resolve(_evList);
+  if(_evListP)return _evListP;
+  _evListP=fetch("https://orbital-ingest-worker-production.up.railway.app/events.json?hours=72",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+   _evList=(d&&d.events&&d.events.length)?d.events:null;_evListP=null;return _evList;
+  }).catch(function(){_evListP=null;return null;});
+  return _evListP;
+ }
+ function nearEvents(lat,lon){
+  return loadEvents().then(function(list){
+   var out=[];if(!list)return out;
+   var seenK={};
+   for(var i=0;i<list.length;i++){
+    var e=list[i];
+    if(!e||typeof e.lat!=="number"||typeof e.lon!=="number")continue;
+    var dd=havKm(lat,lon,e.lat,e.lon);
+    if(dd>150)continue;
+    var key=(e.source||"")+"|"+(e.title||e.type||"");
+    if(seenK[key])continue;seenK[key]=1;
+    out.push({km:dd,e:e});
+   }
+   out.sort(function(a,b){return a.km-b.km;});
+   return out.slice(0,2).map(function(r){
+    var src=EV_SRC_LBL[r.e.source]||String(r.e.source||"").toUpperCase();
+    var title=String(r.e.title||r.e.type||"report");
+    if(title.length>90)title=title.slice(0,87)+"…";
+    var when="",t=Date.parse(r.e.observed_at||"");
+    if(isFinite(t)&&t<=Date.now()+36e5)when=ago(t);
+    return src+" · "+title+" — "+(r.km<10?r.km.toFixed(1):Math.round(r.km))+" km away"+(when?" · "+when:"");
+   });
+  }).catch(function(){return [];});
+ }
  function showPop(hit){
   var pop=el("markPop");if(!pop)return;
   var d=hit.data||{},t="",b="",s="";
@@ -15406,6 +15477,31 @@ setTimeout(function(){
     cvSlot.appendChild(cvCap);
    }
   }
+  /* the other layers answer the camera back: what the permanent
+     record holds near this spot — published reports only, each
+     named with its source, its distance, and its age. Nothing
+     within reach, nothing added. */
+  if(hit.kind==="layer:cctv"&&mpLL){
+   var recSeq=(pop._recSeq=(pop._recSeq||0)+1);
+   nearEvents(mpLL[0],mpLL[1]).then(function(rows){
+    if(!rows.length||pop._recSeq!==recSeq||pop.hidden)return;
+    var rbox=document.createElement("div");
+    rbox.style.cssText="margin-top:10px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px";
+    var rh=document.createElement("div");
+    rh.style.cssText="font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)";
+    rh.textContent="Nearby in the permanent record";
+    rbox.appendChild(rh);
+    for(var ri=0;ri<rows.length;ri++){
+     var rl=document.createElement("div");
+     rl.style.cssText="font-size:11.5px;color:rgba(255,255,255,.85);margin-top:4px;line-height:1.45";
+     rl.textContent=rows[ri];
+     rbox.appendChild(rl);
+    }
+    pop.appendChild(rbox);
+    clearTimeout(popTimer);
+    popTimer=setTimeout(function(){pop.hidden=true;},15000);
+   });
+  }
   var evSlot=pop.querySelector(".ev-img-slot");
   if(evSlot){
    var evKind=null,evQid="";
@@ -15418,6 +15514,39 @@ setTimeout(function(){
    else if(hit.kind==="wx")evKind="event";
    if(evKind&&mpLL&&window.EvImg&&!evSlot.querySelector("img[data-cctv]"))EvImg.mount(evSlot,{kind:evKind,lat:mpLL[0],lon:mpLL[1],qid:evQid,alt:t});
    else if(evSlot.parentNode)evSlot.parentNode.removeChild(evSlot);
+  }
+  /* the camera agent answers the event: the nearest public
+     traffic camera to this report, with the operator's own live
+     snapshot. Labeled as what it is — the nearest camera, there
+     to be looked through, never claimed as a view of the event.
+     Infrastructure and moving things carry no camera line. */
+  if(mpLL&&hit.kind!=="layer:cctv"&&hit.kind!=="iss"&&hit.kind!=="sat"&&hit.kind!=="plane"
+     &&hit.kind!=="layer:transmitters"&&hit.kind!=="layer:seastate"&&hit.kind!=="layer:moon"){
+   var ncSeq=(pop._ncSeq=(pop._ncSeq||0)+1);
+   nearCam(mpLL[0],mpLL[1]).then(function(nc){
+    if(!nc||pop._ncSeq!==ncSeq||pop.hidden)return;
+    var nbox=document.createElement("div");
+    nbox.style.cssText="margin-top:10px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px";
+    var nh=document.createElement("div");
+    nh.style.cssText="font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)";
+    nh.textContent="Nearest public camera · "+nc.km+" km away";
+    var nim=document.createElement("img");
+    nim.src=nc.img+(nc.img.indexOf("?")<0?"?":"&")+"t="+Date.now();
+    nim.alt="Live snapshot from the nearest public traffic camera";
+    nim.referrerPolicy="no-referrer";
+    nim.style.cssText="width:100%;display:block;border-radius:8px;margin-top:6px";
+    nim.onerror=function(){if(nbox.parentNode)nbox.parentNode.removeChild(nbox);};
+    var ncap=document.createElement("div");
+    ncap.style.cssText="font-size:11px;color:rgba(255,255,255,.75);margin-top:5px;line-height:1.45";
+    ncap.textContent=nc.n+" · "+nc.op;
+    var nnote=document.createElement("div");
+    nnote.style.cssText="font-size:10.5px;color:rgba(255,255,255,.5);margin-top:3px;line-height:1.45";
+    nnote.textContent="The public camera nearest this report — its live snapshot, straight from the operator. Presence, not a view of the event itself.";
+    nbox.appendChild(nh);nbox.appendChild(nim);nbox.appendChild(ncap);nbox.appendChild(nnote);
+    pop.appendChild(nbox);
+    clearTimeout(popTimer);
+    popTimer=setTimeout(function(){pop.hidden=true;},15000);
+   });
   }
   try{__dismissAllChatReplies(true);}catch(e){}
   pop.hidden=false;
@@ -21460,6 +21589,18 @@ window.NasaView={
   collapseBtn.textContent=c?"+":"\u2212";
   if(!c&&stick)scrollToBottom();
  });
+ /* Declutter (2026-10-15): on phones the board starts as its
+    header only — title, LIVE pill, one tap to expand. The first
+    screen belongs to the planet; the board is summoned, not
+    imposed. Desktop keeps the open board it has room for. */
+ try{
+  if(collapseBtn&&window.matchMedia&&window.matchMedia("(max-width: 700px)").matches){
+   panel.classList.add("ab-collapsed");
+   collapseBtn.setAttribute("aria-expanded","false");
+   collapseBtn.setAttribute("aria-label","Expand agent board");
+   collapseBtn.textContent="+";
+  }
+ }catch(e){}
 
  function renderMsg(m){
   var agent=String(m.agent||"unknown");
