@@ -15301,8 +15301,33 @@ setTimeout(function(){
    });
   }).catch(function(){return [];});
  }
+ /* a card's camera image is a live feed, not a still: these are
+   public snapshot cameras, so "live" means the operator's
+   current frame, re-read on a beat while the card is open. Each
+   new frame is preloaded off-screen and swapped in only when it
+   lands whole — a camera that stops answering freezes on its
+   last good frame, never a broken-image icon. */
+ function lvWatch(pop,img,base){
+  if(!img||!base)return;
+  if(!pop._lv)pop._lv=[];
+  pop._lv.push({img:img,base:String(base)});
+  if(pop._lvT)return;
+  pop._lvT=setInterval(function(){
+   if(pop.hidden||!pop._lv||!pop._lv.length){clearInterval(pop._lvT);pop._lvT=null;return;}
+   for(var i=0;i<pop._lv.length;i++){
+    (function(lv){
+     if(!lv.img||!lv.img.isConnected)return;
+     var probe=new Image();
+     probe.onload=function(){if(!pop.hidden)lv.img.src=probe.src;};
+     probe.src=lv.base+(lv.base.indexOf("?")<0?"?":"&")+"t="+Date.now();
+    })(pop._lv[i]);
+   }
+  },15000);
+ }
  function showPop(hit){
   var pop=el("markPop");if(!pop)return;
+  if(pop._lvT){clearInterval(pop._lvT);pop._lvT=null;}
+  pop._lv=[];
   var d=hit.data||{},t="",b="",s="";
   if(hit.kind==="quake"){
    var qm=(typeof d.mag==="number")?d.mag:null;
@@ -15475,6 +15500,7 @@ setTimeout(function(){
     cvCap.style.cssText="font-size:10.5px;color:rgba(255,255,255,.6);margin-top:5px;letter-spacing:.03em";
     cvCap.textContent="Live public snapshot · "+(d.op||d.source||"Public camera feed");
     cvSlot.appendChild(cvCap);
+    lvWatch(pop,cvImg,String(d.img));
    }
   }
   /* the other layers answer the camera back: what the permanent
@@ -15536,6 +15562,7 @@ setTimeout(function(){
     nim.referrerPolicy="no-referrer";
     nim.style.cssText="width:100%;display:block;border-radius:8px;margin-top:6px";
     nim.onerror=function(){if(nbox.parentNode)nbox.parentNode.removeChild(nbox);};
+    lvWatch(pop,nim,nc.img);
     var ncap=document.createElement("div");
     ncap.style.cssText="font-size:11px;color:rgba(255,255,255,.75);margin-top:5px;line-height:1.45";
     ncap.textContent=nc.n+" · "+nc.op;
@@ -15545,13 +15572,16 @@ setTimeout(function(){
     nbox.appendChild(nh);nbox.appendChild(nim);nbox.appendChild(ncap);nbox.appendChild(nnote);
     pop.appendChild(nbox);
     clearTimeout(popTimer);
-    popTimer=setTimeout(function(){pop.hidden=true;},15000);
+    popTimer=setTimeout(function(){pop.hidden=true;},60000);
    });
   }
   try{__dismissAllChatReplies(true);}catch(e){}
   pop.hidden=false;
   clearTimeout(popTimer);
-  popTimer=setTimeout(function(){pop.hidden=true;},9000);
+  /* a card carrying a live camera feed stays up a full minute —
+     long enough to watch the feed breathe; plain cards keep
+     their nine seconds */
+  popTimer=setTimeout(function(){pop.hidden=true;},(pop._lv&&pop._lv.length)?60000:9000);
  }
  try{
   EarthGlobe.setPickHandler(function(hit){
