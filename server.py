@@ -197,10 +197,12 @@ _cameras_lock = threading.Lock()
 CALTRANS_DISTRICTS = range(1, 13)
 
 
-def _http_bytes(url, timeout=30):
-    req = urllib.request.Request(
-        url, headers={"User-Agent": "orbital-cctv-layer",
-                      "Accept-Encoding": "gzip"})
+def _http_bytes(url, timeout=30, accept=None):
+    headers = {"User-Agent": "orbital-cctv-layer",
+               "Accept-Encoding": "gzip"}
+    if accept:
+        headers["Accept"] = accept
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         raw = resp.read()
         if resp.headers.get("Content-Encoding") == "gzip":
@@ -208,8 +210,9 @@ def _http_bytes(url, timeout=30):
     return raw
 
 
-def _http_json(url, timeout=30):
-    return json.loads(_http_bytes(url, timeout).decode("utf-8", "replace"))
+def _http_json(url, timeout=30, accept=None):
+    return json.loads(
+        _http_bytes(url, timeout, accept).decode("utf-8", "replace"))
 
 
 def _cam(n, p, r, la, lo, img, s):
@@ -400,9 +403,10 @@ def _src_colorado():
 
 
 def _src_nz():
+    # NZTA serves XML unless JSON is explicitly requested.
     doc = _http_json(
         "https://trafficnz.info/service/traffic/rest/4/cameras/all",
-        timeout=40)
+        timeout=40, accept="application/json")
     out = []
     for entry in (doc.get("response") or {}).get("camera", []):
         if entry.get("offline") or entry.get("underMaintenance"):
