@@ -179,6 +179,101 @@ def _render_digest(day_str):
 </html>"""
 
 
+# ---------------------------------------------------------- /cameras
+# Public traffic cameras for the globe's CCTV layer. Caltrans (the
+# California Department of Transportation) publishes every district's
+# camera directory as open JSON — no key — with each camera's
+# location and its public snapshot image URL. The 12 district files
+# are fetched server-side, normalized to one compact list, and
+# cached for 5 minutes; the snapshots themselves are served by
+# Caltrans and refresh in place about every minute.
+CAMERAS_CACHE_TTL = 300
+_cameras_cache = {}
+_cameras_lock = threading.Lock()
+CALTRANS_DISTRICTS = range(1, 13)
+
+
+def _caltrans_url(d):
+    return (f"https://cwwp2.dot.ca.gov/data/d{d}/cctv/"
+            f"cctvStatusD{d:02d}.json")
+
+
+def _parse_caltrans(doc):
+    out = []
+    for row in (doc or {}).get("data", []):
+        cam = (row or {}).get("cctv") or {}
+        if str(cam.get("inService", "")).lower() != "true":
+            continue
+        loc = cam.get("location") or {}
+        img = ((cam.get("imageData") or {}).get("static") or {}).get(
+            "currentImageURL") or ""
+        if not img:
+            continue
+        try:
+            lat = float(loc.get("latitude"))
+            lon = float(loc.get("longitude"))
+        except (TypeError, ValueError):
+            continue
+        if not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
+            continue
+        out.append({
+            "n": loc.get("locationName") or "Traffic camera",
+            "p": loc.get("nearbyPlace") or "",
+            "r": loc.get("route") or "",
+            "la": round(lat, 5),
+            "lo": round(lon, 5),
+            "img": img,
+        })
+    return out
+
+
+def _fetch_cameras():
+    now = time.time()
+    with _cameras_lock:
+        hit = _cameras_cache.get("all")
+        if hit and now - hit[0] < CAMERAS_CACHE_TTL:
+            return hit[1]
+    import concurrent.futures
+
+    def one(d):
+        req = urllib.request.Request(
+            _caltrans_url(d), headers={"User-Agent": "orbital-cctv-layer"})
+        with urllib.request.urlopen(req, timeout=25) as resp:
+            return _parse_caltrans(json.loads(resp.read().decode("utf-8")))
+
+    cams, seen = [], set()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        for batch in pool.map(lambda d: _safe(one, d), CALTRANS_DISTRICTS):
+            for cam in batch or []:
+                if cam["img"] in seen:
+                    continue
+                seen.add(cam["img"])
+                cams.append(cam)
+    if not cams:
+        with _cameras_lock:
+            hit = _cameras_cache.get("all")
+            if hit:
+                return hit[1]  # serve the last good list rather than none
+        raise RuntimeError("no cameras fetched")
+    payload = {
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "source": "Caltrans — California Department of Transportation "
+                  "public traffic cameras",
+        "count": len(cams),
+        "cameras": cams,
+    }
+    with _cameras_lock:
+        _cameras_cache["all"] = (now, payload)
+    return payload
+
+
+def _safe(fn, arg):
+    try:
+        return fn(arg)
+    except Exception:
+        return None
+
+
 class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass  # quiet
@@ -231,12 +326,50 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(body)
         return True
 
+    # -- /cameras.json (dynamic; every other path stays static) ------
+    def _serve_cameras(self, head_only=False):
+        try:
+            raw = urllib.parse.urlsplit(self.path).path
+        except Exception:
+            return False
+        if raw != "/cameras.json":
+            return False
+        try:
+            payload = _fetch_cameras()
+        except Exception:
+            self.send_error(http.HTTPStatus.BAD_GATEWAY,
+                            "Camera data unavailable")
+            return True
+        body = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+        encoding = None
+        if "gzip" in (self.headers.get("Accept-Encoding") or ""):
+            buf = io.BytesIO()
+            with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0) as gz:
+                gz.write(body)
+            body = buf.getvalue()
+            encoding = "gzip"
+        self.send_response(http.HTTPStatus.OK)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        if encoding:
+            self.send_header("Content-Encoding", encoding)
+            self.send_header("Vary", "Accept-Encoding")
+        self.send_header("Cache-Control", SHORT_CACHE)
+        self.end_headers()
+        if not head_only:
+            self.wfile.write(body)
+        return True
+
     def do_GET(self):
+        if self._serve_cameras():
+            return
         if self._serve_digest():
             return
         super().do_GET()
 
     def do_HEAD(self):
+        if self._serve_cameras(head_only=True):
+            return
         if self._serve_digest(head_only=True):
             return
         super().do_HEAD()
