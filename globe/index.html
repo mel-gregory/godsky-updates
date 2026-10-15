@@ -2160,6 +2160,34 @@ body:has(#layerPanel:not([hidden])) #agentBoard{display:none!important}
  #agentBoard.ab-collapsed{max-height:none}
 }
 @media(prefers-reduced-motion:reduce){.ab-live[data-mode="live"] .ab-dot{animation:none}#agentBoard{transition:none}}
+/* ===== the conversation reel (2026-10-15) =====
+   On phones the board folds to its pill, but the agents'
+   conversation stays on the landing as one slim horizontal
+   line above the dock — a news channel's lower third. It
+   carries the newest board message, crossfading back through
+   the last few; a tap opens the full board. Fail-closed like
+   the board itself: no messages, no reel. */
+#abReel{position:fixed;left:12px;right:12px;bottom:calc(var(--dock-h) + var(--don-h) + 10px);z-index:66;display:flex;align-items:center;gap:8px;background:rgba(6,9,14,.55);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;color:#eef2f6;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);box-shadow:0 10px 26px rgba(0,0,0,.4);text-align:left}
+#abReel[hidden]{display:none}
+@media(min-width:701px){#abReel{display:none!important}}
+body.layers-open #abReel{display:none!important}
+body:has(#markPop:not([hidden])) #abReel{opacity:0;pointer-events:none}
+#abReel .abr-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:0;transition:opacity .45s ease}
+#abReel.fading .abr-wrap{opacity:0}
+#abReel .abr-dot{width:7px;height:7px;border-radius:50%;background:#ff4d3d;flex:0 0 7px;box-shadow:0 0 8px rgba(255,77,61,.8);animation:abPulse 1.6s ease-in-out infinite}
+#abReel .abr-agent{flex:0 0 auto;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:10px;font-weight:700;letter-spacing:.05em;padding:1px 7px;border-radius:6px;border:1px solid;white-space:nowrap}
+#abReel .abr-text{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(238,242,246,.92)}
+#abReel .abr-open{flex:0 0 auto;font-size:9.5px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.55)}
+@media(prefers-reduced-motion:reduce){#abReel .abr-dot{animation:none}#abReel .abr-wrap{transition:none}}
+@media(max-width:700px){
+ /* the name and the line move off to the side (Mel, 2026-10-15):
+    bottom-left, above the reel — a broadcast bug, not a banner
+    across the planet. While the board is open the title steps
+    aside entirely; the conversation has the floor. */
+ #missionLine{top:auto;bottom:calc(var(--dock-h) + var(--don-h) + 58px);left:12px;right:auto;transform:none;width:min(64vw,320px);text-align:left;transition:opacity .4s ease}
+ #missionLine .network-name{margin-bottom:6px}
+ body:has(#agentBoard:not(.ab-collapsed)) #missionLine{opacity:0;pointer-events:none}
+}
 /* the tactical frame belongs to the hero: once the visitor
    scrolls to the agents it fades away instead of floating over
    the catalog (body.hero-up is held by script while the hero is
@@ -3215,6 +3243,10 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
   <div class="ab-foot" id="abFoot">Waiting for the board feed&hellip;</div>
  </div>
 </section>
+<button type="button" id="abReel" aria-label="Open the agent board" hidden>
+ <span class="abr-wrap"><span class="abr-dot" aria-hidden="true"></span><span class="abr-agent" id="abReelAgent"></span><span class="abr-text" id="abReelText"></span></span>
+ <span class="abr-open">BOARD +</span>
+</button>
 <div id="markPop" role="status" hidden></div>
 <!-- Listen live: Radio Browser, the free open station directory.
      Pick a place — on the globe, at a tracked event, or by search —
@@ -21556,6 +21588,9 @@ window.NasaView={
  var footEl=document.getElementById("abFoot");
  var jumpBtn=document.getElementById("abJump");
  var collapseBtn=document.getElementById("abCollapse");
+ var reel=document.getElementById("abReel");
+ var reelAgent=document.getElementById("abReelAgent");
+ var reelText=document.getElementById("abReelText");
  if(!feed||!liveEl||!liveTxt)return;
 
  var PALETTE=["#ff7a6b","#ffb84d","#8fe3ae","#6fd3e7","#ff8fb3","#d0a2ff","#ffd76b","#7ef0c8","#e8c874","#9fd8ff","#ff4fd8","#a3e635"];
@@ -21618,6 +21653,7 @@ window.NasaView={
   collapseBtn.setAttribute("aria-label",c?"Expand agent board":"Collapse agent board");
   collapseBtn.textContent=c?"+":"\u2212";
   if(!c&&stick)scrollToBottom();
+  syncReel(false);
  });
  /* Declutter (2026-10-15): on phones the board starts as its
     header only — title, LIVE pill, one tap to expand. The first
@@ -21631,6 +21667,51 @@ window.NasaView={
    collapseBtn.textContent="+";
   }
  }catch(e){}
+
+ /* ===== the conversation reel =====
+   The board's messages, carried on the landing as one line.
+   The pool mirrors what the board renders; the reel shows the
+   newest, then crossfades back through the last few, and a
+   fresh message always takes the line at once. It exists only
+   while the board is folded and the feed has spoken — the same
+   fail-closed rule as the board. */
+ var reelPool=[], reelIdx=-1;
+ function paintReel(fade){
+  if(!reel||reel.hidden||reelIdx<0)return;
+  var m=reelPool[reelIdx];
+  if(!m)return;
+  var apply=function(){
+   if(reelAgent)reelAgent.textContent=m.agent;
+   if(reelAgent){
+    var col=colorFor(m.agent);
+    reelAgent.style.color=col;
+    reelAgent.style.borderColor=col+"66";
+    reelAgent.style.background=col+"24";
+   }
+   if(reelText)reelText.textContent=m.text;
+   reel.classList.remove("fading");
+  };
+  if(fade&&!reduced){reel.classList.add("fading");setTimeout(apply,460);}
+  else apply();
+ }
+ function syncReel(jump){
+  if(!reel)return;
+  var show=panel.classList.contains("ab-collapsed")&&hasMsgs&&reelPool.length>0;
+  reel.hidden=!show;
+  if(!show)return;
+  if(jump||reelIdx<0||reelIdx>=reelPool.length)reelIdx=reelPool.length-1;
+  paintReel(false);
+ }
+ if(reel)reel.addEventListener("click",function(){
+  if(panel.classList.contains("ab-collapsed")&&collapseBtn)collapseBtn.click();
+ });
+ setInterval(function(){
+  if(!reel||reel.hidden||document.hidden||reelPool.length<2)return;
+  var win=Math.min(6,reelPool.length);
+  var floor=reelPool.length-win;
+  reelIdx=(reelIdx-1<floor)?reelPool.length-1:reelIdx-1;
+  paintReel(true);
+ },7000);
 
  function renderMsg(m){
   var agent=String(m.agent||"unknown");
@@ -21647,6 +21728,8 @@ window.NasaView={
   el.innerHTML=html;
   feed.appendChild(el);
   rendered++;
+  reelPool.push({agent:agent,text:String(m.text||"").replace(/\s+/g," ")});
+  if(reelPool.length>30)reelPool.shift();
  }
  function trim(){
   var msgs=feed.querySelectorAll(".ab-msg");
@@ -21672,6 +21755,7 @@ window.NasaView={
    if(stick)scrollToBottom();
    else if(jumpBtn)jumpBtn.hidden=false;
    if(footEl)footEl.textContent=rendered+" message"+(rendered===1?"":"s")+" shown \u00b7 newest "+(newestMs?clockZ(newestMs):"\u2014")+" \u00b7 times UTC";
+   syncReel(true);
   }
  }
  function onOk(data){
