@@ -875,7 +875,7 @@ body.stageFull #stageWrap::before{content:"";position:absolute;left:0;right:0;to
    element's space: the Layers panel and the marker cards simply
    cover it while they are open, and its close button retires it
    for the session. */
-#camLoop{position:fixed;top:calc(env(safe-area-inset-top,0px) + 64px);right:calc(12px + env(safe-area-inset-right,0px));z-index:63;width:248px;max-width:calc(100vw - 24px);background:rgba(9,12,17,.88);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.20);border-radius:14px;padding:9px 9px 8px;box-shadow:0 14px 34px rgba(0,0,0,.45);color:#eef2f6;font-family:var(--sans);opacity:0;transition:opacity .6s ease}
+#camLoop{position:fixed;top:calc(env(safe-area-inset-top,0px) + 64px);right:calc(12px + env(safe-area-inset-right,0px));z-index:63;width:364px;max-width:calc(100vw - 24px);background:rgba(9,12,17,.88);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.20);border-radius:14px;padding:9px 9px 8px;box-shadow:0 14px 34px rgba(0,0,0,.45);color:#eef2f6;font-family:var(--sans);opacity:0;transition:opacity .6s ease}
 #camLoop.on{opacity:1}
 body.layers-open #camLoop{display:none}
 #camLoop .cl-head{display:flex;align-items:center;gap:6px;margin:0 1px 7px}
@@ -889,6 +889,10 @@ body.layers-open #camLoop{display:none}
 #camLoop .cl-frame img.show{opacity:1}
 #camLoop .cl-name{font-size:11.5px;font-weight:600;line-height:1.35;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #camLoop .cl-sub{font-size:10.5px;color:rgba(255,255,255,.62);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#camLoop .cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+#camLoop .cl-grid .cl-frame{border-radius:7px}
+#camLoop .cl-grid .cl-name{font-size:10.5px;margin-top:5px}
+#camLoop .cl-grid .cl-sub{font-size:9.5px}
 @media(max-width:560px){/* phones: the card sits clear below the
    hero lines instead of over them — the title owns the top of the
    first screen, the cameras start underneath it */
@@ -909,7 +913,9 @@ body.layers-open #camLoop{display:none}
  #camLoop .cl-x{font-size:13px;padding:2px 1px}
  #camLoop .cl-frame{border-radius:7px}
  #camLoop .cl-name{font-size:10.5px;margin-top:5px}
- #camLoop .cl-sub{font-size:10px}}
+ #camLoop .cl-sub{font-size:10px}
+ #camLoop .cl-grid{grid-template-columns:1fr}
+ #camLoop .cl-cell:nth-child(n+2){display:none}}
 @media(max-height:500px){
  /* landscape phones: a touch narrower still, header kept to
     its one line at the smaller width */
@@ -21877,55 +21883,76 @@ window.NasaView={
 <!-- landing camera loop: ambient CCTV, on from the moment the page
      loads — no tap, no toggle. It reads a sample of the same
      /cameras.json the CCTV layer plots, picks a spread of cameras
-     across every network, and cycles their live public snapshots
-     in the top-right card.
+     across every network, and shows their live public snapshots
+     in the top-right card: a 2x2 grid on desktop, a single feed
+     on small screens. One cell rotates every few seconds so the
+     grid stays alive without churn, and the card stays in its
+     corner — it never reaches over the globe.
      Pure display: it calls no globe API, moves nothing, and its
      only control is its own close button (session-only). -->
 <aside id="camLoop" aria-label="Live public traffic cameras">
  <div class="cl-head"><span class="cl-dot" aria-hidden="true"></span><span class="cl-title">CCTV · LIVE CAMERAS</span><button type="button" class="cl-x" id="camLoopX" aria-label="Hide live cameras">&times;</button></div>
- <div class="cl-frame"><img id="camLoopA" alt="Live snapshot from a public traffic camera"><img id="camLoopB" alt="" aria-hidden="true"></div>
- <div class="cl-name" id="camLoopName">Loading live cameras…</div>
- <div class="cl-sub" id="camLoopSub">Public traffic cameras · live worldwide</div>
+ <div class="cl-grid" id="camLoopGrid">
+  <div class="cl-cell"><div class="cl-frame"><img class="cl-a" alt="Live snapshot from a public traffic camera"><img class="cl-b" alt="" aria-hidden="true"></div><div class="cl-name">Loading live cameras…</div><div class="cl-sub">Public traffic cameras · live worldwide</div></div>
+  <div class="cl-cell"><div class="cl-frame"><img class="cl-a" alt="Live snapshot from a public traffic camera"><img class="cl-b" alt="" aria-hidden="true"></div><div class="cl-name"></div><div class="cl-sub"></div></div>
+  <div class="cl-cell"><div class="cl-frame"><img class="cl-a" alt="Live snapshot from a public traffic camera"><img class="cl-b" alt="" aria-hidden="true"></div><div class="cl-name"></div><div class="cl-sub"></div></div>
+  <div class="cl-cell"><div class="cl-frame"><img class="cl-a" alt="Live snapshot from a public traffic camera"><img class="cl-b" alt="" aria-hidden="true"></div><div class="cl-name"></div><div class="cl-sub"></div></div>
+ </div>
 </aside>
 <script>
 (function(){
  "use strict";
  var card=document.getElementById("camLoop");
  if(!card)return;
- var imgA=document.getElementById("camLoopA"),imgB=document.getElementById("camLoopB");
- var nameEl=document.getElementById("camLoopName"),subEl=document.getElementById("camLoopSub");
- var closed=false,timer=null,cams=[],idx=0,front=imgA,back=imgB;
+ var cellEls=card.querySelectorAll(".cl-cell");
+ var small=false;
+ try{small=window.matchMedia&&window.matchMedia("(max-width: 700px)").matches;}catch(e){}
+ var NCELL=small?1:Math.min(4,cellEls.length);
+ var cells=[];
+ for(var i=0;i<NCELL;i++){
+  var el=cellEls[i];
+  var cell={front:el.querySelector(".cl-a"),back:el.querySelector(".cl-b"),
+   nameEl:el.querySelector(".cl-name"),subEl:el.querySelector(".cl-sub")};
+  cells.push(cell);
+ }
+ var closed=false,timer=null,cams=[],next=0,cellCursor=0,dead=0;
  var reduce=false;
  try{reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
- var STEP=reduce?30000:10000;
+ var STEP=reduce?30000:6000;
  document.getElementById("camLoopX").addEventListener("click",function(){
   closed=true;card.style.display="none";if(timer)clearInterval(timer);
  });
  function bust(u){return u+(u.indexOf("?")<0?"?":"&")+"t="+Date.now();}
  var LOOP_SRC={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · Canada",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong TD",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore",ontario:"Ontario 511",wisconsin:"511WI · Wisconsin",pennsylvania:"511PA · Pennsylvania"};
- function caption(c){
-  nameEl.textContent=c.n||"Traffic camera";
-  subEl.textContent=[c.p||"",c.r?("Route "+c.r):"",LOOP_SRC[c.s]||"Public traffic camera"].filter(Boolean).join(" · ");
+ function caption(cell,c){
+  cell.nameEl.textContent=c.n||"Traffic camera";
+  cell.subEl.textContent=[c.p||"",LOOP_SRC[c.s]||"Public traffic camera"].filter(Boolean).join(" · ");
  }
- var fails=0;
- function show(c){
+ function show(cell,c){
+  var back=cell.back;
   back.onload=function(){
-   fails=0;
-   back.classList.add("show");front.classList.remove("show");
-   var t=front;front=back;back=t;back.onload=null;caption(c);
+   dead=0;
+   back.classList.add("show");cell.front.classList.remove("show");
+   var t=cell.front;cell.front=back;cell.back=t;back.onload=null;
+   caption(cell,c);
    if(!card.classList.contains("on"))card.classList.add("on");
   };
   back.onerror=function(){
-   back.onerror=null;fails++;
-   if(fails>=cams.length){card.style.display="none";if(timer)clearInterval(timer);return;}
-   advance();
+   back.onerror=null;dead++;
+   if(dead>=cams.length){card.style.display="none";if(timer)clearInterval(timer);return;}
+   fillCell(cell);
   };
   back.src=bust(c.img);
  }
- function advance(){
+ function fillCell(cell){
   if(closed||!cams.length)return;
-  idx=(idx+1)%cams.length;
-  show(cams[idx]);
+  var c=cams[next%cams.length];next++;
+  show(cell,c);
+ }
+ function rotate(){
+  if(closed||!cells.length)return;
+  fillCell(cells[cellCursor%cells.length]);
+  cellCursor++;
  }
  /* The aggregate can still be warming on a fresh service start
     (the 511 sweeps take minutes): a thin or failed first read
@@ -21939,8 +21966,11 @@ window.NasaView={
   for(var i=0;i<want;i++)picked.push(rows[Math.floor(i*stride)]);
   var startAt=Math.floor(Math.random()*picked.length);
   cams=picked.slice(startAt).concat(picked.slice(0,startAt));
-  idx=-1;advance();
-  timer=setInterval(function(){if(!document.hidden)advance();},STEP);
+  next=0;cellCursor=0;
+  for(var j=0;j<cells.length;j++)(function(cell,delay){
+   setTimeout(function(){fillCell(cell);},delay);
+  })(cells[j],j*400);
+  timer=setInterval(function(){if(!document.hidden)rotate();},STEP);
  }
  function load(attempt){
   if(closed)return;
