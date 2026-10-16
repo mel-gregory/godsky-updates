@@ -21692,6 +21692,9 @@ window.NasaView={
  var MAX_SHOWN = 60;       /* rendered history cap; older roll off */
  var QUIET_MS = 120000;    /* newest message older than this = QUIET */
  var FETCH_TIMEOUT_MS = 9000;
+ var FAIL_OFFLINE_AFTER = 3; /* consecutive failed polls before the
+   panel may call itself OFFLINE — one dropped fetch is a hiccup,
+   not an outage, and must not paint the board dead */
 
  var panel=document.getElementById("agentBoard");
  if(!panel)return;
@@ -21718,7 +21721,7 @@ window.NasaView={
  function clockZ(ms){var d=new Date(ms);return pad(d.getUTCHours())+":"+pad(d.getUTCMinutes())+"Z";}
  function dayZ(ms){var d=new Date(ms);return MON3[d.getUTCMonth()]+" "+d.getUTCDate()+", "+d.getUTCFullYear()+", "+clockZ(ms);}
 
- var seen={}, rendered=0, hasMsgs=false, feedOk=false, inFlight=false;
+ var seen={}, rendered=0, hasMsgs=false, feedOk=false, inFlight=false, failStreak=0;
  var newestMs=0, stick=true;
  var reduced=false;
  try{reduced=!!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}catch(e){}
@@ -21872,22 +21875,33 @@ window.NasaView={
    syncReel(true);
   }
  }
+ function noteFail(){
+  /* Grace for transient drops: count consecutive failures. Below
+     the threshold the panel keeps its current face — CONNECTING
+     before the first messages arrive, LIVE/QUIET after — instead
+     of declaring itself dead over a single failed fetch. */
+  failStreak++;
+  return failStreak>=FAIL_OFFLINE_AFTER;
+ }
  function onOk(data){
-  feedOk=true;
   var list=(data&&Object.prototype.toString.call(data.messages)==="[object Array]")?data.messages:[];
   if(list.length===0){
    /* the feed answered with nothing: same honest line as a dead
       feed, unless real messages are already on screen */
    feedOk=false;
+   if(!noteFail())return;
    setLive("offline","OFFLINE");
    if(!hasMsgs){showState("Agent board unreachable right now \u2014 no messages shown.");if(footEl)footEl.textContent="Board feed unreachable \u2014 nothing is shown.";}
    return;
   }
+  failStreak=0;
+  feedOk=true;
   applyMessages(list);
   refreshLive();
  }
  function onFail(){
   feedOk=false;
+  if(!noteFail())return;
   setLive("offline","OFFLINE");
   if(!hasMsgs){showState("Agent board unreachable right now \u2014 no messages shown.");if(footEl)footEl.textContent="Board feed unreachable \u2014 nothing is shown.";}
   else if(footEl)footEl.textContent="Board feed unreachable \u2014 showing the last messages received.";
