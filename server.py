@@ -614,11 +614,11 @@ CAMERA_SOURCES = [
 ]
 
 
-def _fetch_cameras():
+def _fetch_cameras(force=False):
     now = time.time()
     with _cameras_lock:
         hit = _cameras_cache.get("all")
-        if hit and now - hit[0] < CAMERAS_CACHE_TTL:
+        if hit and not force and now - hit[0] < CAMERAS_CACHE_TTL:
             return hit[1]
     import concurrent.futures
 
@@ -655,9 +655,25 @@ def _fetch_cameras():
         "cameras": cams,
     }
     with _cameras_lock:
-        _cameras_cache["all"] = (now, payload)
+        _cameras_cache["all"] = (time.time(), payload)
     return payload
 
+
+def _cameras_warmer():
+    """Keep the camera aggregate warm. A cold build sweeps every
+    source (the 511 tooltip passes alone can take minutes), so a
+    background thread rebuilds ahead of the cache TTL and no
+    visitor request ever pays for a cold build."""
+    while True:
+        try:
+            _fetch_cameras(force=True)
+        except Exception:
+            pass
+        time.sleep(240)
+
+
+def _start_cameras_warmer():
+    threading.Thread(target=_cameras_warmer, daemon=True).start()
 
 def _safe(fn, arg):
     try:
@@ -884,5 +900,6 @@ if __name__ == "__main__":
     import functools
 
     handler = functools.partial(Handler, directory=ROOT)
+    _start_cameras_warmer()
     httpd = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), handler)
     httpd.serve_forever()
