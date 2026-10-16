@@ -10907,7 +10907,7 @@ function stormTrackerHTML(){
  function L(en,esx){return es?esx:en;}
  var SW=window.StormWatch,sc=SW?SW.card():null;
  var h='<section id="stormTracker" aria-label="'+L("Tropical Storm Isaias tracker","Seguimiento de la tormenta tropical Isaías")+'">';
- h+='<span class="pt-live"><span class="pt-dot"></span>LIVE · NHC</span>';
+ h+='<span class="pt-live"><span class="pt-dot"></span><span id="stLiveTxt">LIVE · NHC</span></span>';
  h+='<div class="pt-kick">'+L("Severe weather — God's Eye tracking","Clima severo — seguimiento de God's Eye")+'</div>';
  h+='<div class="pt-title">'+L("Tropical Storm Isaias — Gulf of Mexico","Tormenta tropical Isaías — Golfo de México")+'</div>';
  h+='<p class="pt-sub">'+L("A tropical storm in the southwestern Gulf, strengthening toward a Friday landfall on the northern Gulf Coast. The facts below are the National Hurricane Center advisory of Oct 7, 2026, ~1:30 PM ET; position, winds, and movement refresh from NHC's live feed as new advisories arrive.","Una tormenta tropical en el suroeste del Golfo, fortaleciéndose hacia un impacto el viernes en la costa norte del Golfo. Los datos siguientes son del aviso del Centro Nacional de Huracanes del 7 de octubre de 2026, ~1:30 PM ET; la posición, los vientos y el movimiento se refrescan desde la fuente en vivo del NHC con cada aviso nuevo.")+'</p>';
@@ -18961,8 +18961,8 @@ window.StormWatch=(function(){
   var kmh=Math.round(D.wind*1.609),mkmh=Math.round(D.moveMph*1.609);
   return {
    head:{en:(CLSEN[D.cls]||"Storm")+" Isaias — Gulf of Mexico",es:(CLSES[D.cls]||"Tormenta")+" Isaías — Golfo de México"},
-   sub:{en:D.wind+" mph winds · moving "+mc.en+" at "+D.moveMph+" mph · "+(D.live?"live NHC advisory":"hurricane expected by Thursday morning"),
-        es:kmh+" km/h · avanza al "+mc.es+" a "+mkmh+" km/h · "+(D.live?"aviso en vivo del NHC":"huracán esperado para el jueves por la mañana")},
+   sub:{en:D.wind+" mph winds · moving "+mc.en+" at "+D.moveMph+" mph · "+(D.live?"live NHC advisory":(stale?"OUTDATED — "+st.en+"; not current":"hurricane expected by Thursday morning")),
+        es:kmh+" km/h · avanza al "+mc.es+" a "+mkmh+" km/h · "+(D.live?"aviso en vivo del NHC":(stale?"DESACTUALIZADO — "+st.es+"; no es actual":"huracán esperado para el jueves por la mañana"))},
    facts:{
     en:["<b>"+D.wind+" mph</b> max sustained winds — "+pw.en+" ("+st.en+")",
         D.cls==="HU"?"<b>Now a hurricane</b> — Category 2+ still possible by Friday":"<b>Hurricane</b> expected by Thursday morning; <b>Category 2+</b> possible by Friday",
@@ -19053,6 +19053,7 @@ window.StormWatch=(function(){
   var ft=g("stFoot");if(ft)ft.textContent=c.foot;
   var wc=g("stChipWind");if(wc)wc.innerHTML=c.windChip;
   var mv=g("stChipMove");if(mv)mv.innerHTML=c.moveChip;
+  var lb=g("stLiveTxt");if(lb)lb.textContent=D.live?(ES()?"EN VIVO · NHC":"LIVE · NHC"):(isStale()?(ES()?"NHC · AVISO DESACTUALIZADO EN MANO":"NHC · OUTDATED ADVISORY ON HAND"):(ES()?"NHC · AVISO EN MANO":"NHC · ADVISORY ON HAND"));
   /* the card's picture follows the advisory: re-aim the storm
      image at the live center (and NHC's cone for this storm id)
      every time a new advisory paints */
@@ -19060,7 +19061,15 @@ window.StormWatch=(function(){
  }
  var subs=[];
  function plot(){
-  try{if(window.EarthGlobe&&EarthGlobe.setTrackedStorm)EarthGlobe.setTrackedStorm({name:"Isaias",lat:D.lat,lon:D.lon,track:D.track,approx:D.approx,live:D.live});}catch(e){}
+  try{
+   if(!window.EarthGlobe||!EarthGlobe.setTrackedStorm)return;
+   /* A stale, never-live advisory must not hold a live-looking
+      marker on the planet (Mel, 2026-10-16: "We can't give
+      misinformation"). Clear the marker; the dated words in the
+      tracker carry the record instead. */
+   if(!D.live&&isStale()){EarthGlobe.setTrackedStorm(null);return;}
+   EarthGlobe.setTrackedStorm({name:"Isaias",lat:D.lat,lon:D.lon,track:D.track,approx:D.approx,live:D.live});
+  }catch(e){}
  }
  function notify(){
   plot();
