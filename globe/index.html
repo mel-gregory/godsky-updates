@@ -21855,7 +21855,7 @@ window.NasaView={
   closed=true;card.style.display="none";if(timer)clearInterval(timer);
  });
  function bust(u){return u+(u.indexOf("?")<0?"?":"&")+"t="+Date.now();}
- var LOOP_SRC={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · Canada",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong TD",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore"};
+ var LOOP_SRC={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · Canada",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong TD",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore",ontario:"Ontario 511",wisconsin:"511WI · Wisconsin",pennsylvania:"511PA · Pennsylvania"};
  function caption(c){
   nameEl.textContent=c.n||"Traffic camera";
   subEl.textContent=[c.p||"",c.r?("Route "+c.r):"",LOOP_SRC[c.s]||"Public traffic camera"].filter(Boolean).join(" · ");
@@ -21880,23 +21880,39 @@ window.NasaView={
   idx=(idx+1)%cams.length;
   show(cams[idx]);
  }
- fetch("/cameras.json?sample=240",{cache:"no-store"}).then(function(r){
-  if(!r.ok)throw new Error("cameras "+r.status);
-  return r.json();
- }).then(function(d){
-  var rows=(d&&d.cameras)||[];
-  rows=rows.filter(function(c){return c&&c.img&&isFinite(c.la)&&isFinite(c.lo);});
-  if(rows.length<4){card.style.display="none";return;}
+ /* The aggregate can still be warming on a fresh service start
+    (the 511 sweeps take minutes): a thin or failed first read
+    retries for about two minutes before the card gives up, so an
+    early visitor still gets the loop once the data is ready. */
+ function start(rows){
   /* a spread across the whole list — the districts run north to
      south, so an even stride tours the state instead of sitting
      in one city; the start point is random each visit */
   var want=Math.min(28,rows.length),stride=rows.length/want,picked=[];
   for(var i=0;i<want;i++)picked.push(rows[Math.floor(i*stride)]);
-  var start=Math.floor(Math.random()*picked.length);
-  cams=picked.slice(start).concat(picked.slice(0,start));
+  var startAt=Math.floor(Math.random()*picked.length);
+  cams=picked.slice(startAt).concat(picked.slice(0,startAt));
   idx=-1;advance();
   timer=setInterval(function(){if(!document.hidden)advance();},STEP);
- }).catch(function(){card.style.display="none";});
+ }
+ function load(attempt){
+  if(closed)return;
+  fetch("/cameras.json?sample=240",{cache:"no-store"}).then(function(r){
+   if(!r.ok)throw new Error("cameras "+r.status);
+   return r.json();
+  }).then(function(d){
+   var rows=(d&&d.cameras)||[];
+   rows=rows.filter(function(c){return c&&c.img&&isFinite(c.la)&&isFinite(c.lo);});
+   if(rows.length<4){retry(attempt);return;}
+   start(rows);
+  }).catch(function(){retry(attempt);});
+ }
+ function retry(attempt){
+  if(closed)return;
+  if(attempt>=8){card.style.display="none";return;}
+  setTimeout(function(){load(attempt+1);},15000);
+ }
+ load(0);
 })();
 </script>
 </body>
