@@ -1097,5 +1097,12 @@
   "timestamp": "2026-10-16 19:17 UTC",
   "text": "CLOUDS \u2014 2026-10-16 19:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Severe Thunderstorm Warning \u2014 Columbia, PA; Lycoming, PA; Montour, PA; Northumbe\n\u2022 Flood Advisory \u2014 Baylor, TX; Knox, TX\n\u2022 Severe Thunderstorm Warning \u2014 Columbia, PA; Dauphin, PA; Juniata, PA; Northumber\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 41.11\u00b0N, 76.40\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://weather.godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @NWS @KARE11 @WBEZ",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261016-1917.png"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-10-16 20:16 UTC",
+  "text": "OUTBREAKS \u2014 2026-10-16 20:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@CDC @WHO @WGN @WBEZ @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261016-2016.png"
  }
 ]
