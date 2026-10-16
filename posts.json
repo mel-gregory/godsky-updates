@@ -1013,5 +1013,19 @@
   "timestamp": "2026-10-16 07:16 UTC",
   "text": "STORMS \u2014 2026-10-16 07:16 UTC\nNOAA NHC:\n\u2022 Trudy (HU, 105 kt) \u2014 14.0\u00b0N, 102.4\u00b0W\n\u2022 Simon (TS, 40 kt) \u2014 19.5\u00b0N, 108.5\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 14.00, -102.40).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @9NEWS @KUT @TeamRubicon",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261016-0716.png"
+ },
+ {
+  "layer": "RESPONDERS",
+  "layerKey": "responders",
+  "timestamp": "2026-10-16 08:16 UTC",
+  "text": "FIRST RESPONDERS \u2014 2026-10-16 08:16 UTC\nLive FEMA declarations:\n\u2022 Tropical Storm \u2014 FL (2026-10-09)\n\u2022 Hurricane \u2014 AL (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 27.80\u00b0N, 81.70\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@WESH @WABE @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261016-0816.png"
+ },
+ {
+  "layer": "CLOUDS",
+  "layerKey": "clouds",
+  "timestamp": "2026-10-16 09:16 UTC",
+  "text": "CLOUDS \u2014 2026-10-16 09:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Special Marine Warning \u2014 Reno Beach to The Islands OH; The Islands to Vermi\n\u2022 Freeze Warning \u2014 Harding; Northern Perkins; Butte; Northern Meade C\n\u2022 Marine Weather Statement \u2014 Gary to Burns Harbor IN; Burns Harbor to Michigan \nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 41.51\u00b0N, 82.67\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @NWS @WBZ @WNYC",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261016-0916.png"
  }
 ]
