@@ -1048,5 +1048,12 @@
   "timestamp": "2026-10-16 12:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-16 12:16 UTC\nUSGS:\n\u2022 M6.9 \u2014 76 km NE of Ozernovskiy, Russia \ud83d\udccd 51.98\u00b0N, 157.27\u00b0E\n\u2022 M5.2 \u2014 107 km NNE of Hihifo, Tonga \ud83d\udccd 15.04\u00b0S, 173.44\u00b0W\n\u2022 M5.2 \u2014 157 km W of Sola, Vanuatu \ud83d\udccd 13.89\u00b0S, 166.09\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 51.98\u00b0N, 157.27\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://weather.godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261016-1216.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-16 13:16 UTC",
+  "text": "STORMS \u2014 2026-10-16 13:16 UTC\nNOAA NHC:\n\u2022 Trudy (HU, 105 kt) \u2014 14.5\u00b0N, 102.5\u00b0W\n\u2022 Simon (TS, 35 kt) \u2014 20.0\u00b0N, 108.8\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 14.50, -102.50).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://weather.godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @abc15 @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261016-1316.png"
  }
 ]
