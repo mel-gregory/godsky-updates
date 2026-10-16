@@ -11508,6 +11508,7 @@ function awRenderArea(p){
   +'<p class="pt-meta">GPS '+gpsTxt(p.lat,p.lon)+'<button type="button" class="pt-globebtn" id="awGlobeBtn" style="margin-left:8px">'+awL("See it on the globe","Verlo en el globo")+'</button></p>'
   +idLine
   +'<div class="aw-sec" id="awBlkImg"><h4>'+awL("The area from above — latest available imagery","La zona desde arriba — imagen más reciente disponible")+'</h4><p class="pt-meta">'+awL("Finding the newest satellite capture…","Buscando la captura satelital más reciente…")+'</p></div>'
+  +'<div class="aw-sec" id="awBlkCam" hidden><h4>'+awL("Live public cameras near here","Cámaras públicas en vivo cerca de aquí")+'</h4><div id="awCamBody"></div></div>'
   +'<div class="aw-paths" role="group" aria-label="'+awL("Resources for this place","Recursos para este lugar")+'">'
   +awPathBtn("public",awL("Public Health","Salud Pública"),awL("Outbreaks, disease monitoring, air & water quality, health alerts, vaccination sites","Brotes, vigilancia de enfermedades, calidad de aire y agua, alertas de salud, sitios de vacunación"))
   +awPathBtn("emergency",awL("Emergency","Emergencia"),awL("Emergency numbers, nearest hospitals, ERs, urgent care, poison control","Números de emergencia, hospitales cercanos, salas de emergencia, atención urgente, control de intoxicaciones"))
@@ -11569,6 +11570,7 @@ function awRenderArea(p){
  if(!out.__pathBound){out.__pathBound=1;out.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-awpath]"):null;if(b&&window.__awOpenPath)window.__awOpenPath(b.getAttribute("data-awpath"));});}
  window.__awOpenPath=openPath;
  awImagery(p);
+ if(window.CardCam)CardCam.mount(p);
  openPath(AW.path||"public");
 }
 function awShowPlace(p,fromGlobe,opts){
@@ -15319,7 +15321,7 @@ setTimeout(function(){
    holds nearby. Facts and links only; nothing here interprets
    an image, and both blocks fail soft — a feed that does not
    answer simply adds no block. */
- var CAM_SRC_LBL={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · British Columbia",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong Transport Department",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore"};
+ var CAM_SRC_LBL={caltrans:"Caltrans · California",minnesota:"Minnesota DOT",colorado:"Colorado DOT",drivebc:"DriveBC · British Columbia",finland:"Fintraffic · Finland",tfl:"TfL · London",hongkong:"Hong Kong Transport Department",spain:"DGT · Spain",nz:"NZTA · New Zealand",iceland:"Vegagerðin · Iceland",singapore:"LTA · Singapore",ontario:"Ontario 511",wisconsin:"511WI · Wisconsin",pennsylvania:"511PA · Pennsylvania"};
  var EV_SRC_LBL={usgs:"USGS",emsc:"EMSC",eonet:"NASA EONET",gdacs:"GDACS",nhc:"NHC",nws_tsunami:"NWS Tsunami",who:"WHO",ndbc:"NOAA buoys",noaa_coops:"NOAA tides",nwis:"USGS rivers",usgs_nwis:"USGS rivers",celestrak:"CelesTrak"};
  function havKm(a,b,c,d){var p=Math.PI/180,x=(c-a)*p,y=(d-b)*p,s=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)*Math.sin(y/2);return 12742*Math.atan2(Math.sqrt(s),Math.sqrt(Math.max(0,1-s)));}
  var _camList=null,_camListP=null;
@@ -15331,15 +15333,75 @@ setTimeout(function(){
   }).catch(function(){_camListP=null;return null;});
   return _camListP;
  }
- function nearCam(lat,lon){
+ function nearCams(lat,lon,n){
   return loadCams().then(function(list){
-   if(!list)return null;
-   var best=null,bd=1e9;
-   for(var i=0;i<list.length;i++){var c=list[i];if(!c||!c.img)continue;var dd=havKm(lat,lon,c.la,c.lo);if(dd<bd){bd=dd;best=c;}}
-   if(!best||bd>250)return null;
-   return {img:String(best.img),n:best.n||"Traffic camera",op:CAM_SRC_LBL[best.s]||"Public traffic camera",km:bd<10?bd.toFixed(1):String(Math.round(bd))};
-  }).catch(function(){return null;});
+   if(!list)return [];
+   var scored=[];
+   for(var i=0;i<list.length;i++){var c=list[i];if(!c||!c.img)continue;var dd=havKm(lat,lon,c.la,c.lo);if(dd<=250)scored.push({d:dd,c:c});}
+   scored.sort(function(a,b){return a.d-b.d;});
+   return scored.slice(0,n||1).map(function(s){var c=s.c;return {img:String(c.img),n:c.n||"Traffic camera",p:c.p||"",r:c.r||"",op:CAM_SRC_LBL[c.s]||"Public traffic camera",km:s.d<10?s.d.toFixed(1):String(Math.round(s.d))};});
+  }).catch(function(){return [];});
  }
+ function nearCam(lat,lon){
+  return nearCams(lat,lon,1).then(function(a){return a.length?a[0]:null;});
+ }
+ /* the camera agent answers the place card too (2026-10-16):
+    the big card a visitor reads for a place — a tap, a disaster,
+    an outbreak all land here — carries the nearest public
+    cameras the same way the marker popover does, rotating
+    through the closest three so the card is alive while it is
+    being read. Presence only: a nearby camera is never
+    presented as a view of the event or the place itself. */
+ window.CardCam={
+  mount:function(p){
+   var sec=document.getElementById("awBlkCam"),body=document.getElementById("awCamBody");
+   if(!sec||!body||!p||typeof p.lat!=="number")return;
+   if(body._camTimer){clearInterval(body._camTimer);body._camTimer=null;}
+   nearCams(p.lat,p.lon,3).then(function(list){
+    if(!list.length)return;
+    if(!AW.place||AW.place.lat!==p.lat||AW.place.lon!==p.lon)return;
+    if(document.getElementById("awCamBody")!==body)return;
+    sec.hidden=false;
+    body.innerHTML="";
+    var img=document.createElement("img");
+    img.className="aw-img";
+    img.alt=awL("Live snapshot from a public traffic camera near this place","Imagen en vivo de una cámara pública de tráfico cercana a este lugar");
+    img.referrerPolicy="no-referrer";
+    img.style.cssText="transition:opacity .5s ease";
+    var cap=document.createElement("p");
+    cap.style.cssText="font-size:12px;color:rgba(255,255,255,.85);margin-top:7px;line-height:1.45";
+    var meta=document.createElement("p");
+    meta.className="pt-src";
+    body.appendChild(img);body.appendChild(cap);body.appendChild(meta);
+    var cur=0,alive=true;
+    function bust(u){return u+(u.indexOf("?")<0?"?":"&")+"t="+Date.now();}
+    function show(i){
+     var c=list[i];if(!c)return;
+     var pre=new Image();
+     pre.onload=function(){
+      if(!alive)return;
+      img.src=pre.src;
+      cap.textContent=c.n+" · "+[c.p,c.r?("Route "+c.r):"",c.op].filter(Boolean).join(" · ");
+      meta.textContent=awL("Public camera near here · ","Cámara pública cerca de aquí · ")+c.km+" km"+awL(" away — its live snapshot, straight from the operator. Presence, not a view of what's happening here."," — su imagen en vivo, directamente del operador. Presencia, no una vista de lo que ocurre aquí.");
+     };
+     pre.onerror=function(){
+      if(!alive)return;
+      list.splice(i,1);
+      if(!list.length){alive=false;if(body._camTimer)clearInterval(body._camTimer);sec.hidden=true;body.innerHTML="";return;}
+      show(Math.min(i,list.length-1));
+     };
+     pre.src=bust(c.img);
+    }
+    show(0);
+    body._camTimer=setInterval(function(){
+     if(!document.body.contains(body)||!AW.place||AW.place.lat!==p.lat||AW.place.lon!==p.lon){clearInterval(body._camTimer);alive=false;return;}
+     if(!list.length)return;
+     cur=(cur+1)%list.length;
+     show(cur);
+    },12000);
+   });
+  }
+ };
  var _evList=null,_evListP=null;
  function loadEvents(){
   if(_evList)return Promise.resolve(_evList);
