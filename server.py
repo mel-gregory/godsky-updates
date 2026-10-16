@@ -186,7 +186,8 @@ def _render_digest(day_str):
 # Caltrans (California), Minnesota DOT, Colorado DOT, DriveBC,
 # Fintraffic (Finland), TfL (London), the Hong Kong Transport
 # Department, DGT (Spain), NZTA (New Zealand), Vegagerðin
-# (Iceland), and LTA via data.gov.sg (Singapore). Each feed is
+# (Iceland), LTA via data.gov.sg (Singapore), Ontario 511,
+# Wisconsin 511WI, and Pennsylvania 511PA. Each feed is
 # fetched server-side, normalized to one compact list labeled by
 # operator, and cached for 5 minutes; the snapshots themselves are
 # served by the operators and refresh in place. A feed that fails
@@ -496,6 +497,105 @@ def _src_spain():
     return out
 
 
+# IBI 511 platforms (Ontario, Wisconsin, Pennsylvania) publish no
+# bulk camera directory: their /Camera/GetUserCameras endpoint only
+# returns a small default set (a handful of sites). The full network
+# is the map layer's own icon index ({base}/map/mapIcons/Cameras:
+# site id + coordinates for every site), and each site's name and
+# snapshot path come from its tooltip page
+# ({base}/tooltip/Cameras/{id}), the same pages the operators' maps
+# load on marker click. Names and image paths change rarely, so
+# tooltip details are memoised per site for the life of the process
+# and only sites missing from the memo are fetched — steady state is
+# one icon-index request per source per cycle, and a site whose
+# tooltip fails simply joins the next cycle instead.
+_ibi_details = {}
+_ibi_lock = threading.Lock()
+
+
+def _ibi_tooltip(base, site_id):
+    page = _http_bytes(f"{base}/tooltip/Cameras/{site_id}?lang=en",
+                       timeout=20).decode("utf-8", "replace")
+    name = place = img = ""
+    m = re.search(r'data-fs-title="([^"]+)"', page)
+    if m:
+        name = html.unescape(m.group(1)).strip()
+    if not name:
+        m = re.search(
+            r"CameraTooltipDescriptionColumn.*?<strong>(.*?)</strong>",
+            page, re.S)
+        if m:
+            name = html.unescape(
+                re.sub(r"<[^>]+>", "", m.group(1))).strip()
+    m = re.search(r'data-fs-extra="([^"]+)"', page)
+    if m:
+        place = html.unescape(m.group(1)).strip()
+    for tag in re.findall(r"<img[^>]*>", page):
+        if "cctvImage" not in tag:
+            continue
+        m = re.search(r'(?:data-lazy|src)="(/map/Cctv/\d+)"', tag)
+        if m:
+            img = base + m.group(1)
+            break
+    return name, place, img
+
+
+def _src_ibi(base, code):
+    import concurrent.futures
+
+    doc = _http_json(f"{base}/map/mapIcons/Cameras", timeout=40)
+    sites = []
+    for item in doc.get("item2", []):
+        loc = item.get("location") or []
+        if len(loc) < 2:
+            continue
+        sites.append((str(item.get("itemId")), loc[0], loc[1]))
+
+    def detail(site):
+        try:
+            name, place, img = _ibi_tooltip(base, site[0])
+        except Exception:
+            return
+        if img:
+            with _ibi_lock:
+                _ibi_details[(base, site[0])] = (name, place, img)
+
+    with _ibi_lock:
+        missing = [s for s in sites
+                   if (base, s[0]) not in _ibi_details]
+    if missing:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=12) as pool:
+            list(pool.map(detail, missing))
+    with _ibi_lock:
+        details = dict(_ibi_details)
+        live = {(base, s[0]) for s in sites}
+        for key in [k for k in _ibi_details
+                    if k[0] == base and k not in live]:
+            del _ibi_details[key]
+    out = []
+    for sid, la, lo in sites:
+        got = details.get((base, sid))
+        if not got:
+            continue
+        name, place, img = got
+        cam = _cam(name, place, "", la, lo, img, code)
+        if cam:
+            out.append(cam)
+    return out
+
+
+def _src_ontario():
+    return _src_ibi("https://511on.ca", "ontario")
+
+
+def _src_wisconsin():
+    return _src_ibi("https://511wi.gov", "wisconsin")
+
+
+def _src_pennsylvania():
+    return _src_ibi("https://www.511pa.com", "pennsylvania")
+
+
 CAMERA_SOURCES = [
     ("caltrans", "Caltrans · California", _src_caltrans),
     ("minnesota", "Minnesota DOT", _src_minnesota),
@@ -508,6 +608,9 @@ CAMERA_SOURCES = [
     ("nz", "NZTA · New Zealand", _src_nz),
     ("iceland", "Vegagerðin · Iceland", _src_iceland),
     ("singapore", "LTA · Singapore", _src_singapore),
+    ("ontario", "Ontario 511", _src_ontario),
+    ("wisconsin", "511WI · Wisconsin", _src_wisconsin),
+    ("pennsylvania", "511PA · Pennsylvania", _src_pennsylvania),
 ]
 
 
