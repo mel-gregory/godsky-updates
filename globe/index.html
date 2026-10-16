@@ -893,6 +893,28 @@ body.layers-open #camLoop{display:none}
    hero lines instead of over them — the title owns the top of the
    first screen, the cameras start underneath it */
  #camLoop{width:168px;top:calc(env(safe-area-inset-top,0px) + 136px)}#camLoop .cl-name{font-size:10.5px}}
+/* phones (Mel, 2026-10-16): the loop leaves the planet's face —
+   a small picture-in-picture thumbnail in the bottom-right
+   corner, stacked above the Radio pill in the same right-side
+   dock stack (Support +14, Share +60, Radio +106, each pill
+   ~36px tall on a 46px pitch): +152 keeps the stack's ~10px
+   gap above Radio. On a phone with --dock-h at 0 that lands
+   the card's bottom edge 230px up — clear of the reel strip
+   (top ~139px) and of the bottom-left mission title. The
+   trending pill and everything else keep their places. */
+@media(max-width:700px),(max-height:500px){
+ #camLoop{top:auto;bottom:calc(max(var(--dock-h,0px),78px) + 152px);width:150px;padding:7px 6px;border-radius:12px}
+ #camLoop .cl-head{margin:0 0 5px;gap:5px}
+ #camLoop .cl-title{font-size:8px;letter-spacing:.07em;white-space:nowrap}
+ #camLoop .cl-x{font-size:13px;padding:2px 1px}
+ #camLoop .cl-frame{border-radius:7px}
+ #camLoop .cl-name{font-size:10.5px;margin-top:5px}
+ #camLoop .cl-sub{font-size:10px}}
+@media(max-height:500px){
+ /* landscape phones: a touch narrower still, header kept to
+    its one line at the smaller width */
+ #camLoop{width:136px}
+ #camLoop .cl-title{font-size:7.5px;letter-spacing:.04em}}
 #supportCard[hidden]{display:none}
 .sup-close{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#eef2f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;padding:0;font-family:var(--sans)}
 .sup-close:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
