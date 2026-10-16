@@ -18584,7 +18584,7 @@ window.TrendingFeed=(function(){
 (function(){
  "use strict";
  var TRENDING_EVENTS=[
-  {id:"plague-irkutsk-shelekhov",active:true,tracked:true,score:1,minScore:0.6,target:"plagueTracker",
+  {id:"plague-irkutsk-shelekhov",active:true,tracked:true,lastFact:"2026-10-06T05:12:00-04:00",score:1,minScore:0.6,target:"plagueTracker",
    kick:{en:"TRENDING NOW",es:"EN TENDENCIA"},
    head:{en:"Suspected pneumonic plague — Irkutsk & Shelekhov, Siberia",es:"Presunta peste neumónica — Irkutsk y Shelekhov, Siberia"},
    sub:{en:"1 death reported · ~189–197 contacts under observation · plague not confirmed",es:"1 muerte reportada · ~189–197 contactos bajo observación · peste no confirmada"},
@@ -18619,7 +18619,7 @@ window.TrendingFeed=(function(){
      statusEl=document.getElementById("trendStatus"),latest=document.getElementById("trendLatest"),
      freshEl=document.getElementById("trendFresh"),
      openBtn=document.getElementById("trendOpen"),xBtn=document.getElementById("trendX");
- var dismissed=false,current=null,shownId=null,rotTimer=null,fadeTimer=null,plagueLatest=false,plagueCheckedAt=0;
+ var dismissed=false,current=null,shownId=null,rotTimer=null,fadeTimer=null,plagueLatest=false,plagueCheckedAt=0,fallbackEv=null,fallbackCheckedAt=0;
  function es(){return typeof S!=="undefined"&&S.lang==="es";}
  function pick(o){return o?(es()?o.es:o.en):"";}
  function qualifies(ev){
@@ -18640,9 +18640,21 @@ window.TrendingFeed=(function(){
     }
    }catch(e){}
   }
+  /* The 72-hour rule for tracked stories (Mel, 2026-10-16): a story
+     with no new verified fact for 72 hours hands the slot to the
+     day's biggest live record (the fallback below). Only a verified
+     fact moves lastFact — the GDELT news line and re-checks don't. */
+  if(ev.tracked&&ev.lastFact){
+   var lfMs=Date.parse(ev.lastFact);
+   if(!isNaN(lfMs)&&(Date.now()-lfMs)/36e5>72)return false;
+  }
   return ev.tracked===true||(typeof ev.score==="number"&&typeof ev.minScore==="number"&&ev.score>=ev.minScore);
  }
- function liveEvents(){return TRENDING_EVENTS.filter(qualifies);}
+ function liveEvents(){
+  var list=TRENDING_EVENTS.filter(qualifies);
+  if(!list.length&&fallbackEv)list=[fallbackEv];
+  return list;
+ }
  function eventById(id){for(var i=0;i<TRENDING_EVENTS.length;i++)if(TRENDING_EVENTS[i].id===id)return TRENDING_EVENTS[i];return null;}
  /* a dynamic event (the storm) re-reads its words from its live
     module on every paint, so a fresh NHC advisory reaches the
@@ -18678,12 +18690,16 @@ window.TrendingFeed=(function(){
     var DD=(window.StormWatch&&StormWatch.data)?StormWatch.data():null;
     EvImg.mount(tslot,{kind:"storm",lat:DD?DD.lat:24.5,lon:DD?DD.lon:-90.5,sid:DD?(DD.sid||""):"",
      alt:es()?"La tormenta desde su fuente: el NHC o el satélite":"The storm from its own source: NHC or satellite"});
-   }else{
+   }else if(current.id==="plague-irkutsk-shelekhov"){
     EvImg.mount(tslot,{kind:"outbreak",lat:52.26,lon:104.19,
      alt:es()?"Vista satelital de Irkutsk y Shelekhov":"Satellite view of Irkutsk and Shelekhov"});
+   }else{
+    /* the record fallback carries no picture rather than a wrong one */
+    tslot.innerHTML="";
    }
   }
   openBtn.textContent=pick(f.open);
+  openBtn.hidden=(current.id==="record-fallback");
   xBtn.setAttribute("aria-label",pick(f.dismiss));
   /* the GDELT latest line belongs to the outbreak story only —
      the rotation shows or hides it, never rebuilds it */
@@ -18723,6 +18739,10 @@ window.TrendingFeed=(function(){
    else t=es()
     ?("Consultando la fuente en vivo del NHC… por ahora se muestra el aviso del 7 oct 2026, ~1:30 PM ET.")
     :("Checking NHC's live feed… showing the Oct 7, 2026, ~1:30 PM ET advisory until it answers.");
+  }else if(current.id==="record-fallback"){
+   t=fallbackCheckedAt
+    ?(es()?("Del registro permanente · revisado "+agoStr(fallbackCheckedAt)+" · la página vuelve a revisar cada 15 min."):("From the permanent record · checked "+agoStr(fallbackCheckedAt)+" · this page re-checks every 15 min."))
+    :(es()?("Del registro permanente · la página revisa el registro cada 15 min."):("From the permanent record · this page re-checks the record every 15 min."));
   }else{
    t=plagueCheckedAt
     ?(es()?("Reportes de noticias revisados "+agoStr(plagueCheckedAt)+" · la página vuelve a revisar cada 15 min."):("News reports checked "+agoStr(plagueCheckedAt)+" · this page re-checks every 15 min."))
@@ -18812,6 +18832,63 @@ window.TrendingFeed=(function(){
     the 6-hour freshness window drops out of TRENDING NOW on its own,
     even between NHC polls */
  setInterval(function(){if(!chip.hidden){render();}else if(!dismissed){render();}},60000);
+ /* The day's biggest live record (Mel, 2026-10-16): when no tracked
+    story qualifies — the tracker gone 72 hours without a new
+    verified fact, no fresh storm — the slot carries the largest
+    earthquake of the last 24 hours from the permanent record's own
+    feed, or an NHC storm record when no quake qualifies, or stays
+    hidden when the record has neither. Numbers come only from the
+    feed: the magnitude is the one printed in the record's title.
+    Re-read every 15 minutes, the cadence of the other polls. */
+ var RECORD_FEED="https://orbital-ingest-worker-production.up.railway.app/events.json?hours=24";
+ function p2(n){return (n<10?"0":"")+n;}
+ function utcStamp(ms){
+  var d=new Date(ms);if(isNaN(d.getTime()))return "";
+  return p2(d.getUTCHours())+":"+p2(d.getUTCMinutes())+" UTC";
+ }
+ function utcDay(ms){
+  var d=new Date(ms);if(isNaN(d.getTime()))return "";
+  var mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return mon[d.getUTCMonth()]+" "+d.getUTCDate()+", "+d.getUTCFullYear();
+ }
+ function buildFallback(d){
+  var evs=(d&&d.events)||[],best=null,bestMag=-1,storm=null,i,e,m,mag;
+  for(i=0;i<evs.length;i++){
+   e=evs[i];if(!e||!e.title)continue;
+   if(e.source==="usgs"||e.source==="emsc"){
+    m=/^M\s+(\d+(?:\.\d+)?)/.exec(e.title);
+    if(m){mag=parseFloat(m[1]);if(mag>bestMag){bestMag=mag;best=e;}}
+   }else if(e.source==="nhc"&&!storm){
+    storm=e;
+   }
+  }
+  var chosen=best||storm;
+  if(!chosen){fallbackEv=null;return;}
+  var srcName=chosen.source==="emsc"?"EMSC":(chosen.source==="usgs"?"USGS":"NHC");
+  var obsMs=Date.parse(chosen.observed_at||"");
+  var when=utcStamp(obsMs),day=utcDay(obsMs);
+  var stamp=(day?day+" · ":"")+when;
+  var factsEn=["<b>Source:</b> "+srcName,"<b>Reported:</b> "+stamp],
+      factsEs=["<b>Fuente:</b> "+srcName,"<b>Reportado:</b> "+stamp];
+  if(isFinite(chosen.lat)&&isFinite(chosen.lon)){
+   var pos=Math.abs(chosen.lat).toFixed(1)+"°"+(chosen.lat>=0?"N":"S")+" "+Math.abs(chosen.lon).toFixed(1)+"°"+(chosen.lon>=0?"E":"W");
+   factsEn.push("<b>Position:</b> "+pos);factsEs.push("<b>Posición:</b> "+pos);
+  }
+  fallbackEv={id:"record-fallback",active:true,tracked:false,fallback:true,target:null,
+   kick:{en:"TRENDING NOW",es:"EN TENDENCIA"},
+   head:{en:chosen.title,es:chosen.title},
+   sub:{en:srcName+" · "+stamp,es:srcName+" · "+stamp},
+   facts:{en:factsEn,es:factsEs},
+   status:{en:"From the permanent record — "+srcName+", "+when+". The tracked stories had nothing newer; this is the day's biggest live record.",es:"Del registro permanente — "+srcName+", "+when+". Las historias seguidas no tenían nada más nuevo; este es el registro en vivo más grande del día."},
+   open:{en:"",es:""},latestLabel:{en:"",es:""},dismiss:{en:"Dismiss",es:"Descartar"}};
+ }
+ function pollFallback(){
+  if(!window.fetch)return;
+  fetch(RECORD_FEED,{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("record");return r.json();})
+  .then(function(d){fallbackCheckedAt=Date.now();buildFallback(d);render();}).catch(function(){});
+ }
+ pollFallback();
+ setInterval(pollFallback,900000);
 })();
 </script>
 <script type="text/plain" data-gsk>
