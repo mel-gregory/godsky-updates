@@ -1174,5 +1174,12 @@
   "timestamp": "2026-10-18 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-18 02:16 UTC\nUSGS:\n\u2022 M5.7 \u2014 48 km WNW of Khuzdar, Pakistan \ud83d\udccd 28.02\u00b0N, 66.17\u00b0E\n\u2022 M5.2 \u2014 86 km SW of Brisas Barra de Suchiate, Mexico \ud83d\udccd 14.05\u00b0N, 92.86\u00b0W\n\u2022 M4.8 \u2014 31 km SE of Kainantu, Papua New Guinea \ud83d\udccd 6.51\u00b0S, 146.05\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-17 (location-specific, \ud83d\udccd 28.02\u00b0N, 66.17\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WSBTV @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261018-0216.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-18 06:16 UTC",
+  "text": "STORMS \u2014 2026-10-18 06:16 UTC\nNOAA NHC:\n\u2022 Trudy (HU, 85 kt) \u2014 18.5\u00b0N, 106.1\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-17 (location-specific, \ud83d\udccd 18.50, -106.10).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @SamaritansPurse",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261018-0616.png"
  }
 ]
