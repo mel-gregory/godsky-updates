@@ -1286,5 +1286,12 @@
   "timestamp": "2026-10-20 18:16 UTC",
   "text": "FIRST RESPONDERS \u2014 2026-10-20 18:16 UTC\nLive FEMA declarations:\n\u2022 Other \u2014 GU (2026-10-17)\n\u2022 Tropical Storm \u2014 GA (2026-10-09)\n\u2022 Hurricane \u2014 AL (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-19 (location-specific, \ud83d\udccd 13.40\u00b0N, 144.80\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@KHOU @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261020-1816.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-20 22:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-20 22:16 UTC\nUSGS:\n\u2022 M6.3 \u2014 197 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.99\u00b0S, 165.59\u00b0E\n\u2022 M5.4 \u2014 192 km S of Burica, Panama \ud83d\udccd 6.32\u00b0N, 82.57\u00b0W\n\u2022 M5.2 \u2014 206 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.86\u00b0S, 165.59\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-19 (location-specific, \ud83d\udccd 13.99\u00b0S, 165.59\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WSBTV @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261020-2216.png"
  }
 ]
