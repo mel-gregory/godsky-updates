@@ -1251,5 +1251,12 @@
   "timestamp": "2026-10-19 22:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-19 22:16 UTC\nUSGS:\n\u2022 M6.0 \u2014 186 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.05\u00b0S, 165.68\u00b0E\n\u2022 M5.7 \u2014 203 km WNW of Port-Olry, Vanuatu \ud83d\udccd 14.03\u00b0S, 165.50\u00b0E\n\u2022 M5.7 \u2014 198 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.04\u00b0S, 165.55\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-18 (location-specific, \ud83d\udccd 14.05\u00b0S, 165.68\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WSBTV @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261019-2216.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-20 02:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-20 02:16 UTC\nUSGS:\n\u2022 M6.0 \u2014 186 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.05\u00b0S, 165.68\u00b0E\n\u2022 M5.7 \u2014 203 km WNW of Port-Olry, Vanuatu \ud83d\udccd 14.03\u00b0S, 165.50\u00b0E\n\u2022 M5.7 \u2014 198 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.04\u00b0S, 165.55\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-19 (location-specific, \ud83d\udccd 14.05\u00b0S, 165.68\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WESH @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261020-0216.png"
  }
 ]
