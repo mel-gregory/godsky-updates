@@ -1300,5 +1300,12 @@
   "timestamp": "2026-10-21 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-21 02:16 UTC\nUSGS:\n\u2022 M6.3 \u2014 197 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.99\u00b0S, 165.59\u00b0E\n\u2022 M5.4 \u2014 192 km S of Burica, Panama \ud83d\udccd 6.32\u00b0N, 82.57\u00b0W\n\u2022 M5.2 \u2014 206 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.86\u00b0S, 165.59\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-20 (location-specific, \ud83d\udccd 13.99\u00b0S, 165.59\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @WESH @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261021-0216.png"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-10-21 06:16 UTC",
+  "text": "OUTBREAKS \u2014 2026-10-21 06:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-20 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@CDC @WHO @WGN @WBEZ @DirectRelief",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261021-0616.png"
  }
 ]
