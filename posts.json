@@ -1349,5 +1349,12 @@
   "timestamp": "2026-10-22 06:16 UTC",
   "text": "STORMS \u2014 2026-10-22 06:16 UTC\nNOAA NHC:\n\u2022 Josephine (STS, 55 kt) \u2014 37.7\u00b0N, 69.4\u00b0W\n\u2022 Vance (TS, 40 kt) \u2014 9.6\u00b0N, 100.7\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-21 (location-specific, \ud83d\udccd 37.70, -69.40).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @WGN @WBEZ @SamaritansPurse",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261022-0616.png"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-10-22 10:16 UTC",
+  "text": "OUTBREAKS \u2014 2026-10-22 10:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-21 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@CDC @WHO @10TV @WBEZ @DirectRelief",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261022-1016.png"
  }
 ]
