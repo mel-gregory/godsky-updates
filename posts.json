@@ -1,12 +1,5 @@
 [
  {
-  "layer": "OUTBREAKS",
-  "layerKey": "outbreaks",
-  "timestamp": "2026-10-10 00:16 UTC",
-  "text": "OUTBREAK \u2014 2026-10-10 00:16 UTC\nSuspected pneumonic plague, Irkutsk region, Russia.\nShelekhov area (52.29\u00b0N, 104.28\u00b0E). 1 death (Oct 2). ~200 contacts under observation. Not lab-confirmed.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
-  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Yersinia_pestis_fluorescent.jpeg?width=640"
- },
- {
   "layer": "FIRES",
   "layerKey": "fires",
   "timestamp": "2026-10-10 01:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-23 18:17 UTC",
   "text": "FIRST RESPONDERS \u2014 2026-10-23 18:17 UTC\nLive FEMA declarations:\n\u2022 Other \u2014 GU (2026-10-17)\n\u2022 Fire \u2014 CA (2026-10-16)\n\u2022 Tropical Storm \u2014 GA (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-22 (location-specific, \ud83d\udccd 13.40\u00b0N, 144.80\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@WESH @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261023-1817.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-23 22:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-23 22:16 UTC\nUSGS:\n\u2022 M5.7 \u2014 61 km WNW of Leni, Italy \ud83d\udccd 38.72\u00b0N, 14.15\u00b0E\n\u2022 M5.2 \u2014 50 km WNW of Malfa, Italy \ud83d\udccd 38.78\u00b0N, 14.31\u00b0E\n\u2022 M5.1 \u2014 72 km ENE of Noda, Japan \ud83d\udccd 40.42\u00b0N, 142.57\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-22 (location-specific, \ud83d\udccd 38.72\u00b0N, 14.15\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @10TV @WBEZ @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261023-2216.png"
  }
 ]
