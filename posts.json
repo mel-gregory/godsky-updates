@@ -1,12 +1,5 @@
 [
  {
-  "layer": "CLOUDS",
-  "layerKey": "clouds",
-  "timestamp": "2026-10-10 09:16 UTC",
-  "text": "CLOUDS \u2014 2026-10-10 09:16 UTC\nLive GOES-19 satellite:\nLive satellite view available.\nSee it live: https://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
-  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Clouds.jpg?width=640"
- },
- {
   "layer": "OUTBREAKS",
   "layerKey": "outbreaks",
   "timestamp": "2026-10-10 10:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-24 18:16 UTC",
   "text": "FIRST RESPONDERS \u2014 2026-10-24 18:16 UTC\nLive FEMA declarations:\n\u2022 Other \u2014 GU (2026-10-17)\n\u2022 Fire \u2014 CA (2026-10-16)\n\u2022 Tropical Storm \u2014 GA (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-23 (location-specific, \ud83d\udccd 13.40\u00b0N, 144.80\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@KHOU @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261024-1816.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-24 22:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-24 22:16 UTC\nUSGS:\n\u2022 M5.9 \u2014 196 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.94\u00b0S, 165.65\u00b0E\n\u2022 M5.8 \u2014 Bouvet Island region \ud83d\udccd 54.03\u00b0S, 7.01\u00b0E\n\u2022 M5.8 \u2014 182 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.08\u00b0S, 165.70\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-23 (location-specific, \ud83d\udccd 13.94\u00b0S, 165.65\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @WESH @WABE @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261024-2216.png"
  }
 ]
