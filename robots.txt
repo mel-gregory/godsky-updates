@@ -1,4 +1,16 @@
 User-agent: *
 Allow: /
 
+# Meta crawlers (owner decision 2026-10-24): published pages are welcome;
+# machine/data endpoints are plumbing, not content.
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /cameras.json
+Disallow: /posts.json
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+Disallow: /cameras.json
+Disallow: /posts.json
+
 Sitemap: https://www.godsky.net/sitemap.xml
