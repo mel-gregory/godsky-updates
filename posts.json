@@ -1,12 +1,5 @@
 [
  {
-  "layer": "FLOODS",
-  "layerKey": "floods",
-  "timestamp": "2026-10-10 14:16 UTC",
-  "text": "FLOODS \u2014 2026-10-10 14:16 UTC\nNASA EONET:\nNo major open flood events.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nInfo only \u2014 not medical, legal, or emergency advice.",
-  "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Flood.jpg?width=640"
- },
- {
   "layer": "VOLCANOES",
   "layerKey": "volcanoes",
   "timestamp": "2026-10-10 15:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-25 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-25 02:16 UTC\nUSGS:\n\u2022 M5.9 \u2014 196 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.94\u00b0S, 165.65\u00b0E\n\u2022 M5.8 \u2014 Bouvet Island region \ud83d\udccd 54.03\u00b0S, 7.01\u00b0E\n\u2022 M5.8 \u2014 182 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.08\u00b0S, 165.70\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-24 (location-specific, \ud83d\udccd 13.94\u00b0S, 165.65\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @KHOU @WABE @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261025-0216.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-25 06:16 UTC",
+  "text": "STORMS \u2014 2026-10-25 06:16 UTC\nNOAA NHC:\n\u2022 Vance (HU, 80 kt) \u2014 13.7\u00b0N, 103.4\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-24 (location-specific, \ud83d\udccd 13.70, -103.40).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @9NEWS @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261025-0616.png"
  }
 ]
