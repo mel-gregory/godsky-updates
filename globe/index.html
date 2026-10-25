@@ -2138,6 +2138,12 @@ body:has(#markPop:not([hidden])) #abReel{opacity:0;pointer-events:none}
  #missionLine{top:auto;bottom:calc(var(--dock-h) + var(--don-h) + 104px);left:12px;right:auto;transform:none;width:min(64vw,320px);text-align:left;transition:opacity .4s ease}
  #missionLine .network-name{margin-bottom:6px}
  body:has(#agentBoard:not(.ab-collapsed)) #missionLine{opacity:0;pointer-events:none}
+ /* the Layers panel owns this width while it is open (same mutual
+    exclusion as the Agent Board): the name and the line step aside
+    entirely rather than ghost through the panel's glass and collide
+    with its rows and buttons, and return when the panel closes */
+ body.layers-open #missionLine,
+ body:has(#layerPanel:not([hidden])) #missionLine{opacity:0;pointer-events:none}
 }
 /* the tactical frame belongs to the hero: once the visitor
    scrolls to the agents it fades away instead of floating over
@@ -18270,12 +18276,11 @@ window.EpicView=(function(){
    sub-lunar latitude/longitude and distance — all computed live
    in this page by the layer panel's own lunar math (window.MoonCalc,
    a low-precision Meeus series; no API, no key) — plus Deep Sky
-   Desk's 24/7 lunar atlas, built from NASA LRO imagery. The stream
-   is validated on YouTube's keyless oEmbed endpoint when the card
-   opens and every half hour after: a 4xx means the channel
-   restarted or retired the stream, the player steps aside, and
-   the card says so instead of spinning on a dead feed; a network
-   failure claims nothing and leaves the frame standing. */
+   Desk's 24/7 lunar atlas, built from NASA LRO imagery. The player
+   embeds the channel's live broadcast (YouTube's live_stream form),
+   so when the channel restarts the stream under a new video id the
+   card follows on its own — the fixed id it embedded before ended
+   and left the player sitting on "video unavailable". */
 window.MoonView=(function(){
  "use strict";
  var panel=document.getElementById("moonPanel");
@@ -18285,12 +18290,13 @@ window.MoonView=(function(){
      rowsEl=document.getElementById("moonRows");
  function ES(){return typeof S!=="undefined"&&S.lang==="es";}
  function L(en,esx){return ES()?esx:en;}
- /* MOON STREAM ID — Deep Sky Desk, "The Moon · 24/7" lunar atlas.
-    When the channel restarts the stream it comes back under a NEW
-    video id: update this one constant and the card follows. */
- var MOON_STREAM_ID="cvuD_1s4Ajo";
- var EMBED_SRC="https://www.youtube.com/embed/"+MOON_STREAM_ID;
- var loaded=false,streamState="unknown",checker=0,paintTimer=0;
+ /* MOON STREAM — Deep Sky Desk, "The Moon · 24/7" lunar atlas, on
+    the Space Videos channel. Embedded by channel, not by video id:
+    a restart comes back under a new id and the live_stream embed
+    follows it automatically. */
+ var MOON_CHANNEL_ID="UCakgsb0w7QB0VHdnCc-OVEA";
+ var EMBED_SRC="https://www.youtube.com/embed/live_stream?channel="+MOON_CHANNEL_ID;
+ var loaded=false,paintTimer=0;
  function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
  function latS(v){return Math.abs(v).toFixed(1)+"° "+(v>=0?"N":"S");}
  function lonS(v){return Math.abs(v).toFixed(1)+"° "+(v>=0?"E":"W");}
@@ -18315,24 +18321,8 @@ window.MoonView=(function(){
    +row(L("Lunar atlas","Atlas lunar"),L("24/7 stream","Transmisión 24/7"),"NASA LRO · Deep Sky Desk");
  }
  function applyState(){
-  if(streamState==="dead"){
-   embed.hidden=true;deadEl.hidden=false;
-   if(loaded){frame.removeAttribute("src");loaded=false;}
-   return;
-  }
   deadEl.hidden=true;embed.hidden=false;
   if(!loaded){frame.src=EMBED_SRC;loaded=true;}
- }
- function checkStream(){
-  /* YouTube's keyless oEmbed answers 200 while the stream is up
-     and embeddable; a restarted or retired ID answers 4xx. */
-  try{
-   fetch("https://www.youtube.com/oembed?url="+encodeURIComponent("https://www.youtube.com/watch?v="+MOON_STREAM_ID)+"&format=json")
-   .then(function(r){
-    if(r.ok){if(streamState!=="ok"){streamState="ok";applyState();}}
-    else if(r.status===400||r.status===401||r.status===404){if(streamState!=="dead"){streamState="dead";applyState();}}
-   }).catch(function(){});
-  }catch(e){}
  }
  function open(){
   try{if(window.RadioLive&&RadioLive.close)RadioLive.close();}catch(e){}
@@ -18344,8 +18334,6 @@ window.MoonView=(function(){
   panel.hidden=false;
   paint();
   applyState();
-  checkStream();
-  if(!checker)checker=setInterval(checkStream,30*60*1000);
   clearInterval(paintTimer);
   paintTimer=setInterval(paint,60000);
  }
