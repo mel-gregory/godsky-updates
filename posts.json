@@ -1,12 +1,5 @@
 [
  {
-  "layer": "STORMS",
-  "layerKey": "storms",
-  "timestamp": "2026-10-10 23:16 UTC",
-  "text": "STORMS \u2014 2026-10-10 23:16 UTC\nNOAA NHC:\n\u2022 Isaias (PTC, 25 kt) \u2014 33.5\u00b0N, 86.9\u00b0W\n\u2022 Rachel (TS, 55 kt) \u2014 27.0\u00b0N, 118.3\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-09 (location-specific, \ud83d\udccd 33.50, -86.90).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261010-2316.png"
- },
- {
   "layer": "OUTBREAKS",
   "layerKey": "outbreaks",
   "timestamp": "2026-10-11 00:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-26 14:16 UTC",
   "text": "STORMS \u2014 2026-10-26 14:16 UTC\nNOAA NHC:\n\u2022 Vance (TS, 55 kt) \u2014 15.3\u00b0N, 105.1\u00b0W\n\u2022 Olana (TS, 35 kt) \u2014 14.9\u00b0N, 176.6\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-25 (location-specific, \ud83d\udccd 15.30, -105.10).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @9NEWS @KUT @TeamRubicon",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261026-1416.png"
+ },
+ {
+  "layer": "RESPONDERS",
+  "layerKey": "responders",
+  "timestamp": "2026-10-26 18:16 UTC",
+  "text": "FIRST RESPONDERS \u2014 2026-10-26 18:16 UTC\nLive FEMA declarations:\n\u2022 Other \u2014 GU (2026-10-17)\n\u2022 Fire \u2014 CA (2026-10-16)\n\u2022 Tropical Storm \u2014 GA (2026-10-09)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-25 (location-specific, \ud83d\udccd 13.40\u00b0N, 144.80\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@WSBTV @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261026-1816.png"
  }
 ]
