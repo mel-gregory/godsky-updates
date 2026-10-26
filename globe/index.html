@@ -3317,7 +3317,7 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
 <section id="missionLine" aria-labelledby="orbitalTagline">
  <p class="network-name">Orbital Network</p>
  <h1 id="orbitalTagline">Live broadcast of Planet Earth. Permanent record of its measurements.</h1>
- <p class="mission-disclosure" style="color:#8fa3c8;font-size:.95rem;margin-top:.6rem;">Orbital Network operates no satellites or ground stations of its own. It republishes, links, and permanently records the official reports of the systems that do. Orbital Network is an independent project — not a government agency.</p>
+ <p class="mission-disclosure" style="color:#8fa3c8;font-size:.95rem;margin-top:.6rem;">Orbital Network operates no satellites or ground stations of its own. It republishes, links, and permanently records the official reports of the systems that do. Orbital Network is an independent project — not a government agency. It issues no forecasts or warnings — consult NWS/NHC/local authorities for warnings and safety decisions.</p>
 </section>
 <div id="sleepView" class="earth-on">
   <canvas id="earthCanvas" aria-hidden="true"></canvas>
@@ -3411,34 +3411,6 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
  <p class="sup-fine">Tips are voluntary. They are not charitable donations and are not tax-deductible. They buy nothing and unlock nothing — everything on this page is free either way.</p>
 </div>
 <button class="livebtn" id="wxLiveBtn" type="button" aria-expanded="false" aria-controls="wxSheet"><span class="wl-dot" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 8.2a5.4 5.4 0 0 1 0 7.6M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg><span>Radio</span></button>
-<div class="app">
-  <aside class="sidebar closed" id="sidebar">
-    <div class="brand">
-      <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M12 7.5v5m0 0l-5.4 4.2M12 12.5l5.4 4.2"/></svg></div>
-      <b>Agent01</b>
-    </div>
-    <button class="newchat" id="newChatBtn">＋ <span data-i="newChat">New chat</span></button>
-    <div class="hist-title" data-i="history">Chats</div>
-    <div id="hist"></div>
-    <div class="side-foot"><span data-i="callLine">Prefer to talk?</span> <a href="tel:18552436801">1-855-AGENT01</a></div>
-  </aside>
-  <div class="main">
-    <div class="topbar">
-      <button class="iconbtn" id="menuBtn" aria-label="menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>
-      <span class="t">Agent01</span><span class="sub" data-i="consult">Consultation</span>
-      <button class="iconbtn" id="voiceBtn" aria-label="voice">🔊</button><div class="lang"><button id="langEn" class="on">EN</button><button id="langEs">ES</button></div>
-    </div>
-    <div id="msgs"><div class="wrap" id="wrap"></div></div>
-    <div class="compzone">
-      <div class="listenpill" id="listenPill"></div>
-      <div class="composer">
-        <button class="micbtn" id="micBtn" aria-label="voice input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button><textarea id="ta" rows="1" data-i-ph="ph" placeholder="Ask God's Eye…"></textarea>
-        <button class="send" id="sendBtn" disabled aria-label="send"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 19V5m-6 6l6-6 6 6"/></svg></button>
-      </div>
-      <div class="fineprint" data-i="fine">Agent01 guides you from consultation to setup. Every agent is free to use.</div>
-    </div>
-  </div>
-</div>
 <div class="overlay" id="agentOverlay">
   <div class="dialog adialog" role="dialog" aria-modal="true" aria-label="Meet the agents">
     <div id="agentView"></div>
@@ -3446,15 +3418,6 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
   <!-- in-browser live-call bar: status + End call while an agent call
        runs with the light browser still mounted -->
   <div id="agCallBar" role="status"><span class="ag-call-dot"></span><span id="agCallName"></span><span id="agCallText"></span><button type="button" id="agCallEnd" data-i="endCall">End call</button></div>
-</div>
-<div class="overlay" id="acctOverlay">
-  <div class="dialog">
-    <h3 data-i="acctTitle">Create free account</h3>
-    <label data-i="acctNameL">Name</label><input id="acctName" autocomplete="name">
-    <label data-i="acctEmailL">Email</label><input id="acctEmail" type="email" autocomplete="email">
-    <button class="dbtn" id="acctGo" data-i="acctGo">Create account</button>
-    <button class="dcancel" id="acctCancel" data-i="cancel">Cancel</button>
-  </div>
 </div>
 <!-- God's Eye 3D city view: a real street-level 3D view of the exact
      place the visitor's ZIP resolves to — NASA GIBS true-color
@@ -4220,39 +4183,15 @@ function think(raw){
   if(st==="diagnosed"&&S.picked){
    say(S.lang==="es"?"Tu agente está listo — gratis. Toca «"+t("takeIt")+"» y lo configuramos.":"Your agent is ready — free. Tap \""+t("takeIt")+"\" and we set it up.",[chip(t("takeIt"),"__take")]);
    return out;}
-  if(st==="paying"||st==="paidwait"){S.stage="f1";say(S.lang==="es"?"Sin pagos — es gratis. ¿Qué debe hacer tu agente todo el día?":"No payment — it's free. What should your agent do all day?");return out;}
-  if(st==="emailwait"){say(t("emailAsk"));return out;}
-  if(st==="f1"){say(S.lang==="es"?"En palabras simples: ¿qué debe hacer tu agente todo el día?":"In plain words: what should your agent do all day?");return out;}
-  if(st==="f2"){say(S.lang==="es"?"Y el correo para tu confirmación?":"And the email for your confirmation?");return out;}
-  if(st==="f3"){say(S.lang==="es"?"Y el correo para tu confirmación y avisos?":"And the email for your receipt and updates?");return out;}
   if(st==="done"){say(S.lang==="es"?"Estoy aquí — ¿en qué seguimos?":"I'm here — where were we?");return out;}
   /* idle / oriented: a quiet consultation prompt, no pressure and no
      anchored number — the consultation itself is open-ended */
   S.stage="oriented";S.q++;say(t("consultPrompt"));return out;}
  /* staged answers */
- if(S.stage==="emailwait"){
-   var em=raw.trim();
-   if(isEmail(em)){S.profile=S.profile||{};S.profile.email=em;saveProfile();
-     S.stage=S.prevStage||"oriented";say(t("emailThanks"));}
-   else if(raw==="__showhere"||/show me here|show it here|just show|display here|muestrame|muéstralo/.test(xl)){
-     S.stage=S.prevStage||"oriented";say(showHereText());}
-   else if(em.indexOf("@")>=0){
-     say(t("emailInvalid"),[chip(t("showHereChip"),"__showhere")]);}
-   else{S.stage=S.prevStage||"oriented";return think(raw);}
-   return out;
- }
- if(S.stage==="f1"){S.fulfill.want=raw.trim();
-   say(S.lang==="es"?"Entendido. ¿A qué correo te envío la confirmación y los avisos?":"Understood. And the email for your confirmation and updates?");S.stage="f3";return out;}
- if(S.stage==="f2"){say(S.lang==="es"?"Y el correo para tu confirmación y avisos?":"And the email for your confirmation and updates?");S.stage="f3";return out;}
- if(S.stage==="f3"){
-   if(isEmail(raw.trim())){S.fulfill.email=raw.trim();S.profile=S.profile||{};S.profile.email=S.fulfill.email;saveProfile();
-     var nm=pname(S.picked);
-     say((S.lang==="es"?"Listo — "+nm+" se está configurando: ":"Done — "+nm+" is being set up: ")+S.fulfill.want+". "+
-       (S.lang==="es"?"Confirmación en camino a ":"Confirmation on its way to ")+S.fulfill.email+". "+
-       (S.lang==="es"?"Trabaja en un ciclo de 24 horas y te reporta — gratis, siempre.":"It works in a 24-hour cycle and reports back to you — free, always.")+" "+t("doneStar"));
-     S.stage="done";
-   } else say(S.lang==="es"?"Necesito un correo válido para enviarte la confirmación.":"I need a valid email to send your confirmation.");
-   return out;}
+
+
+
+
  /* objections (consultant answers, stage preserved) */
  var ob=(S.stage!=="paidwait")?objection(xl):null;
  /* the Starlink guide is always reachable this way — an optional add-on
@@ -4264,8 +4203,7 @@ function think(raw){
    /^(yes|yeah|yep|sure|ok|okay|s[ií]|dale|claro)$/.test(xl.trim()));
  if(saidYes){S.askWait=null;S.stage="oriented";S.q++;say(t("consultPrompt"));return out;}
  /* main flow */
- if(raw==="__card"||raw==="__crypto"||raw==="__paid"){S.stage="f1";
-   say(S.lang==="es"?"Perfecto — y es gratis. Empecemos: en palabras simples, ¿qué debe hacer tu agente todo el día?":"Perfect — and it's free. Let's begin: in plain words, what should your agent do all day?");return out;}
+
  if(S.stage==="idle"){say(M_adv());S.stage="oriented";S.q++;return out;}
  if(S.stage==="oriented"){
    var m=matchAgent(xl);
@@ -4276,24 +4214,20 @@ function think(raw){
    if(m){S.picked=m.id;S.stage="diagnosed";
      var why=S.lang==="es"?"mencionaste '"+raw.trim().split(/\s+/).slice(0,6).join(" ")+"', que corresponde exactamente a este flujo.":"you mentioned '"+raw.trim().split(/\s+/).slice(0,6).join(" ")+"', which maps exactly to this workflow.";
      say(M_rec(m,why),[chip(t("takeIt"),"__take"),chip(t("whyThis"),"__why"),chip(t("somethingElse"),"__else")]);
-     S.q++;maybeEmail(out);return out;}
+     S.q++;return out;}
    S.picked="custom";S.stage="diagnosed";
    say(S.lang==="es"?"Tu match: ==Flujo Personalizado== — construido para tu idea, gratis, configurado para ti. ¿Qué debe hacer todo el día?":"Your match: ==Custom Workflow== — built around your idea — free, set up for you. What should it do all day?",
      [chip(t("takeIt"),"__take"),chip(t("somethingElse"),"__else")]);
-   S.q++;maybeEmail(out);return out;}
+   S.q++;return out;}
  if(S.stage==="diagnosed"){
-   if(raw==="__take"||/take|yes|proceed|sí|deal|vamos|dale/.test(xl)){S.stage="f1";
+   if(raw==="__take"||/take|yes|proceed|sí|deal|vamos|dale/.test(xl)){S.stage="done";
      say(S.lang==="es"?"Buena decisión — y es gratis. Empecemos la configuración: en palabras simples, ¿qué debe hacer tu agente todo el día?":"Good choice — and it's free. Let's begin the setup: in plain words, what should your agent do all day?");return out;}
    if(raw==="__why"||/why/.test(xl)){say(S.lang==="es"?"Porque llega con el trabajo ya construido — flujo, configuración, operación continua — y es gratis, sin mensualidad. ¿Procedemos?":"Because it arrives with the job already built — workflow, setup, continuous operation — and it's free to use, no monthly fee. Shall we proceed?",[chip(t("takeIt"),"__take"),chip(t("somethingElse"),"__else")]);return out;}
    if(raw==="__else"){S.stage="oriented";say(S.lang==="es"?"Descríbeme lo que tienes en mente y re-diagnostico.":"Describe what you have in mind and I'll re-diagnose.");return out;}
    S.stage="oriented";return think(raw);}
- if(S.stage==="paying"||S.stage==="paidwait"){S.stage="f1";
-   say(S.lang==="es"?"Sin pagos — es gratis. En palabras simples: ¿qué debe hacer tu agente todo el día?":"No payment — it's free. In plain words: what should your agent do all day?");return out;}
+
  say(S.lang==="es"?"Estoy aquí — ¿en qué seguimos?":"I'm here — where were we?");
  return out;
-}
-function maybeEmail(out){
- if(S.q>=3&&!S.emailAsked&&!(S.profile&&S.profile.email)){S.emailAsked=true;S.prevStage=S.stage;S.stage="emailwait";out.push({text:t("emailAsk")});}
 }
 function firstName(n){var w=String(n||"").trim().split(/\s+/);return w[0]||"";}
 function saveProfile(){try{__mem.setItem("ag01_profile",JSON.stringify(S.profile));}catch(e){}}
@@ -4717,7 +4651,6 @@ function persuadeList(){
  var g=t("graphCap"),st=S.stage,lists;
  if(S.lang==="es")lists={
   oriented:[g,"El agente es tuyo por completo — sin suscripción.","Sin fecha límite — tómate el tiempo que necesites.","La información honesta es el mínimo que te mereces."],
-  emailwait:[g,"Un correo — tu lista de lanzamiento va en camino."],
   diagnosed:[g,"Tu match está listo — gratis.","Sin cargos — empieza cuando quieras."],
   paying:[g,"Gratis — sin checkout, sin cargos.","Tómate tu tiempo — no hay fecha límite."],
   paidwait:[g,"Toca «Empezar» cuando quieras — empezamos."],
@@ -4728,7 +4661,6 @@ function persuadeList(){
   done:[g,"Tu agente está configurado — revísalo cuando quieras.","Llega a tu agente desde donde Starlink esté disponible.","Tu agente trabaja para ti — las 24 horas, gratis."]
  };else lists={
   oriented:[g,"You own the agent outright — no subscription.","No deadline — take the time you need.","Honest information is the least you deserve."],
-  emailwait:[g,"One email — your launch checklist is on its way."],
   diagnosed:[g,"Your match is ready — free to use.","No charge — start whenever you're ready."],
   paying:[g,"Free — no checkout, no charge.","Take your time — there is no deadline."],
   paidwait:[g,"Tap \"Start my agent\" whenever you're ready — we begin."],
@@ -6581,7 +6513,6 @@ function render(){
 }
 function handlePayTab(v){
  stopVoice();
- if(v==="__account"){document.getElementById("acctOverlay").classList.add("open");return;}
  closeHighlight();
  S.msgs.push({r:"u",text:t("iPaid")});
  saveChat();userEchoCaption(S.msgs[S.msgs.length-1].text);Orb.set("thinking");
@@ -6961,7 +6892,7 @@ function useGrok(val){
     only while it is mid-collection (an email or a setup answer
     it just asked for); everywhere else the page talks to the
     backend brain, event card context riding along. */
- if(S.stage==="emailwait"||S.stage==="f1"||S.stage==="f2"||S.stage==="f3"||S.stage==="paying"||S.stage==="paidwait")return false;
+ 
  return true;}
 /* the page's own tracked updates, in the brain's ear on every
    message — card open or not: whatever TrendingFeed has stamped
@@ -7160,7 +7091,7 @@ function chatNav(val){
  if(!val||val.indexOf("__")===0)return false;
  /* mid-collection the local funnel owns the words — an email or
     a setup answer is never a geography command */
- if(S.stage==="emailwait"||S.stage==="f1"||S.stage==="f2"||S.stage==="f3"||S.stage==="paying"||S.stage==="paidwait")return false;
+ 
  var t=" "+String(val).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" ";
  var acted=false,notes=[];
  var layers=[];
@@ -7206,7 +7137,7 @@ function saveChat(){
  renderHist();
 }
 function renderHist(){
- var cs=allChats(),h=document.getElementById("hist");h.innerHTML="";
+ var cs=allChats(),h=document.getElementById("hist");if(!h)return;h.innerHTML="";
  cs.forEach(function(c){var b=document.createElement("button");b.className="hist-item"+(c.id===S.chatId?" active":"");
    b.textContent=c.title;b.title=c.title;
    b.onclick=function(){var cc=allChats().find(function(x){return x.id===c.id;});if(!cc)return;
@@ -7267,18 +7198,6 @@ ota.addEventListener("input",function(){autoSize();osend.disabled=!ota.value.tri
 ota.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendOrb();}});
 osend.onclick=sendOrb;
 function sendOrb(){var v=ota.value.trim();if(!v)return;ota.value="";autoSize();osend.disabled=true;userSay(v);}
-document.getElementById("acctGo").onclick=function(){
- var n=document.getElementById("acctName").value.trim(),e=document.getElementById("acctEmail").value.trim();
- if(!n||!isEmail(e))return;
- S.profile={name:n,email:e};saveProfile();
- /* the free account lands on the leads list — buying stays the point */
- try{fetch(RAIL+"/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:n,email:e,lang:S.lang||"en",source:"free-account"})}).catch(function(){});}catch(e){}
- document.getElementById("acctOverlay").classList.remove("open");
- stopVoice();closeHighlight();
- var doneTxt=t("acctDone").split("{name}").join(firstName(n));
- S.msgs.push({r:"a",text:doneTxt});saveChat();
- presentOutputs([{text:doneTxt}],0,endUtterance);};
-document.getElementById("acctCancel").onclick=function(){document.getElementById("acctOverlay").classList.remove("open");};
 var Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 if(Rec){
  omic.style.display="flex";
