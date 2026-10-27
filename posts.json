@@ -1,12 +1,5 @@
 [
  {
-  "layer": "FIRES",
-  "layerKey": "fires",
-  "timestamp": "2026-10-11 01:16 UTC",
-  "text": "FIRES \u2014 2026-10-11 01:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire CON BSE13 RX, Covington, Alabama (2026-10-07) \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W\n\u2022 Wildfire Jones, Elko, Nevada (2026-10-05) \ud83d\udccd 41.02\u00b0N, 115.21\u00b0W\n\u2022 Wildfire BOUQUET, Los Angeles, California (2026-10-03) \ud83d\udccd 34.56\u00b0N, 118.40\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261011-0116.png"
- },
- {
   "layer": "EARTHQUAKES",
   "layerKey": "earthquakes",
   "timestamp": "2026-10-11 02:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-26 22:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-26 22:16 UTC\nUSGS:\n\u2022 M5.5 \u2014 283 km E of Levuka, Fiji \ud83d\udccd 18.28\u00b0S, 178.01\u00b0W\n\u2022 M5.2 \u2014 205 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.86\u00b0S, 165.60\u00b0E\n\u2022 M5.0 \u2014 218 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.94\u00b0S, 165.39\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-25 (location-specific, \ud83d\udccd 18.28\u00b0S, 178.01\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @abc15 @KUT @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261026-2216.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-10-27 02:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-10-27 02:16 UTC\nUSGS:\n\u2022 M5.5 \u2014 283 km E of Levuka, Fiji \ud83d\udccd 18.28\u00b0S, 178.01\u00b0W\n\u2022 M5.2 \u2014 205 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.86\u00b0S, 165.60\u00b0E\n\u2022 M5.0 \u2014 218 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.94\u00b0S, 165.39\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 18.28\u00b0S, 178.01\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @9NEWS @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261027-0216.png"
  }
 ]
