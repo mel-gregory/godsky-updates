@@ -1,12 +1,5 @@
 [
  {
-  "layer": "VOLCANOES",
-  "layerKey": "volcanoes",
-  "timestamp": "2026-10-11 05:16 UTC",
-  "text": "VOLCANOES \u2014 2026-10-11 05:16 UTC\nNASA EONET:\n\u2022 Kilauea Volcano, Hawaii (2024-12-23) \ud83d\udccd 19.42\u00b0N, 155.29\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 19.42\u00b0N, 155.29\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-volcanoes-20261011-0516.png"
- },
- {
   "layer": "AIR",
   "layerKey": "air",
   "timestamp": "2026-10-11 06:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-27 10:16 UTC",
   "text": "OUTBREAKS \u2014 2026-10-27 10:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@CDC @WHO @WGN @WBEZ @DirectRelief",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261027-1016.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-27 14:16 UTC",
+  "text": "STORMS \u2014 2026-10-27 14:16 UTC\nNOAA NHC:\n\u2022 Vance (TS, 40 kt) \u2014 15.9\u00b0N, 106.9\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 15.90, -106.90).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @9NEWS @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261027-1416.png"
  }
 ]
