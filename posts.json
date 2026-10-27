@@ -1,12 +1,5 @@
 [
  {
-  "layer": "AIR",
-  "layerKey": "air",
-  "timestamp": "2026-10-11 06:16 UTC",
-  "text": "AIR QUALITY \u2014 2026-10-11 06:16 UTC\nUS air monitoring:\nEPA AirNow tracks air quality nationwide. Check your local AQI before outdoor activities.\nSource: AirNow.gov\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (US-wide view, \ud83d\udccd 39.80\u00b0N, 98.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-air-20261011-0616.png"
- },
- {
   "layer": "RAINFALL",
   "layerKey": "rainfall",
   "timestamp": "2026-10-11 07:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-27 14:16 UTC",
   "text": "STORMS \u2014 2026-10-27 14:16 UTC\nNOAA NHC:\n\u2022 Vance (TS, 40 kt) \u2014 15.9\u00b0N, 106.9\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 15.90, -106.90).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @9NEWS @KUT @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261027-1416.png"
+ },
+ {
+  "layer": "RESPONDERS",
+  "layerKey": "responders",
+  "timestamp": "2026-10-27 18:16 UTC",
+  "text": "FIRST RESPONDERS \u2014 2026-10-27 18:16 UTC\nLive FEMA declarations:\n\u2022 Flood \u2014 NM (2026-10-26)\n\u2022 Other \u2014 GU (2026-10-17)\n\u2022 Fire \u2014 CA (2026-10-16)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 34.80\u00b0N, 106.20\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@KXAN @KUT @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261027-1816.png"
  }
 ]
