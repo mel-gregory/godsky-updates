@@ -1,12 +1,5 @@
 [
  {
-  "layer": "EARTHQUAKES",
-  "layerKey": "earthquakes",
-  "timestamp": "2026-10-11 02:16 UTC",
-  "text": "EARTHQUAKES \u2014 2026-10-11 02:16 UTC\nUSGS:\n\u2022 M3.4 \u2014 14 km N of Brooktrails, CA \ud83d\udccd 39.57\u00b0N, 123.36\u00b0W\n\u2022 M3.1 \u2014 43 km NNW of Petersville, Alaska \ud83d\udccd 62.87\u00b0N, 151.02\u00b0W\n\u2022 M3.0 \u2014 68 km SE of Perryville, Alaska \ud83d\udccd 55.46\u00b0N, 158.39\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 39.57\u00b0N, 123.36\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261011-0216.png"
- },
- {
   "layer": "STORMS",
   "layerKey": "storms",
   "timestamp": "2026-10-11 03:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-27 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-27 02:16 UTC\nUSGS:\n\u2022 M5.5 \u2014 283 km E of Levuka, Fiji \ud83d\udccd 18.28\u00b0S, 178.01\u00b0W\n\u2022 M5.2 \u2014 205 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.86\u00b0S, 165.60\u00b0E\n\u2022 M5.0 \u2014 218 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.94\u00b0S, 165.39\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 18.28\u00b0S, 178.01\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @9NEWS @KUT @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261027-0216.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-27 06:16 UTC",
+  "text": "STORMS \u2014 2026-10-27 06:16 UTC\nNOAA NHC:\n\u2022 Vance (TS, 45 kt) \u2014 15.5\u00b0N, 106.3\u00b0W\n\u2022 Olana (PTC, 25 kt) \u2014 13.0\u00b0N, 175.9\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-26 (location-specific, \ud83d\udccd 15.50, -106.30).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @abc15 @KUT @TeamRubicon",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261027-0616.png"
  }
 ]
