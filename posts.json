@@ -1,12 +1,5 @@
 [
  {
-  "layer": "FIRES",
-  "layerKey": "fires",
-  "timestamp": "2026-10-11 11:16 UTC",
-  "text": "FIRES \u2014 2026-10-11 11:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire CON BSE13 RX, Covington, Alabama (2026-10-07) \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W\n\u2022 Wildfire Jones, Elko, Nevada (2026-10-05) \ud83d\udccd 41.02\u00b0N, 115.21\u00b0W\n\u2022 Wildfire BOUQUET, Los Angeles, California (2026-10-03) \ud83d\udccd 34.56\u00b0N, 118.40\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 31.12\u00b0N, 86.53\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NASA @NOAA @WSBTV @WABE @RedCross",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261011-1116.png"
- },
- {
   "layer": "EARTHQUAKES",
   "layerKey": "earthquakes",
   "timestamp": "2026-10-11 12:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-28 10:16 UTC",
   "text": "OUTBREAKS \u2014 2026-10-28 10:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-27 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@CDC @WHO @10TV @WBEZ @DirectRelief",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261028-1016.png"
+ },
+ {
+  "layer": "STORMS",
+  "layerKey": "storms",
+  "timestamp": "2026-10-28 14:16 UTC",
+  "text": "STORMS \u2014 2026-10-28 14:16 UTC\nNOAA NHC:\n\u2022 Vance (TS, 35 kt) \u2014 18.6\u00b0N, 108.6\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-27 (location-specific, \ud83d\udccd 18.60, -108.60).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261028-1416.png"
  }
 ]
