@@ -1,12 +1,5 @@
 [
  {
-  "layer": "CLOUDS",
-  "layerKey": "clouds",
-  "timestamp": "2026-10-11 19:16 UTC",
-  "text": "CLOUDS \u2014 2026-10-11 19:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Tornado Warning \u2014 Beaufort, NC; Craven, NC; Lenoir, NC; Pitt, NC\n\u2022 Dust Advisory \u2014 Hidalgo, NM\n\u2022 Coastal Flood Advisory \u2014 Arlington/Falls Church/Alexandria\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-10 (location-specific, \ud83d\udccd 35.32\u00b0N, 77.38\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @NWS @WESH @WABE",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261011-1916.png"
- },
- {
   "layer": "OUTBREAKS",
   "layerKey": "outbreaks",
   "timestamp": "2026-10-11 20:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-29 14:16 UTC",
   "text": "STORMS \u2014 2026-10-29 14:16 UTC\nNOAA NHC:\n\u2022 Vance (TS, 35 kt) \u2014 21.0\u00b0N, 108.4\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-28 (location-specific, \ud83d\udccd 21.00, -108.40).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261029-1416.png"
+ },
+ {
+  "layer": "RESPONDERS",
+  "layerKey": "responders",
+  "timestamp": "2026-10-29 18:16 UTC",
+  "text": "FIRST RESPONDERS \u2014 2026-10-29 18:16 UTC\nLive FEMA declarations:\n\u2022 Tropical Storm \u2014 FL (2026-10-27)\n\u2022 Flood \u2014 NM (2026-10-26)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-28 (location-specific, \ud83d\udccd 27.80\u00b0N, 81.70\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@KHOU @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261029-1816.png"
  }
 ]
