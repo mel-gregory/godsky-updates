@@ -1,12 +1,5 @@
 [
  {
-  "layer": "CLOUDS",
-  "layerKey": "clouds",
-  "timestamp": "2026-10-12 09:16 UTC",
-  "text": "CLOUDS \u2014 2026-10-12 09:16 UTC\nLive GOES-19 satellite, NWS alerts:\n\u2022 Dense Fog Advisory \u2014 Clark; Hamlin\n\u2022 Dense Fog Advisory \u2014 Murray; Pipestone; Kingsbury; Miner; Lake; Moody\n\u2022 Dense Fog Advisory \u2014 Lincoln; Lyon; Brookings\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 39.73\u00b0N, 75.63\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind God Sky Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @NWS @KARE11 @WBEZ",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-clouds-20261012-0916.png"
- },
- {
   "layer": "OUTBREAKS",
   "layerKey": "outbreaks",
   "timestamp": "2026-10-12 10:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-10-31 22:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-10-31 22:16 UTC\nUSGS:\n\u2022 M5.2 \u2014 4 km S of Bajo Corral, Panama \ud83d\udccd 7.57\u00b0N, 80.25\u00b0W\n\u2022 M5.0 \u2014 115 km SE of Bushehr, Iran \ud83d\udccd 28.11\u00b0N, 51.51\u00b0E\n\u2022 M5.0 \u2014 196 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.91\u00b0S, 165.68\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-30 (location-specific, \ud83d\udccd 7.57\u00b0N, 80.25\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @KHOU @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261031-2216.png"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-11-01 02:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-11-01 02:16 UTC\nUSGS:\n\u2022 M6.0 \u2014 58 km SSE of Shima, Japan \ud83d\udccd 33.82\u00b0N, 136.99\u00b0E\n\u2022 M5.2 \u2014 200 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.87\u00b0S, 165.65\u00b0E\n\u2022 M5.2 \u2014 4 km S of Bajo Corral, Panama \ud83d\udccd 7.57\u00b0N, 80.25\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-31 (location-specific, \ud83d\udccd 33.82\u00b0N, 136.99\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @WSBTV @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261101-0216.png"
  }
 ]
