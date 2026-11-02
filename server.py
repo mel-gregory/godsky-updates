@@ -675,6 +675,442 @@ def _cameras_warmer():
 def _start_cameras_warmer():
     threading.Thread(target=_cameras_warmer, daemon=True).start()
 
+
+# --------------------------------------------- /camera-playlist.json
+# The landing camera loop's playlist. The loop used to pick cameras
+# by an even stride across the aggregate — a tour of random places.
+# The playlist gives every frame a reason, in the Camera Agent's own
+# order of meaning:
+#   1. event frames — the nearest public camera to something the
+#      world is reporting right now (USGS earthquakes, NHC active
+#      storms, GDACS disaster alerts), under the board's fences:
+#      at most 250 km, distance always stated, presence only (a
+#      camera beside an event is never said to show it), and the
+#      rotating-URL network (Singapore) never cited.
+#   2. moment frames — cameras standing on the sunrise or sunset
+#      line, or in morning peak hour, by local solar time.
+#   3. presence frames — the network itself, counted.
+# Every frame carries its `reason`; the loop prints it as the
+# caption. Built from the same aggregate as /cameras.json plus
+# keyless public event feeds, each fail-soft; cached five minutes,
+# last good playlist served on failure.
+PLAYLIST_TTL = 300
+PLAYLIST_MAX_KM = 250.0
+PLAYLIST_MAX_FRAMES = 24
+PLAYLIST_EXCLUDE_SOURCES = {"singapore"}
+_playlist_cache = {}
+_playlist_lock = threading.Lock()
+
+
+def _hav_km(lat1, lon1, lat2, lon2):
+    import math
+    p = math.pi / 180.0
+    a = (math.sin((lat2 - lat1) * p / 2) ** 2
+         + math.cos(lat1 * p) * math.cos(lat2 * p)
+         * math.sin((lon2 - lon1) * p / 2) ** 2)
+    return 12742 * math.asin(min(1.0, math.sqrt(a)))
+
+
+def _http_text(url, timeout=12):
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "orbital-camera-playlist"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return resp.read().decode("utf-8", "replace")
+
+
+def _age_str(ts, now):
+    mins = max(0, int((now - ts) // 60))
+    if mins < 2:
+        return "just now"
+    if mins < 60:
+        return f"{mins} min ago"
+    hrs = mins // 60
+    return f"{hrs} h ago" if hrs < 48 else f"{hrs // 24} d ago"
+
+
+def _playlist_events(now):
+    """Current public events with coordinates, newest first.
+    Each source fails soft: a dead feed simply contributes none."""
+    events = []
+    try:  # USGS — M4.5+ worldwide, past 24 h; cited only within 6 h
+        doc = _http_json("https://earthquake.usgs.gov/earthquakes/"
+                         "feed/v1.0/summary/4.5_day.geojson",
+                         timeout=12)
+        for f in doc.get("features", []):
+            props = f.get("properties") or {}
+            coords = (f.get("geometry") or {}).get("coordinates") or []
+            if len(coords) < 2 or props.get("time") is None:
+                continue
+            ts = props["time"] / 1000.0
+            if now - ts > 6 * 3600:
+                continue
+            mag = props.get("mag")
+            label = (f"M{mag:.1f} earthquake — {props.get('place')}"
+                     if isinstance(mag, (int, float))
+                     else f"Earthquake — {props.get('place')}")
+            events.append({"label": label, "lat": coords[1],
+                           "lon": coords[0], "ts": ts, "rank": 0,
+                           "tail": _age_str(ts, now)})
+    except Exception:
+        pass
+    try:  # NHC — active tropical cyclones (current by construction)
+        doc = _http_json("https://www.nhc.noaa.gov/CurrentStorms.json",
+                         timeout=12)
+        for s in doc.get("activeStorms", []):
+            lat, lon = s.get("latitudeNumeric"), s.get("longitudeNumeric")
+            if not isinstance(lat, (int, float)) \
+                    or not isinstance(lon, (int, float)):
+                continue
+            events.append({"label": f"Active storm {s.get('name')} (NHC)",
+                           "lat": lat, "lon": lon, "ts": now, "rank": 0,
+                           "tail": "active now"})
+    except Exception:
+        pass
+    try:  # GDACS — current disaster alerts (orange/red preferred)
+        xml = _http_text("https://www.gdacs.org/xml/rss.xml")
+        for item in re.findall(r"<item>(.*?)</item>", xml, re.S):
+            lat = re.search(
+                r"<geo:lat[^>]*>([\-0-9.]+)</geo:lat>", item)
+            lon = re.search(
+                r"<geo:long[^>]*>([\-0-9.]+)</geo:long>", item)
+            title = re.search(r"<title>(.*?)</title>", item, re.S)
+            pub = re.search(r"<pubDate>(.*?)</pubDate>", item)
+            if not (lat and lon and title):
+                continue
+            ts = now
+            if pub:
+                try:
+                    ts = email.utils.parsedate_to_datetime(
+                        pub.group(1).strip()).timestamp()
+                except Exception:
+                    pass
+            if now - ts > 48 * 3600:
+                continue
+            label = html.unescape(title.group(1).strip())
+            label = re.sub(r"\s*-\s*\d{1,2}\s+\w{3,9}\s+\d{4}\s*$",
+                           "", label)
+            level = re.search(r"alertlevel>([A-Za-z]+)<", item)
+            lvl = level.group(1) if level else ""
+            events.append({"label": f"GDACS alert — {label}",
+                           "lat": float(lat.group(1)),
+                           "lon": float(lon.group(1)), "ts": ts,
+                           "rank": 1 if lvl in ("Orange", "Red") else 2,
+                           "tail": (f"{lvl} alert · " if lvl
+                                    else "alert · ")
+                                   + _age_str(ts, now)})
+    except Exception:
+        pass
+    # quakes and storms first, then orange/red alerts, then the
+    # green notification tail — newest first inside each rank, so
+    # routine notifications never crowd out a measured event
+    events.sort(key=lambda e: (e["rank"], -e["ts"]))
+    return events
+
+
+def _nearest_camera(cams, lat, lon):
+    best, best_km = None, PLAYLIST_MAX_KM
+    for c in cams:
+        km = _hav_km(lat, lon, c["la"], c["lo"])
+        if km < best_km:
+            best, best_km = c, km
+    return best, best_km
+
+
+def _local_solar_h(lon, now):
+    return ((now / 3600.0) + lon / 15.0) % 24.0
+
+
+def _build_playlist():
+    payload = _fetch_cameras()
+    now = time.time()
+    cams = [c for c in payload.get("cameras", [])
+            if c.get("img") and c.get("s") not in PLAYLIST_EXCLUDE_SOURCES
+            and isinstance(c.get("la"), (int, float))
+            and isinstance(c.get("lo"), (int, float))]
+    frames, used = [], set()
+
+    def take(cam, kind, reason):
+        if cam is None or cam["img"] in used \
+                or len(frames) >= PLAYLIST_MAX_FRAMES:
+            return
+        used.add(cam["img"])
+        frames.append({"n": cam.get("n"), "p": cam.get("p"),
+                       "s": cam.get("s"), "img": cam["img"],
+                       "la": cam["la"], "lo": cam["lo"],
+                       "kind": kind, "reason": reason})
+
+    for ev in _playlist_events(now):
+        cam, km = _nearest_camera(cams, ev["lat"], ev["lon"])
+        dist = f"{km:.0f}" if km >= 0.5 else "<1"
+        take(cam, "event",
+             f"Nearest public camera to the {ev['label']} — "
+             f"camera {dist} km away · {ev['tail']}")
+
+    def moment(lo_h, hi_h, pick, reason_fn):
+        pool = [c for c in cams
+                if lo_h <= _local_solar_h(c["lo"], now) < hi_h
+                and c["img"] not in used]
+        pool.sort(key=lambda c: c["la"])
+        for i in range(pick):
+            if not pool:
+                break
+            cam = pool[int((i + 0.5) * len(pool) / pick)]
+            lst = _local_solar_h(cam["lo"], now)
+            take(cam, "moment", reason_fn(lst))
+
+    moment(5.2, 6.8, 2, lambda h: f"On the sunrise line — about "
+                                  f"{int(h):02d}:{int((h % 1) * 60):02d} "
+                                  f"local solar time")
+    moment(17.2, 18.8, 2, lambda h: f"Evening — about "
+                                    f"{int(h):02d}:{int((h % 1) * 60):02d} "
+                                    f"local solar time")
+    moment(7.4, 8.6, 2, lambda h: f"Morning peak hour — about "
+                                  f"{int(h):02d}:{int((h % 1) * 60):02d} "
+                                  f"local solar time")
+
+    total = payload.get("count", len(cams))
+    nets = len(payload.get("sources") or [])
+    stride = max(1, len(cams) // 3)
+    for i in range(0, len(cams), stride):
+        take(cams[i], "presence",
+             f"One of {total:,} public cameras reporting now "
+             f"across {nets} networks")
+        if len(frames) >= 6:
+            break
+
+    return {"generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ",
+                                          time.gmtime(now)),
+            "cameras_reporting": total, "networks": nets,
+            "frames": frames}
+
+
+def _get_playlist():
+    now = time.time()
+    with _playlist_lock:
+        hit = _playlist_cache.get("pl")
+        if hit and now - hit[0] < PLAYLIST_TTL:
+            return hit[1]
+    try:
+        built = _build_playlist()
+    except Exception:
+        with _playlist_lock:
+            hit = _playlist_cache.get("pl")
+        if hit:
+            return hit[1]  # last good playlist rather than none
+        raise
+    with _playlist_lock:
+        _playlist_cache["pl"] = (now, built)
+    return built
+
+# ---------------------------------------------------- /incidents
+# The Incident Register's own page, rendered from the public record
+# repo's published companions (register.json, index.json,
+# ai-layer.json) so the page can never drift from the register it
+# presents. Cached ten minutes; last good render served on failure.
+# Record-only, as the register is: attributed reports, the three
+# dates kept separate, no warnings, no findings of our own.
+REGISTER_RAW = ARCHIVE_RAW + "/incident-register"
+_incidents_cache = {}
+_incidents_lock = threading.Lock()
+INCIDENTS_TTL = 600
+
+
+def _register_companions():
+    now = time.time()
+    with _incidents_lock:
+        hit = _incidents_cache.get("data")
+        if hit and now - hit[0] < INCIDENTS_TTL:
+            return hit[1]
+    try:
+        data = {
+            "register": _http_json(REGISTER_RAW + "/register.json",
+                                   timeout=15),
+            "index": _http_json(REGISTER_RAW + "/index.json",
+                                timeout=15),
+            "markers": _http_json(REGISTER_RAW + "/ai-layer.json",
+                                  timeout=15),
+        }
+    except Exception:
+        with _incidents_lock:
+            hit = _incidents_cache.get("data")
+        if hit:
+            return hit[1]
+        raise
+    with _incidents_lock:
+        _incidents_cache["data"] = (now, data)
+    return data
+
+
+def _esc(x):
+    return html.escape(str(x if x is not None else ""))
+
+
+def _render_incidents():
+    data = _register_companions()
+    reg, idx = data["register"], data["index"]
+    markers = data["markers"]
+    lags = idx.get("disclosure_lags_days", {})
+    cov = idx.get("registry_coverage", {})
+
+    dev_rows = []
+    for name, dev in (idx.get("developers") or {}).items():
+        dev_rows.append(
+            f"<tr><td>{_esc(name)}</td><td>{len(dev.get('entries', []))}"
+            f"</td><td>{_esc(', '.join(str(x) for x in dev.get('lags_days', [])))}"
+            f"</td><td>{_esc(dev.get('lag_median_days'))}</td>"
+            f"<td>{_esc(dev.get('lag_max_days'))}</td></tr>")
+
+    entry_html = []
+    for e in reg.get("entries", []):
+        parts = [f'<section class="entry" id="{_esc(e["id"])}">',
+                 f"<h3>{_esc(e['id'])} — "
+                 f"{_esc(e.get('developer_as_named_by_source') if e.get('kind') == 'incident' else 'Founding context')}</h3>"]
+        if e.get("kind") == "incident":
+            parts.append(f"<p><strong>System, as named by the source:</strong> "
+                         f"{_esc(e.get('system_as_named_by_source'))}<br>"
+                         f"<strong>Criteria met:</strong> "
+                         f"{_esc(', '.join(e.get('criteria_met') or []))}</p>")
+        for d in e.get("incident_dates_as_dated_by_source") or []:
+            parts.append(f"<p><strong>Incident, as dated by the source "
+                         f"({_esc(d.get('date'))}):</strong> {_esc(d.get('what'))}</p>")
+        for d in e.get("report_dates") or []:
+            parts.append(f"<p><strong>Reported ({_esc(d.get('date'))}):</strong> "
+                         f"{_esc(d.get('what'))}</p>")
+        lag = e.get("disclosure_lag_days")
+        if isinstance(lag, dict):
+            lag = [lag]
+        for item in lag or []:
+            parts.append(f"<p><strong>Disclosure lag: {_esc(item.get('days'))} "
+                         f"days</strong> — {_esc(item.get('case'))}.</p>")
+        for rname, r in (e.get("registries") or {}).items():
+            label = "AIID" if rname == "aiid" else "OECD AIM"
+            parts.append(f"<p><strong>{label}:</strong> {_esc(r.get('status'))} — "
+                         f"{_esc(r.get('as_listed'))}</p>")
+        for rev in e.get("source_revisions") or []:
+            parts.append(f"<p><strong>Source revised ({_esc(rev.get('date'))}):"
+                         f"</strong> {_esc(rev.get('what'))}</p>")
+        for fw_name, fw in (e.get("frameworks") or {}).items():
+            parts.append(f"<p><strong>Framework mapping — "
+                         f"{_esc(fw_name.replace('_', ' '))}:</strong> {_esc(fw)}</p>")
+        parts.append(f"<p class='src'><strong>Sources:</strong> "
+                     f"{_esc(' '.join(e.get('sources') or []))}<br>"
+                     f"Recorded {_esc(e.get('recorded_at'))} · SHA-256 "
+                     f"<code>{_esc((e.get('sha256') or '')[:16])}…</code></p>")
+        parts.append("</section>")
+        entry_html.append("\n".join(parts))
+
+    inst_rows = []
+    for inst in idx.get("institutions_indexed") or []:
+        inst_rows.append(f"<li>{_esc(inst.get('institution'))} — "
+                         f"{_esc(inst.get('place'))} ({_esc(inst.get('entry'))})</li>")
+    ver_rows = []
+    for v in reg.get("version_history") or []:
+        ver_rows.append(f"<li><strong>Version {_esc(v.get('version'))} — "
+                        f"{_esc(v.get('date'))}:</strong> {_esc(v.get('note'))}</li>")
+    crit_rows = []
+    for k in sorted(reg.get("criteria") or {}):
+        crit_rows.append(f"<li><strong>{_esc(k)}.</strong> "
+                         f"{_esc(reg['criteria'][k])}</li>")
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Incident Register — Orbital Network</title>
+<meta name="description" content="A public register of serious AI incidents, kept inside Orbital Network's permanent record — recording what was published, when, and how long it took to reach the public.">
+<style>
+  * {{ box-sizing: border-box; }}
+  body {{ margin: 0; font-family: Georgia, 'Times New Roman', serif;
+         color: #1a2332; background: #f7f5f0; line-height: 1.55; }}
+  main {{ max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }}
+  h1 {{ font-size: 2rem; margin: 0 0 .25rem; }}
+  h2 {{ font-size: 1.25rem; margin: 2.25rem 0 .75rem;
+        border-bottom: 2px solid #1a2332; padding-bottom: .3rem; }}
+  h3 {{ font-size: 1.05rem; margin: 0 0 .5rem; }}
+  .tag {{ font-style: italic; color: #44506a; margin: 0 0 1.5rem; }}
+  .entry {{ background: #fff; border: 1px solid #ddd6c8; border-radius: 8px;
+            padding: 1rem 1.25rem; margin: 0 0 1rem; }}
+  .entry p {{ margin: .45rem 0; }}
+  .src {{ font-size: .88rem; color: #44506a; }}
+  table {{ border-collapse: collapse; width: 100%; background: #fff; }}
+  th, td {{ border: 1px solid #ddd6c8; padding: .45rem .6rem;
+            text-align: left; font-size: .95rem; }}
+  th {{ background: #efece4; }}
+  a {{ color: #20509e; }}
+  footer {{ margin-top: 2.5rem; font-size: .88rem; color: #44506a; }}
+  code {{ font-size: .85em; }}
+</style>
+</head>
+<body>
+<main>
+<h1>The Incident Register</h1>
+<p class="tag">Live broadcast of Planet Earth. Permanent record of its measurements.</p>
+<p>A public register of serious AI incidents, kept inside Orbital Network's
+permanent record. The register <strong>opened on {_esc(reg.get('opened'))}</strong>;
+its <strong>coverage begins {_esc(reg.get('coverage_begins'))}</strong>, the first day of
+the permanent record. Every entry carries three true dates, never merged: the
+date the source dates the incident, the date the report was published, and the
+date Orbital recorded it.</p>
+<p>Orbital Network operates no satellites or ground stations of its own. It
+republishes, links, and permanently records the official reports of the systems
+that do. This register likewise senses nothing: it records published reports of
+AI incidents exactly as named sources published them, and measures the reporting
+system itself — how long each incident took to reach the public, and when the
+standing registries listed it. It makes no finding of its own and issues no
+warnings or forecasts.</p>
+
+<h2>The measurements</h2>
+<table>
+<tr><th>Developer</th><th>Entries</th><th>Measured disclosure lags (days)</th><th>Median</th><th>Longest</th></tr>
+{chr(10).join(dev_rows)}
+</table>
+<p>Register-wide: {_esc(len(lags.get('all_measured') or []))} measured lags —
+median {_esc(lags.get('median'))} days, longest {_esc(lags.get('max'))} days,
+shortest {_esc(lags.get('min'))} days. Registry coverage:
+AIID lists {_esc((cov.get('aiid') or {}).get('listed'))} of
+{_esc(idx.get('incident_entries'))} incident entries;
+OECD AIM lists {_esc((cov.get('oecd_aim') or {}).get('listed'))} of
+{_esc(idx.get('incident_entries'))} (all checked against the live registries).</p>
+
+<h2>Entries</h2>
+{chr(10).join(entry_html)}
+
+<h2>Institutions named by the sources</h2>
+<p>A marker stands only at the published seat of an institution the incident
+report itself names as acted upon — never where a system was located. Where a
+source names no institution, there is no marker.</p>
+<ul>
+{chr(10).join(inst_rows)}
+</ul>
+
+<h2>What counts as serious</h2>
+<ul>
+{chr(10).join(crit_rows)}
+</ul>
+
+<h2>Versions</h2>
+<ul>
+{chr(10).join(ver_rows)}
+</ul>
+<p>Corrections arrive as new versions only. The register's machine-readable
+companions — entries, lag index, markers, and source snapshots — are published
+in the permanent record.</p>
+
+<footer>
+<p>Register: <a href="https://github.com/mel-gregory/orbital-record/tree/main/incident-register">github.com/mel-gregory/orbital-record — incident-register/</a> ·
+Paper: <a href="https://doi.org/10.5281/zenodo.23886994">doi.org/10.5281/zenodo.23886994</a> ·
+Daily register posts: <a href="https://incidents.godsky.net">incidents.godsky.net</a> ·
+<a href="https://godsky.net">Orbital Network</a></p>
+<p>Entries are attributed reports as published by the named sources. See the
+AI Incident Database (incidentdatabase.ai) and the OECD AI Incidents and Hazards
+Monitor for the standing general registries this register measures itself against.</p>
+</footer>
+</main>
+</body>
+</html>"""
+
+
 def _safe(fn, arg):
     try:
         return fn(arg)
@@ -781,7 +1217,79 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(body)
         return True
 
+    # -- /camera-playlist.json (dynamic) ------------------------------
+    def _serve_playlist(self, head_only=False):
+        try:
+            raw = urllib.parse.urlsplit(self.path).path
+        except Exception:
+            return False
+        if raw != "/camera-playlist.json":
+            return False
+        try:
+            payload = _get_playlist()
+        except Exception:
+            self.send_error(http.HTTPStatus.BAD_GATEWAY,
+                            "Playlist data unavailable")
+            return True
+        body = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+        encoding = None
+        if "gzip" in (self.headers.get("Accept-Encoding") or ""):
+            buf = io.BytesIO()
+            with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0) as gz:
+                gz.write(body)
+            body = buf.getvalue()
+            encoding = "gzip"
+        self.send_response(http.HTTPStatus.OK)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        if encoding:
+            self.send_header("Content-Encoding", encoding)
+            self.send_header("Vary", "Accept-Encoding")
+        self.send_header("Cache-Control", SHORT_CACHE)
+        self.end_headers()
+        if not head_only:
+            self.wfile.write(body)
+        return True
+
+    # -- /incidents (dynamic) ------------------------------------------
+    def _serve_incidents(self, head_only=False):
+        try:
+            raw = urllib.parse.urlsplit(self.path).path
+        except Exception:
+            return False
+        if raw not in ("/incidents", "/incidents/"):
+            return False
+        try:
+            page = _render_incidents()
+        except Exception:
+            self.send_error(http.HTTPStatus.BAD_GATEWAY,
+                            "Register data unavailable")
+            return True
+        body = page.encode("utf-8")
+        encoding = None
+        if "gzip" in (self.headers.get("Accept-Encoding") or ""):
+            buf = io.BytesIO()
+            with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0) as gz:
+                gz.write(body)
+            body = buf.getvalue()
+            encoding = "gzip"
+        self.send_response(http.HTTPStatus.OK)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        if encoding:
+            self.send_header("Content-Encoding", encoding)
+            self.send_header("Vary", "Accept-Encoding")
+        self.send_header("Cache-Control", SHORT_CACHE)
+        self.end_headers()
+        if not head_only:
+            self.wfile.write(body)
+        return True
+
     def do_GET(self):
+        if self._serve_incidents():
+            return
+        if self._serve_playlist():
+            return
         if self._serve_cameras():
             return
         if self._serve_digest():
@@ -789,6 +1297,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_HEAD(self):
+        if self._serve_incidents(head_only=True):
+            return
+        if self._serve_playlist(head_only=True):
+            return
         if self._serve_cameras(head_only=True):
             return
         if self._serve_digest(head_only=True):
