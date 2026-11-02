@@ -2,13 +2,6 @@
  {
   "layer": "STORMS",
   "layerKey": "storms",
-  "timestamp": "2026-10-12 16:16 UTC",
-  "text": "STORMS \u2014 2026-10-12 16:16 UTC\nNOAA NHC:\n\u2022 Simon (HU, 95 kt) \u2014 20.1\u00b0N, 106.5\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 20.10, -106.50).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @TeamRubicon",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261012-1616.png"
- },
- {
-  "layer": "STORMS",
-  "layerKey": "storms",
   "timestamp": "2026-10-12 17:17 UTC",
   "text": "STORMS \u2014 2026-10-12 17:17 UTC\nNOAA NHC:\n\u2022 Simon (HU, 95 kt) \u2014 20.1\u00b0N, 106.5\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-11 (location-specific, \ud83d\udccd 20.10, -106.50).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @AKNews @AKPM @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261012-1717.png"
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-11-02 02:16 UTC",
   "text": "EARTHQUAKES \u2014 2026-11-02 02:16 UTC\nUSGS:\n\u2022 M6.0 \u2014 165 km NW of Port-Olry, Vanuatu \ud83d\udccd 14.17\u00b0S, 165.82\u00b0E\n\u2022 M5.4 \u2014 203 km NW of Port-Olry, Vanuatu \ud83d\udccd 13.87\u00b0S, 165.62\u00b0E\n\u2022 M5.1 \u2014 Kermadec Islands region \ud83d\udccd 31.22\u00b0S, 177.72\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-01 (location-specific, \ud83d\udccd 14.17\u00b0S, 165.82\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @WSBTV @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261102-0216.png"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-11-02 06:16 UTC",
+  "text": "OUTBREAKS \u2014 2026-11-02 06:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-01 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@CDC @WHO @KARE11 @WBEZ @DirectRelief",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261102-0616.png"
  }
 ]
