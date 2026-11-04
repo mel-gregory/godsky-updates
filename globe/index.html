@@ -14009,6 +14009,25 @@ var EarthGlobe=(function(){
   rotDeg+=rate*dt;
   if(spinGroup)spinGroup.rotation.y=THREE.MathUtils.degToRad(-90-rotDeg);
   if(tiltGroup)tiltGroup.rotation.x=THREE.MathUtils.degToRad(tiltDeg);
+  /* the sky answers the hand: the star backdrop turns a fraction
+     of every deliberate rotation — drags, flicks and glides, the
+     stream's sun-tracking — so the constellation shares the
+     planet's motion instead of hanging glued behind it. The idle
+     spin is excluded (this frame's rate*dt is subtracted back
+     out), so a page left running keeps its sky exactly where it
+     was designed; the response saturates softly at ±24 degrees,
+     so the backdrop can never swing out from behind the planet.
+     No new geometry and no new draw calls: one rotation on a
+     points cloud that already exists. */
+  if(starPts){
+   var sud=starPts.userData;
+   if(sud.starAng===undefined){sud.starAng=0;sud.lastRot=rotDeg;sud.tilt0=tiltDeg;}
+   var dUsr=(rotDeg-sud.lastRot)-rate*dt;sud.lastRot=rotDeg;
+   if(dUsr>8)dUsr=8;else if(dUsr<-8)dUsr=-8;
+   sud.starAng+=dUsr*0.18;
+   starPts.rotation.y=THREE.MathUtils.degToRad(-24*Math.tanh(sud.starAng/24));
+   starPts.rotation.x=THREE.MathUtils.degToRad((tiltDeg-sud.tilt0)*0.30);
+  }
   if(zoomGoal!=null){userZoom+=(zoomGoal-userZoom)*Math.min(1,dt*2.2);if(Math.abs(zoomGoal-userZoom)<0.012){userZoom=zoomGoal;zoomGoal=null;}}
   if(camera){
    var dist=fitDist/(userZoom*cz);
