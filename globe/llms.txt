@@ -34,6 +34,9 @@ reports of the systems that do.
   https://www.godsky.net/incidents
 - The article library — one page per layer, in plain language:
   https://www.godsky.net/articles/
+- The funding broadcast — the network's funding doors as structured
+  JSON, kept current for machines:
+  https://www.godsky.net/funding.json
 
 ## The papers (peer record, CC BY 4.0)
 
