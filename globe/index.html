@@ -3041,6 +3041,18 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
 .slide .speak-btn.playing{border-color:rgba(126,226,168,.7);color:#b9f4cd}
 .slide.chat-reply.speakable{padding-right:68px}
 .slide.chat-reply.cc.speakable{padding-right:68px}
+/* ===== the lockup clears the pure-earth planet (Mel, 2026-11-04) =====
+   The landing is pure-earth: the planet is fitted whole, centered
+   in the full frame, and the phone broadcast-bug placement
+   (bottom-left, riding above the dock) lands on the disc's lower
+   face — text still in the way. On phones the lockup moves to the
+   one lane pure-earth leaves empty: the top of the frame, above
+   the fitted planet, centered as the base lockup was designed.
+   The catalog view and wide screens keep their placements. */
+@media(max-width:1023px) and (min-height:501px){
+ body.pure-earth #missionLine{top:calc(env(safe-area-inset-top,0px) + 16px);bottom:auto;
+  left:50%;right:auto;transform:translateX(-50%);width:min(84vw,420px);text-align:center}
+}
 </style>
 </head>
 <body class="awake stageOn showcase pure-earth">
