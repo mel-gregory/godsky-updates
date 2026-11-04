@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Orbital Network</title>
+<meta name="description" content="Orbital Network is free. If it is useful to you, you can send a voluntary tip by card or Bitcoin to help keep it running.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0a0e1a; color: #e8ecf4; line-height: 1.7; }
+  main { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; color: #6db3f2; }
+  p, li { margin-bottom: 0.75rem; }
+  .meta { color: #7a8aa5; font-size: 0.9rem; margin-bottom: 2rem; }
+  a { color: #6db3f2; }
+  .tipbtn { display: inline-block; background: #6db3f2; color: #0a0e1a; font-weight: 600; padding: 0.8rem 1.6rem; border-radius: 8px; text-decoration: none; margin: 0.5rem 0 1rem; }
+  .btc { background: #111830; border: 1px solid #1a2340; border-radius: 8px; padding: 1rem; word-break: break-all; font-family: ui-monospace, Menlo, monospace; font-size: 0.95rem; }
+  .copybtn { display: inline-block; margin-top: 0.6rem; background: transparent; color: #6db3f2; border: 1px solid #6db3f2; padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+  .note { color: #7a8aa5; font-size: 0.9rem; }
+  footer { text-align: center; padding: 2rem; color: #5a6a85; font-size: 0.85rem; border-top: 1px solid #1a2340; }
+</style>
+</head>
+<body>
+<main>
+<h1>Support Orbital Network</h1>
+<p class="meta">Live broadcast of Planet Earth. Permanent record of its measurements.</p>
+
+<p>Orbital Network is free — the live globe, the permanent record, the
+Incident Register, all of it, open to everyone. It runs around the clock,
+recording what the world's observing systems publish, and keeping that
+record is real work on real servers.</p>
+
+<p>If the network is useful to you, you can help keep it running with a
+voluntary tip. A tip is exactly that — voluntary. The service is free
+with or without one.</p>
+
+<h2>Tip by card</h2>
+<p>You choose the amount. Card tips are handled by Stripe; we never see
+or store your payment details.</p>
+<a class="tipbtn" href="https://buy.stripe.com/00waEWchEcAjaMh1eB9ws06">Tip by card</a>
+
+<h2>Tip by Bitcoin</h2>
+<div class="btc" id="btcaddr">37nhSeqmu9TrSZB9Ym3LBuxvr15T4PomuT</div>
+<button class="copybtn" onclick="navigator.clipboard.writeText(document.getElementById('btcaddr').textContent).then(()=>{this.textContent='Copied';setTimeout(()=>{this.textContent='Copy address'},2000)})">Copy address</button>
+
+<h2>The terms, plainly</h2>
+<p class="note">Voluntary tip. Not a charitable donation and not
+tax-deductible. A tip does not buy anything and unlocks no features or
+content — the network is the same for everyone.</p>
+
+<h2>Bigger doors</h2>
+<p>Orbital Network also licenses its derived measurements
+(feed-reliability and grid measurements, USD 60,000 per year) and is
+available for acquisition as a single asset. Inquiries:
+<a href="mailto:mgregory@godsky.net">mgregory@godsky.net</a></p>
+
+<p class="note">Orbital Network operates no satellites or ground stations
+of its own. It republishes, links, and permanently records the official
+reports of the systems that do.</p>
+</main>
+<footer><a href="https://www.godsky.net/globe/">Back to the live globe</a></footer>
+</body>
+</html>
