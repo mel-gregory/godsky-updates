@@ -3048,8 +3048,10 @@ body.eg-live #earthFallback{opacity:0;visibility:hidden}
    face — text still in the way. On phones the lockup moves to the
    one lane pure-earth leaves empty: the top of the frame, above
    the fitted planet, centered as the base lockup was designed.
-   The catalog view and wide screens keep their placements. */
-@media(max-width:1023px) and (min-height:501px){
+   Phones only: the width cap is this page's own phone breakpoint
+   and pointer:coarse keeps every desktop, at any window size,
+   on its existing placement. The catalog view is untouched. */
+@media(max-width:700px) and (min-height:501px) and (pointer:coarse){
  body.pure-earth #missionLine{top:calc(env(safe-area-inset-top,0px) + 16px);bottom:auto;
   left:50%;right:auto;transform:translateX(-50%);width:min(84vw,420px);text-align:center}
 }
