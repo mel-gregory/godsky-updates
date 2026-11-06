@@ -1,12 +1,5 @@
 [
  {
-  "layer": "OUTBREAKS",
-  "layerKey": "outbreaks",
-  "timestamp": "2026-10-14 00:17 UTC",
-  "text": "OUTBREAKS \u2014 2026-10-14 00:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-13 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@CDC @WHO @WGN @WBEZ @RedCross",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261014-0017.png"
- },
- {
   "layer": "FIRES",
   "layerKey": "fires",
   "timestamp": "2026-10-14 01:17 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-11-06 18:16 UTC",
   "text": "FIRST RESPONDERS \u2014 2026-11-06 18:16 UTC\nLive FEMA declarations:\n\u2022 Hurricane \u2014 FL (2026-10-27)\n\u2022 Flood \u2014 NM (2026-10-26)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-05 (location-specific, \ud83d\udccd 27.80\u00b0N, 81.70\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@WESH @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261106-1816.png"
+ },
+ {
+  "layer": "INCIDENTS",
+  "layerKey": "incidents",
+  "timestamp": "2026-11-06 18:21 UTC",
+  "text": "AI INCIDENTS \u2014 November 6, 2026 \u00b7 The Incident Register, day 5\nThe register stands at 2 incident entries and 1 context record. Measured disclosure lags: median 84 days, longest 120 days, across 3 measured cases.\nNewest entry: IR-2026-002 \u2014 OpenAI, as disclosed by the developer. Disclosure lag recorded: 84 days (Medicare portal, incident 2026-06-18 to notification 2026-09-10); 120 days (Hospital-bed statistics, incident 2026-06-17 to public tracker 2026-10-15).\nRegistry coverage: AIID lists 2 of 2 entries; the OECD AI Incidents and Hazards Monitor lists 2 of 2 \u2014 checked against the live registries.\nThe register records serious AI incidents exactly as named sources published them. It makes no finding of its own and issues no warnings. Orbital Network operates no satellites or ground stations of its own.\nRegister: github.com/mel-gregory/orbital-record (incident-register/) \u00b7 Paper: doi.org/10.5281/zenodo.23886994\nLive broadcast of Planet Earth. Permanent record of its measurements.",
+  "image": null
  }
 ]
