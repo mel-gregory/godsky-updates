@@ -1,12 +1,5 @@
 [
  {
-  "layer": "STORMS",
-  "layerKey": "storms",
-  "timestamp": "2026-10-14 04:16 UTC",
-  "text": "STORMS \u2014 2026-10-14 04:16 UTC\nNOAA NHC:\n\u2022 Trudy (TS, 40 kt) \u2014 11.2\u00b0N, 97.0\u00b0W\n\u2022 Simon (HU, 95 kt) \u2014 20.1\u00b0N, 107.6\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-13 (location-specific, \ud83d\udccd 11.20, -97.00).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @WESH @WABE @RedCross",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261014-0416.png"
- },
- {
   "layer": "VOLCANOES",
   "layerKey": "volcanoes",
   "timestamp": "2026-10-14 05:16 UTC",
@@ -1398,5 +1391,12 @@
   "timestamp": "2026-11-07 06:16 UTC",
   "text": "STORMS \u2014 2026-11-07 06:16 UTC\nNOAA NHC:\n\u2022 Pena (TS, 40 kt) \u2014 11.2\u00b0N, 151.1\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-06 (location-specific, \ud83d\udccd 11.20, -151.10).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@NOAA @weatherchannel @KXAN @KUT @SamaritansPurse",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261107-0616.png"
+ },
+ {
+  "layer": "OUTBREAKS",
+  "layerKey": "outbreaks",
+  "timestamp": "2026-11-07 10:16 UTC",
+  "text": "OUTBREAKS \u2014 2026-11-07 10:16 UTC\nLive outbreak monitoring:\n\u2022 US measles outbreak \u2014 4,080 cases in 2026, highest since 1991\n  NY statewide disaster emergency (Oct 5); PA 1,004+ cases, 5 deaths reported; 42 outbreaks, 47 jurisdictions (2026-10-09)\nSource: CDC\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-06 (location-specific, \ud83d\udccd 41.00\u00b0N, 77.50\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@CDC @WHO @KARE11 @WBEZ @DirectRelief",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-outbreaks-20261107-1016.png"
  }
 ]
