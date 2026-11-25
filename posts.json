@@ -1,12 +1,5 @@
 [
  {
-  "layer": "EARTHQUAKES",
-  "layerKey": "earthquakes",
-  "timestamp": "2026-10-16 02:16 UTC",
-  "text": "EARTHQUAKES \u2014 2026-10-16 02:16 UTC\nUSGS:\n\u2022 M5.6 \u2014 43 km NNW of Lake Minchumina, Alaska \ud83d\udccd 64.22\u00b0N, 152.75\u00b0W\n\u2022 M5.3 \u2014 43 km SSE of Otorohanga, New Zealand \ud83d\udccd 38.55\u00b0S, 175.38\u00b0E\n\u2022 M5.2 \u2014 107 km NNE of Hihifo, Tonga \ud83d\udccd 15.04\u00b0S, 173.44\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 64.22\u00b0N, 152.75\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261016-0216.png"
- },
- {
   "layer": "STORMS",
   "layerKey": "storms",
   "timestamp": "2026-10-16 03:16 UTC",
@@ -1400,5 +1393,13 @@
   "text": "EARTHQUAKES \u2014 2026-11-25 14:16 UTC\nUSGS:\n\u2022 M5.9 \u2014 Balleny Islands region \ud83d\udccd 63.09\u00b0S, 170.94\u00b0E\n\u2022 M5.3 \u2014 83 km ESE of Hengchun, Taiwan \ud83d\udccd 21.82\u00b0N, 121.52\u00b0E\n\u2022 M5.2 \u2014 175 km N of Hicks Bay, New Zealand \ud83d\udccd 36.02\u00b0S, 178.37\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-24 (location-specific, \ud83d\udccd 63.09\u00b0S, 170.94\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @KHOU @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261125-1416.png",
   "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-earthquakes-20261125-1416.mp4"
+ },
+ {
+  "layer": "RESPONDERS",
+  "layerKey": "responders",
+  "timestamp": "2026-11-25 18:16 UTC",
+  "text": "FIRST RESPONDERS \u2014 2026-11-25 18:16 UTC\nLive FEMA declarations:\n\u2022 Flood \u2014 FL (2026-11-24)\n\u2022 Explosion \u2014 IA (2026-11-24)\n\u2022 Hurricane \u2014 FL (2026-10-27)\nSource: FEMA OpenFEMA API\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-24 (location-specific, \ud83d\udccd 27.80\u00b0N, 81.70\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@WESH @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-responders-20261125-1816.png",
+  "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-responders-20261125-1816.mp4"
  }
 ]
