@@ -1,12 +1,5 @@
 [
  {
-  "layer": "FIRES",
-  "layerKey": "fires",
-  "timestamp": "2026-10-16 11:16 UTC",
-  "text": "FIRES \u2014 2026-10-16 11:16 UTC\nNASA EONET:\n\u2022 Prescribed Fire Newman Piles RX, Coconino, Arizona (2026-10-14) \ud83d\udccd 35.02\u00b0N, 111.65\u00b0W\n\u2022 Prescribed Fire Jane 102 RX, Harney, Oregon (2026-10-13) \ud83d\udccd 44.03\u00b0N, 118.77\u00b0W\n\u2022 Prescribed Fire SRF 2026 Rx Implementation, Humboldt, California (2026-10-12) \ud83d\udccd 41.30\u00b0N, 123.54\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 35.02\u00b0N, 111.65\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://muse.ai/s/agent01-moose-xew5xktwi8xxyxk\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NASA @NOAA @KXAN @KUT @TeamRubicon",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-fires-20261016-1116.png"
- },
- {
   "layer": "EARTHQUAKES",
   "layerKey": "earthquakes",
   "timestamp": "2026-10-16 12:16 UTC",
@@ -1407,5 +1400,13 @@
   "timestamp": "2026-11-26 18:21 UTC",
   "text": "AI INCIDENTS \u2014 November 26, 2026 \u00b7 The Incident Register, day 25\nThe register stands at 2 incident entries and 1 context record. Measured disclosure lags: median 84 days, longest 120 days, across 3 measured cases.\nNewest entry: IR-2026-002 \u2014 OpenAI, as disclosed by the developer. Disclosure lag recorded: 84 days (Medicare portal, incident 2026-06-18 to notification 2026-09-10); 120 days (Hospital-bed statistics, incident 2026-06-17 to public tracker 2026-10-15).\nRegistry coverage: AIID lists 2 of 2 entries; the OECD AI Incidents and Hazards Monitor lists 2 of 2 \u2014 checked against the live registries.\nThe register records serious AI incidents exactly as named sources published them. It makes no finding of its own and issues no warnings. Orbital Network operates no satellites or ground stations of its own.\nRegister: github.com/mel-gregory/orbital-record (incident-register/) \u00b7 Paper: doi.org/10.5281/zenodo.23886994\nLive broadcast of Planet Earth. Permanent record of its measurements.",
   "image": null
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-11-26 22:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-11-26 22:16 UTC\nUSGS:\n\u2022 M5.7 \u2014 Revilla Gigedo Islands region \ud83d\udccd 19.81\u00b0N, 109.30\u00b0W\n\u2022 M5.5 \u2014 204 km S of Taliwang, Indonesia \ud83d\udccd 10.56\u00b0S, 117.20\u00b0E\n\u2022 M5.2 \u2014 265 km WNW of Houma, Tonga \ud83d\udccd 20.54\u00b0S, 177.76\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-25 (location-specific, \ud83d\udccd 19.81\u00b0N, 109.30\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261126-2216.png",
+  "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-earthquakes-20261126-2216.mp4"
  }
 ]
