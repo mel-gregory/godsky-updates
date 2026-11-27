@@ -2,13 +2,6 @@
  {
   "layer": "STORMS",
   "layerKey": "storms",
-  "timestamp": "2026-10-16 13:16 UTC",
-  "text": "STORMS \u2014 2026-10-16 13:16 UTC\nNOAA NHC:\n\u2022 Trudy (HU, 105 kt) \u2014 14.5\u00b0N, 102.5\u00b0W\n\u2022 Simon (TS, 35 kt) \u2014 20.0\u00b0N, 108.8\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 14.50, -102.50).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://weather.godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @abc15 @KUT @RedCross",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261016-1316.png"
- },
- {
-  "layer": "STORMS",
-  "layerKey": "storms",
   "timestamp": "2026-10-16 14:16 UTC",
   "text": "STORMS \u2014 2026-10-16 14:16 UTC\nNOAA NHC:\n\u2022 Trudy (HU, 105 kt) \u2014 14.5\u00b0N, 102.5\u00b0W\n\u2022 Simon (TS, 35 kt) \u2014 20.0\u00b0N, 108.8\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 14.50, -102.50).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://weather.godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@NOAA @weatherchannel @9NEWS @KUT @SamaritansPurse",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-storms-20261016-1416.png"
@@ -1409,5 +1402,13 @@
   "text": "EARTHQUAKES \u2014 2026-11-27 02:16 UTC\nUSGS:\n\u2022 M5.7 \u2014 Revilla Gigedo Islands region \ud83d\udccd 19.81\u00b0N, 109.30\u00b0W\n\u2022 M5.5 \u2014 204 km S of Taliwang, Indonesia \ud83d\udccd 10.56\u00b0S, 117.20\u00b0E\n\u2022 M5.2 \u2014 265 km WNW of Houma, Tonga \ud83d\udccd 20.54\u00b0S, 177.76\u00b0W\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-26 (location-specific, \ud83d\udccd 19.81\u00b0N, 109.30\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261127-0216.png",
   "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-earthquakes-20261127-0216.mp4"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-11-27 06:17 UTC",
+  "text": "EARTHQUAKES \u2014 2026-11-27 06:16 UTC\nUSGS:\n\u2022 M5.7 \u2014 Revilla Gigedo Islands region \ud83d\udccd 19.81\u00b0N, 109.30\u00b0W\n\u2022 M5.5 \u2014 204 km S of Taliwang, Indonesia \ud83d\udccd 10.56\u00b0S, 117.20\u00b0E\n\u2022 M5.2 \u2014 265 km WNW of Houma, Tonga \ud83d\udccd 20.54\u00b0S, 177.76\u00b0W\nImagery: NASA GIBS MODIS Terra true-color satellite, 2026-11-26 (location-specific, \ud83d\udccd 19.81\u00b0N, 109.30\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261127-0616.png",
+  "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-earthquakes-20261127-0617.mp4"
  }
 ]
