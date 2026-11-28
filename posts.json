@@ -1,12 +1,5 @@
 [
  {
-  "layer": "EARTHQUAKES",
-  "layerKey": "earthquakes",
-  "timestamp": "2026-10-16 22:16 UTC",
-  "text": "EARTHQUAKES \u2014 2026-10-16 22:16 UTC\nUSGS:\n\u2022 M6.9 \u2014 76 km NE of Ozernovskiy, Russia \ud83d\udccd 51.98\u00b0N, 157.27\u00b0E\n\u2022 M5.2 \u2014 off the coast of Ecuador \ud83d\udccd 1.30\u00b0N, 85.27\u00b0W\n\u2022 M5.0 \u2014 Auckland Islands, New Zealand region \ud83d\udccd 49.88\u00b0S, 163.40\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-10-15 (location-specific, \ud83d\udccd 51.98\u00b0N, 157.27\u00b0E).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @agent01godseye | Threads: @godskynetwork\n@USGS @AKNews @AKPM @RedCross",
-  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261016-2216.png"
- },
- {
   "layer": "STORMS",
   "layerKey": "storms",
   "timestamp": "2026-10-16 23:16 UTC",
@@ -1417,5 +1410,13 @@
   "text": "EARTHQUAKES \u2014 2026-11-28 06:16 UTC\nUSGS:\n\u2022 M5.2 \u2014 93 km W of San Antonio de los Cobres, Argentina \ud83d\udccd 24.30\u00b0S, 67.24\u00b0W\n\u2022 M5.1 \u2014 73 km NNW of Ph\u00f4ngsali, Laos \ud83d\udccd 22.25\u00b0N, 101.75\u00b0E\n\u2022 M4.8 \u2014 167 km N of Hicks Bay, New Zealand \ud83d\udccd 36.09\u00b0S, 178.38\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-27 (location-specific, \ud83d\udccd 24.30\u00b0S, 67.24\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @WESH @HoustonPublicMedia @RedCross",
   "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261128-0616.png",
   "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-earthquakes-20261128-0616.mp4"
+ },
+ {
+  "layer": "EARTHQUAKES",
+  "layerKey": "earthquakes",
+  "timestamp": "2026-11-28 10:16 UTC",
+  "text": "EARTHQUAKES \u2014 2026-11-28 10:16 UTC\nUSGS:\n\u2022 M5.2 \u2014 93 km W of San Antonio de los Cobres, Argentina \ud83d\udccd 24.30\u00b0S, 67.24\u00b0W\n\u2022 M5.1 \u2014 73 km NNW of Ph\u00f4ngsali, Laos \ud83d\udccd 22.25\u00b0N, 101.75\u00b0E\n\u2022 M4.8 \u2014 167 km N of Hicks Bay, New Zealand \ud83d\udccd 36.09\u00b0S, 178.38\u00b0E\nImagery: NASA GIBS VIIRS true-color satellite, 2026-11-27 (location-specific, \ud83d\udccd 24.30\u00b0S, 67.24\u00b0W).\nInfo only \u2014 not medical, legal, or emergency advice.\nhttps://godsky.net\nFind Orbital Network: godsky.net | Twitch: twitch.tv/godskynetwork | Facebook: fb.com/1351191578082391 | Bluesky: @godskynetwork.bsky.social | Instagram: @godskynetwork | Threads: @godskynetwork\n@USGS @KHOU @HoustonPublicMedia @RedCross",
+  "image": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/images/autopost-earthquakes-20261128-1016.png",
+  "video": "https://raw.githubusercontent.com/mel-gregory/godsky-updates/main/videos/autopost-earthquakes-20261128-1016.mp4"
  }
 ]
